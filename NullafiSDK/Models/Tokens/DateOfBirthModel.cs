@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NullafiSDK.Managers.Tokens
+namespace NullafiSDK.Models
 {
-    public class DateOfBirth
+    class DateOfBirthModel
     {
     }
 }
