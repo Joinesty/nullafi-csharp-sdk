@@ -7,36 +7,42 @@ using System.Text;
 namespace NullafiSDK
 {
 
-    public class RSAEphemeral {
-        public Func<string, string> Encrypt {get;set;}
-        public Func<string, string> Decrypt {get;set;}
-        public string PublicKey {get;set;}
-        public string PrivateKey {get;set;}
+    public class RSAEphemeral
+    {
+        public Func<string, string> Encrypt { get; set; }
+        public Func<string, string> Decrypt { get; set; }
+        public string PublicKey { get; set; }
+        public string PrivateKey { get; set; }
     }
 
     public class Security
     {
         public RSAEphemeral RSAGenerateEphemeral(string passphrase)
         {
-            var param = new CspParameters();
-            param.Flags = CspProviderFlags.CreateEphemeralKey;
+            CspParameters param = new CspParameters
+            {
+                Flags = CspProviderFlags.CreateEphemeralKey
+            };
 
-            var secureString = new SecureString();
+            SecureString secureString = new SecureString();
 
-            foreach (var c in passphrase.ToCharArray())
+            foreach (char c in passphrase.ToCharArray())
+            {
                 secureString.AppendChar(c);
+            }
 
             param.KeyPassword = secureString;
 
             RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(param);
 
-            Func<string, string> encrypt = (string value) => {
-               return Convert.ToBase64String(rsa.Encrypt(Encoding.UTF8.GetBytes(value), false));
+            Func<string, string> encrypt = (string value) =>
+            {
+                return Convert.ToBase64String(rsa.Encrypt(Encoding.UTF8.GetBytes(value), false));
             };
 
             Func<string, string> decrypt = (string encryptedValue) =>
             {
-              return Encoding.UTF8.GetString(rsa.Decrypt(Convert.FromBase64String(encryptedValue), false));
+                return Encoding.UTF8.GetString(rsa.Decrypt(Convert.FromBase64String(encryptedValue), false));
             };
 
             return new RSAEphemeral
@@ -48,28 +54,38 @@ namespace NullafiSDK
             };
         }
 
-        public string AesGenerateMasterKey() {
-            var aes = new RijndaelManaged();
-            aes.GenerateKey();
-            return Convert.ToBase64String(aes.Key);
-        }
-
         public string AesGenerateMasterKey()
         {
-            var aes = new RijndaelManaged();
+            RijndaelManaged aes = new RijndaelManaged();
             aes.GenerateKey();
             return Convert.ToBase64String(aes.Key);
         }
 
-        public string AesEncrypt(string plainText, string Key, string IV)
+        public string AesGenerateInitializationVector()
+        {
+            RijndaelManaged aes = new RijndaelManaged();
+            aes.GenerateKey();
+            return Convert.ToBase64String(aes.Key);
+        }
+
+        public string AesEncrypt(string Key, string IV, string plainText)
         {
             // Check arguments. 
             if (plainText == null || plainText.Length <= 0)
+            {
                 throw new ArgumentNullException("plainText");
+            }
+
             if (Key == null || Key.Length <= 0)
+            {
                 throw new ArgumentNullException("Key");
+            }
+
             if (IV == null || IV.Length <= 0)
+            {
                 throw new ArgumentNullException("IV");
+            }
+
             byte[] encrypted;
             // Create an RijndaelManaged object 
             // with the specified key and IV. 
@@ -99,15 +115,23 @@ namespace NullafiSDK
             return Convert.ToBase64String(encrypted);
         }
 
-        public string AesDecrypt(string base64encryptedString, string Key, string IV)
+        public string AesDecrypt(string Key, string IV, string authTag, string base64encryptedString)
         {
             // Check arguments. 
             if (base64encryptedString == null || base64encryptedString.Length <= 0)
+            {
                 throw new ArgumentNullException("cipherText");
+            }
+
             if (Key == null || Key.Length <= 0)
+            {
                 throw new ArgumentNullException("Key");
+            }
+
             if (IV == null || IV.Length <= 0)
+            {
                 throw new ArgumentNullException("IV");
+            }
 
             // Declare the string used to hold 
             // the decrypted text. 
