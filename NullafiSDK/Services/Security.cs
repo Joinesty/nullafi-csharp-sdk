@@ -68,7 +68,7 @@ namespace NullafiSDK
             return Convert.ToBase64String(aes.Key);
         }
 
-        public string AesEncrypt(string plainText, string Key, string IV)
+        public string AesEncrypt(string Key, string IV, string plainText)
         {
             // Check arguments. 
             if (plainText == null || plainText.Length <= 0)
@@ -115,7 +115,7 @@ namespace NullafiSDK
             return Convert.ToBase64String(encrypted);
         }
 
-        public string AesDecrypt(string base64encryptedString, string Key, string IV)
+        public string AesDecrypt(string Key, string IV, string authTag, string base64encryptedString)
         {
             // Check arguments. 
             if (base64encryptedString == null || base64encryptedString.Length <= 0)
