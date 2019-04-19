@@ -75,7 +75,7 @@ namespace NullafiSDK.Services
             return JsonConvert.DeserializeObject<TResponse>(await response.Content.ReadAsStringAsync());
         }
 
-        public async Task Delete<TResponse>(string path)
+        public async Task Delete(string path)
         {
             await client.DeleteAsync(path);
         }

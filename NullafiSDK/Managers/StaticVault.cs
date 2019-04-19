@@ -8,7 +8,7 @@ namespace NullafiSDK.Managers
 {
     public class StaticVault
     {
-        readonly Client client;
+        public readonly Client client;
         readonly Security security;
 
         public string VaultId { get; set; }
@@ -24,10 +24,10 @@ namespace NullafiSDK.Managers
             this.security = new Security();
         }
 
-        public string Encrypt(string value)
+        public AesEncryptedData Encrypt(string value)
         {
             var iv = this.security.AesGenerateInitializationVector();
-            return this.security.AesEncrypt(this.MasterKey, iv, value);
+            this.security.AesEncrypt(this.MasterKey, iv, value),
         }
 
         public string Decrypt(string iv, string authTag, string value)

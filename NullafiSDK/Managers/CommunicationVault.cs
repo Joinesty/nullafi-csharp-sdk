@@ -8,7 +8,7 @@ namespace NullafiSDK.Managers
 {
     public class CommunicationVault
     {
-        readonly Client client;
+        public readonly Client client;
         readonly Security security;
 
         public string VaultId { get; set; }
@@ -24,7 +24,7 @@ namespace NullafiSDK.Managers
             this.security = new Security();
         }
 
-        public string Encrypt(string value)
+        public AesEncryptedData Encrypt(string value)
         {
             var iv = this.security.AesGenerateInitializationVector();
             return this.security.AesEncrypt(this.MasterKey, iv, value);

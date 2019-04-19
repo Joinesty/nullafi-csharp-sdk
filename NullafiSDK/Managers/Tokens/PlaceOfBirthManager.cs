@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NullafiSDK.Managers.Tokens
 {
-    public class Gender
+    public class PlaceOfBirthManager
     {
     }
 }
