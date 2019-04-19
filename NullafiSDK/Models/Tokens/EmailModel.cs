@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NullafiSDK.Models
+namespace NullafiSDK.Models.Tokens
 {
-    public class AddressModel
+    public class EmailModel
     {
         public string Id { get; set; }
-        public string Address { get; set; }
-        public string AddressToken { get; set; }
+        public string Email { get; set; }
+        public string EmailToken { get; set; }
         public string Iv { get; set; }
         public string AuthTag { get; set; }
         public string Tags { get; set; }
