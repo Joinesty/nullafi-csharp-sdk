@@ -4,39 +4,39 @@ using System.Text;
 using System.Threading.Tasks;
 using NullafiSDK.Domains.StaticVault;
 
-namespace NullafiSDK.Domains.StaticVault.Managers.Race
+namespace NullafiSDK.Domains.StaticVault.Managers.Random
 {
-  public class RaceManager
+  public class RandomManager
 {
   StaticVault vault;
 
-  public RaceManager(StaticVault vault)
+  public RandomManager(StaticVault vault)
 {
   this.vault = vault;
 }
 
-  public async Task<RaceModel> Create(string race, List<string> tags)
+  public async Task<RandomModel> Create(string data, List<string> tags)
   {
-    var result = this.vault.Encrypt(race);
-    var payload = new RaceModel
+    var result = this.vault.Encrypt(data);
+    var payload = new RandomModel
     {
-      Race = result.EncryptedData,
+      Data = result.EncryptedData,
       Iv = result.Iv,
       AuthTag = result.AuthTag
     };
 
-    var response = await this.vault.client.Post<RaceModel, RaceModel>($"/vault/static/${this.vault.VaultId}/race", payload);
+    var response = await this.vault.client.Post<RandomModel, RandomModel>($"/vault/static/${this.vault.VaultId}/random", payload);
     return response;
   }
 
-  public async Task<RaceModel> Retrieve(string tokenId)
+  public async Task<RandomModel> Retrieve(string tokenId)
   {
-    return await this.vault.client.Get<RaceModel>($"/vault/static/{this.vault.VaultId}/race/{tokenId}");
+    return await this.vault.client.Get<RandomModel>($"/vault/static/{this.vault.VaultId}/random/{tokenId}");
   }
 
   public async void Delete(string tokenId)
   {
-    await this.vault.client.Delete($"/vault/static/{this.vault.VaultId}/race/{tokenId}");
+    await this.vault.client.Delete($"/vault/static/{this.vault.VaultId}/random/{tokenId}");
   }
 }
 }

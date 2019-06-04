@@ -4,39 +4,39 @@ using System.Text;
 using System.Threading.Tasks;
 using NullafiSDK.Domains.StaticVault;
 
-namespace NullafiSDK.Domains.StaticVault.Managers.DateOfBirth
+namespace NullafiSDK.Domains.StaticVault.Managers.DriversLicense
 {
-    public class DateOfBirthManager
+    public class DriversLicenseManager
     {
         StaticVault vault;
 
-        public DateOfBirthManager(StaticVault vault)
+        public DriversLicenseManager(StaticVault vault)
         {
             this.vault = vault;
         }
 
-        public async Task<DateOfBirthModel> Create(string address, List<string> tags)
+        public async Task<DriversLicenseModel> Create(string driversLicense, List<string> tags)
         {
-            var result = this.vault.Encrypt(address);
-            var payload = new DateOfBirthModel
+            var result = this.vault.Encrypt(driversLicense);
+            var payload = new DriversLicenseModel
             {
-                Address = result.EncryptedData,
+                DriversLicense = result.EncryptedData,
                 Iv = result.Iv,
                 AuthTag = result.AuthTag
             };
 
-            var response = await this.vault.client.Post<DateOfBirthModel, DateOfBirthModel>($"/vault/static/${this.vault.VaultId}/dateofbirth", payload);
+            var response = await this.vault.client.Post<DriversLicenseModel, DriversLicenseModel>($"/vault/static/${this.vault.VaultId}/driverslicense", payload);
             return response;
         }
 
-        public async Task<DateOfBirthModel> Retrieve(string tokenId)
+        public async Task<DriversLicenseModel> Retrieve(string tokenId)
         {
-            return await this.vault.client.Get<DateOfBirthModel>($"/vault/static/{this.vault.VaultId}/dateofbirth/{tokenId}");
+            return await this.vault.client.Get<DriversLicenseModel>($"/vault/static/{this.vault.VaultId}/driverslicense/{tokenId}");
         }
 
         public async void Delete(string tokenId)
         {
-            await this.vault.client.Delete($"/vault/static/{this.vault.VaultId}/dateofbirth/{tokenId}");
+            await this.vault.client.Delete($"/vault/static/{this.vault.VaultId}/driverslicense/{tokenId}");
         }
     }
 }

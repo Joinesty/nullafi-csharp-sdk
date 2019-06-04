@@ -35,7 +35,7 @@ namespace NullafiSDK.Domains.StaticVault
             return this.security.AesDecrypt(this.MasterKey, iv, authTag, value);
         }
 
-        public async static Task<StaticVault> PostStaticVault(Client client, string name, List<string> tags)
+        public async static Task<StaticVault> CreateStaticVault(Client client, string name, List<string> tags)
         {
             var security = new Security();
 
@@ -50,7 +50,7 @@ namespace NullafiSDK.Domains.StaticVault
             return new StaticVault(client, response.Id, response.Name, security.AesGenerateMasterKey());
         }
 
-        public async static Task<StaticVault> GetStaticVault(Client client, string vaultId, string masterKey)
+        public async static Task<StaticVault> RetrieveStaticVault(Client client, string vaultId, string masterKey)
         {
             var response = await client.Get<StaticVaultResponse>($"/vault/static/${vaultId}");
             return new StaticVault(client, vaultId, response.Name, masterKey);

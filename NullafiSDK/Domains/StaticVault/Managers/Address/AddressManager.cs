@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NullafiSDK.Domains.StaticVault;
 
-namespace NullafiSDK.Domains.StaticVault.Managers.Address.AddressManager
+namespace NullafiSDK.Domains.StaticVault.Managers.Address
 {
     public class AddressManager
     {

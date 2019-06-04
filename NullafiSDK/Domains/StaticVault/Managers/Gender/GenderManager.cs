@@ -20,7 +20,7 @@ namespace NullafiSDK.Domains.StaticVault.Managers.Gender
     var result = this.vault.Encrypt(gender);
     var payload = new GenderModel
     {
-      Gender = result.EncryptedData,
+        Gender = result.EncryptedData,
         Iv = result.Iv,
         AuthTag = result.AuthTag
     };

@@ -15,9 +15,9 @@ namespace NullafiSDK.Domains.StaticVault.Managers.FirstName
             this.vault = vault;
         }
 
-        public async Task<FirstNameModel> Create(string address, List<string> tags)
+        public async Task<FirstNameModel> Create(string firstname, List<string> tags)
         {
-            var result = this.vault.Encrypt(address);
+            var result = this.vault.Encrypt(firstname);
             var payload = new FirstNameModel
             {
                 FirstName = result.EncryptedData,
@@ -25,18 +25,18 @@ namespace NullafiSDK.Domains.StaticVault.Managers.FirstName
                 AuthTag = result.AuthTag
             };
 
-            var response = await this.vault.client.Post<DateOfBirthModel, DateOfBirthModel>($"/vault/static/${this.vault.VaultId}/dateofbirth", payload);
+            var response = await this.vault.client.Post<FirstNameModel, FirstNameModel>($"/vault/static/${this.vault.VaultId}/firstname", payload);
             return response;
         }
 
-        public async Task<DateOfBirthModel> Retrieve(string tokenId)
+        public async Task<FirstNameModel> Retrieve(string tokenId)
         {
-            return await this.vault.client.Get<DateOfBirthModel>($"/vault/static/{this.vault.VaultId}/dateofbirth/{tokenId}");
+            return await this.vault.client.Get<FirstNameModel>($"/vault/static/{this.vault.VaultId}/firstname/{tokenId}");
         }
 
         public async void Delete(string tokenId)
         {
-            await this.vault.client.Delete($"/vault/static/{this.vault.VaultId}/dateofbirth/{tokenId}");
+            await this.vault.client.Delete($"/vault/static/{this.vault.VaultId}/firstname/{tokenId}");
         }
     }
 }
