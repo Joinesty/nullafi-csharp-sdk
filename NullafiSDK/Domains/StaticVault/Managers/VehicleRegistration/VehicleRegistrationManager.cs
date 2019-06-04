@@ -21,11 +21,13 @@ namespace NullafiSDK.Domains.StaticVault.Managers.VehicleRegistration
     var payload = new VehicleRegistrationModel
     {
       VehicleRegistration = result.EncryptedData,
+      VehicleRegistrationHash = this.vault.Hash(vehicleregistration),
       Iv = result.Iv,
       AuthTag = result.AuthTag
     };
 
     var response = await this.vault.client.Post<VehicleRegistrationModel, VehicleRegistrationModel>($"/vault/static/${this.vault.VaultId}/vehicleregistration", payload);
+    response.VehicleRegistration = this.vault.Decrypt(response.Iv, response.AuthTag, response.VehicleRegistration);
     return response;
   }
 

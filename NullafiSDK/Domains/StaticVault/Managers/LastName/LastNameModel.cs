@@ -9,6 +9,7 @@ namespace NullafiSDK.Domains.StaticVault.Managers.LastName
         public string Id { get; set; }
         public string LastName { get; set; }
         public string LastNameToken { get; set; }
+        public string LastNameHash { get; set; }
         public string Iv { get; set; }
         public string AuthTag { get; set; }
         public string Tags { get; set; }

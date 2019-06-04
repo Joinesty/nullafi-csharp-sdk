@@ -6,37 +6,41 @@ using NullafiSDK.Domains.StaticVault;
 
 namespace NullafiSDK.Domains.StaticVault.Managers.TaxPayer
 {
-  public class TaxPayerManager
-{
-  StaticVault vault;
-
-  public TaxPayerManager(StaticVault vault)
-{
-  this.vault = vault;
-}
-
-  public async Task<TaxPayerModel> Create(string taxpayer, List<string> tags)
-  {
-    var result = this.vault.Encrypt(taxpayer);
-    var payload = new TaxPayerModel
+    public class TaxPayerManager
     {
-      TaxPayer = result.EncryptedData,
-      Iv = result.Iv,
-      AuthTag = result.AuthTag
-    };
+        StaticVault vault;
 
-    var response = await this.vault.client.Post<TaxPayerModel, TaxPayerModel>($"/vault/static/${this.vault.VaultId}/taxpayer", payload);
-    return response;
-  }
+        public TaxPayerManager(StaticVault vault)
+        {
+            this.vault = vault;
+        }
 
-  public async Task<TaxPayerModel> Retrieve(string tokenId)
-  {
-    return await this.vault.client.Get<TaxPayerModel>($"/vault/static/{this.vault.VaultId}/taxpayer/{tokenId}");
-  }
+        public async Task<TaxPayerModel> Create(string taxpayer, List<string> tags)
+        {
+            var result = this.vault.Encrypt(taxpayer);
+            var payload = new TaxPayerModel
+            {
+                TaxPayer = result.EncryptedData,
+                TaxPayerHash = this.vault.Hash(taxpayer),
+                Iv = result.Iv,
+                AuthTag = result.AuthTag
+            };
 
-  public async void Delete(string tokenId)
-  {
-    await this.vault.client.Delete($"/vault/static/{this.vault.VaultId}/taxpayer/{tokenId}");
-  }
-}
+            var response = await this.vault.client.Post<TaxPayerModel, TaxPayerModel>($"/vault/static/${this.vault.VaultId}/taxpayer", payload);
+            response.TaxPayer = this.vault.Decrypt(response.Iv, response.AuthTag, response.TaxPayer);
+            return response;
+        }
+
+        public async Task<TaxPayerModel> Retrieve(string tokenId)
+        {
+            var response = await this.vault.client.Get<TaxPayerModel>($"/vault/static/{this.vault.VaultId}/taxpayer/{tokenId}");
+            response.TaxPayer = this.vault.Decrypt(response.Iv, response.AuthTag, response.TaxPayer);
+            return response;
+        }
+
+        public async void Delete(string tokenId)
+        {
+            await this.vault.client.Delete($"/vault/static/{this.vault.VaultId}/taxpayer/{tokenId}");
+        }
+    }
 }

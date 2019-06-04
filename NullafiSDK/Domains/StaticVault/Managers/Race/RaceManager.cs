@@ -21,17 +21,21 @@ namespace NullafiSDK.Domains.StaticVault.Managers.Race
     var payload = new RaceModel
     {
       Race = result.EncryptedData,
+      RaceHash = this.vault.Hash(race),
       Iv = result.Iv,
       AuthTag = result.AuthTag
     };
 
     var response = await this.vault.client.Post<RaceModel, RaceModel>($"/vault/static/${this.vault.VaultId}/race", payload);
+    response.Race = this.vault.Decrypt(response.Iv, response.AuthTag, response.Race);
     return response;
   }
 
   public async Task<RaceModel> Retrieve(string tokenId)
   {
-    return await this.vault.client.Get<RaceModel>($"/vault/static/{this.vault.VaultId}/race/{tokenId}");
+    var response = await this.vault.client.Get<RaceModel>($"/vault/static/{this.vault.VaultId}/race/{tokenId}");
+    response.Race = this.vault.Decrypt(response.Iv, response.AuthTag, response.Race);
+    return response;
   }
 
   public async void Delete(string tokenId)

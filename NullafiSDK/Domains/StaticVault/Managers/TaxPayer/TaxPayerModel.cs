@@ -9,6 +9,7 @@ namespace NullafiSDK.Domains.StaticVault.Managers.TaxPayer
         public string Id { get; set; }
         public string TaxPayer { get; set; }
         public string TaxPayerToken { get; set; }
+        public string TaxPayerHash { get; set; }
         public string Iv { get; set; }
         public string AuthTag { get; set; }
         public string Tags { get; set; }

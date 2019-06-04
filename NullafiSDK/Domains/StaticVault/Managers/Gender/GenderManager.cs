@@ -21,17 +21,21 @@ namespace NullafiSDK.Domains.StaticVault.Managers.Gender
     var payload = new GenderModel
     {
         Gender = result.EncryptedData,
+        GenderHash = this.vault.Hash(gender),
         Iv = result.Iv,
         AuthTag = result.AuthTag
     };
 
     var response = await this.vault.client.Post<GenderModel, GenderModel>($"/vault/static/${this.vault.VaultId}/gender", payload);
+    response.Gender = this.vault.Decrypt(response.Iv, response.AuthTag, response.Gender);
     return response;
   }
 
   public async Task<GenderModel> Retrieve(string tokenId)
   {
-    return await this.vault.client.Get<GenderModel>($"/vault/static/{this.vault.VaultId}/gender/{tokenId}");
+    var response = await this.vault.client.Get<GenderModel>($"/vault/static/{this.vault.VaultId}/gender/{tokenId}");
+    response.Gender = this.vault.Decrypt(response.Iv, response.AuthTag, response.Gender);
+    return response;
   }
 
   public async void Delete(string tokenId)

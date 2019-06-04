@@ -9,6 +9,7 @@ namespace NullafiSDK.Domains.StaticVault.Managers.DriversLicense
         public string Id { get; set; }
         public string DriversLicense { get; set; }
         public string DriversLicenseToken { get; set; }
+        public string DriversLicenseHash { get; set; }
         public string Iv { get; set; }
         public string AuthTag { get; set; }
         public string Tags { get; set; }

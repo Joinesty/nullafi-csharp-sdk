@@ -21,17 +21,21 @@ namespace NullafiSDK.Domains.StaticVault.Managers.Passport
     var payload = new PassportModel
     {
       Passport = result.EncryptedData,
+      PassportHash = this.vault.Hash(passport),
       Iv = result.Iv,
       AuthTag = result.AuthTag
     };
 
     var response = await this.vault.client.Post<PassportModel, PassportModel>($"/vault/static/${this.vault.VaultId}/passport", payload);
+    response.Passport = this.vault.Decrypt(response.Iv, response.AuthTag, response.Passport);
     return response;
   }
 
   public async Task<PassportModel> Retrieve(string tokenId)
   {
-    return await this.vault.client.Get<PassportModel>($"/vault/static/{this.vault.VaultId}/passport/{tokenId}");
+    var response = await this.vault.client.Get<PassportModel>($"/vault/static/{this.vault.VaultId}/passport/{tokenId}");
+    response.Passport = this.vault.Decrypt(response.Iv, response.AuthTag, response.Passport);
+    return response;
   }
 
   public async void Delete(string tokenId)

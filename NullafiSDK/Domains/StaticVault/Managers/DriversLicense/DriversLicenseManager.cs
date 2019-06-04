@@ -21,17 +21,21 @@ namespace NullafiSDK.Domains.StaticVault.Managers.DriversLicense
             var payload = new DriversLicenseModel
             {
                 DriversLicense = result.EncryptedData,
+                DriversLicenseHash = this.vault.Hash(driversLicense),
                 Iv = result.Iv,
                 AuthTag = result.AuthTag
             };
 
             var response = await this.vault.client.Post<DriversLicenseModel, DriversLicenseModel>($"/vault/static/${this.vault.VaultId}/driverslicense", payload);
+            response.DriversLicense = this.vault.Decrypt(response.Iv, response.AuthTag, response.DriversLicense);
             return response;
         }
 
         public async Task<DriversLicenseModel> Retrieve(string tokenId)
         {
-            return await this.vault.client.Get<DriversLicenseModel>($"/vault/static/{this.vault.VaultId}/driverslicense/{tokenId}");
+            var response = await this.vault.client.Get<DriversLicenseModel>($"/vault/static/{this.vault.VaultId}/driverslicense/{tokenId}");
+            response.DriversLicense = this.vault.Decrypt(response.Iv, response.AuthTag, response.DriversLicense);
+            return response;
         }
 
         public async void Delete(string tokenId)

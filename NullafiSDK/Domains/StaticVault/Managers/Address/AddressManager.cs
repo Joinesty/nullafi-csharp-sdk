@@ -21,6 +21,7 @@ namespace NullafiSDK.Domains.StaticVault.Managers.Address
             var payload = new AddressModel
             {
                 Address = result.EncryptedData,
+                AddressHash = this.vault.Hash(address),
                 Iv = result.Iv,
                 AuthTag = result.AuthTag
             };
@@ -32,7 +33,9 @@ namespace NullafiSDK.Domains.StaticVault.Managers.Address
 
         public async Task<AddressModel> Retrieve(string tokenId)
         {
-            return await this.vault.client.Get<AddressModel>($"/vault/static/{this.vault.VaultId}/address/{tokenId}");
+            var response = await this.vault.client.Get<AddressModel>($"/vault/static/{this.vault.VaultId}/address/{tokenId}");
+            response.Address = this.vault.Decrypt(response.Iv, response.AuthTag, response.Address);
+            return response;
         }
 
         public async void Delete(string tokenId)

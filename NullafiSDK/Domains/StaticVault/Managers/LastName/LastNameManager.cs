@@ -20,18 +20,22 @@ namespace NullafiSDK.Domains.StaticVault.Managers.LastName
     var result = this.vault.Encrypt(lastname);
     var payload = new LastNameModel
     {
-      LastName = result.EncryptedData,
+        LastName = result.EncryptedData,
+        LastNameHash = this.vault.Hash(lastname),
         Iv = result.Iv,
         AuthTag = result.AuthTag
     };
 
     var response = await this.vault.client.Post<LastNameModel, LastNameModel>($"/vault/static/${this.vault.VaultId}/lastname", payload);
+    response.LastName = this.vault.Decrypt(response.Iv, response.AuthTag, response.LastName);
     return response;
   }
 
   public async Task<LastNameModel> Retrieve(string tokenId)
   {
-    return await this.vault.client.Get<LastNameModel>($"/vault/static/{this.vault.VaultId}/lastname/{tokenId}");
+    var response = await this.vault.client.Get<LastNameModel>($"/vault/static/{this.vault.VaultId}/lastname/{tokenId}");
+    response.LastName = this.vault.Decrypt(response.Iv, response.AuthTag, response.LastName);
+    return response;
   }
 
   public async void Delete(string tokenId)

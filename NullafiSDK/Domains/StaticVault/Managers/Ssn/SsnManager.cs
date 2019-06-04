@@ -21,17 +21,21 @@ namespace NullafiSDK.Domains.StaticVault.Managers.Ssn
     var payload = new SsnModel
     {
       Ssn = result.EncryptedData,
+      SsnHash = this.vault.Hash(ssn),
       Iv = result.Iv,
       AuthTag = result.AuthTag
     };
 
     var response = await this.vault.client.Post<SsnModel, SsnModel>($"/vault/static/${this.vault.VaultId}/ssn", payload);
+    response.Ssn = this.vault.Decrypt(response.Iv, response.AuthTag, response.Ssn);
     return response;
   }
 
   public async Task<SsnModel> Retrieve(string tokenId)
   {
-    return await this.vault.client.Get<SsnModel>($"/vault/static/{this.vault.VaultId}/ssn/{tokenId}");
+    var response = await this.vault.client.Get<SsnModel>($"/vault/static/{this.vault.VaultId}/ssn/{tokenId}");
+    response.Ssn = this.vault.Decrypt(response.Iv, response.AuthTag, response.Ssn);
+    return response;
   }
 
   public async void Delete(string tokenId)

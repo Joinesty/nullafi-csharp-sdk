@@ -9,6 +9,7 @@ namespace NullafiSDK.Domains.StaticVault.Managers.Passport
         public string Id { get; set; }
         public string Passport { get; set; }
         public string PassportToken { get; set; }
+        public string PassportHash { get; set; }
         public string Iv { get; set; }
         public string AuthTag { get; set; }
         public string Tags { get; set; }

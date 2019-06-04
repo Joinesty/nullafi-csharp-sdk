@@ -21,17 +21,21 @@ namespace NullafiSDK.Domains.StaticVault.Managers.Generic
     var payload = new GenericModel
     {
         Data = result.EncryptedData,
+        DataHash = this.vault.Hash(data),
         Iv = result.Iv,
         AuthTag = result.AuthTag
     };
 
     var response = await this.vault.client.Post<GenericModel, GenericModel>($"/vault/static/${this.vault.VaultId}/generic", payload);
+    response.Data = this.vault.Decrypt(response.Iv, response.AuthTag, response.Data);
     return response;
   }
 
   public async Task<GenericModel> Retrieve(string tokenId)
   {
-    return await this.vault.client.Get<GenericModel>($"/vault/static/{this.vault.VaultId}/generic/{tokenId}");
+    var response = await this.vault.client.Get<GenericModel>($"/vault/static/{this.vault.VaultId}/generic/{tokenId}");
+    response.Data = this.vault.Decrypt(response.Iv, response.AuthTag, response.Data);
+    return response;
   }
 
   public async void Delete(string tokenId)

@@ -21,17 +21,21 @@ namespace NullafiSDK.Domains.StaticVault.Managers.Random
     var payload = new RandomModel
     {
       Data = result.EncryptedData,
+      DataHash = this.vault.Hash(data),
       Iv = result.Iv,
       AuthTag = result.AuthTag
     };
 
     var response = await this.vault.client.Post<RandomModel, RandomModel>($"/vault/static/${this.vault.VaultId}/random", payload);
+    response.Data = this.vault.Decrypt(response.Iv, response.AuthTag, response.Data);
     return response;
   }
 
   public async Task<RandomModel> Retrieve(string tokenId)
   {
-    return await this.vault.client.Get<RandomModel>($"/vault/static/{this.vault.VaultId}/random/{tokenId}");
+    var response = await this.vault.client.Get<RandomModel>($"/vault/static/{this.vault.VaultId}/random/{tokenId}");
+    response.Data = this.vault.Decrypt(response.Iv, response.AuthTag, response.Data);
+    return response;
   }
 
   public async void Delete(string tokenId)
