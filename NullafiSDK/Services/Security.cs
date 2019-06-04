@@ -1,4 +1,5 @@
 using NullafiSDK.Models;
+using Org.BouncyCastle.Utilities.IO.Pem;
 using System;
 using System.IO;
 using System.Security;
@@ -8,17 +9,27 @@ using System.Text;
 namespace NullafiSDK
 {
 
-    public class RSAEphemeral
+    public class RSAManager
     {
         public Func<string, string> Encrypt { get; set; }
         public Func<string, string> Decrypt { get; set; }
         public string PublicKey { get; set; }
-        public string PrivateKey { get; set; }
     }
 
     public class Security
     {
-        public RSAEphemeral RSAGenerateEphemeral(string passphrase)
+        public string HMACHash(string value, string secret)
+        {
+            var keyByte = Encoding.UTF8.GetBytes(secret);
+            using (var hmacsha256 = new HMACSHA256(keyByte))
+            {
+                hmacsha256.ComputeHash(Encoding.UTF8.GetBytes(value));
+
+                return Convert.ToBase64String(hmacsha256.Hash);
+            }
+        }
+
+        public RSAManager RSAGenerateManager(string passphrase)
         {
             CspParameters param = new CspParameters
             {
@@ -38,20 +49,24 @@ namespace NullafiSDK
 
             Func<string, string> encrypt = (string value) =>
             {
-                return Convert.ToBase64String(rsa.Encrypt(Encoding.UTF8.GetBytes(value), false));
+                return Convert.ToBase64String(rsa.Encrypt(Encoding.UTF8.GetBytes(value), RSAEncryptionPadding.OaepSHA1));
             };
 
             Func<string, string> decrypt = (string encryptedValue) =>
             {
-                return Encoding.UTF8.GetString(rsa.Decrypt(Convert.FromBase64String(encryptedValue), false));
+                return Encoding.UTF8.GetString(rsa.Decrypt(Convert.FromBase64String(encryptedValue), RSAEncryptionPadding.OaepSHA1));
             };
+
+            StringWriter stringWriter = new StringWriter();
+            PemWriter pemWriter = new PemWriter(stringWriter);
+            PemObject pemObject = new PemObject("PUBLIC KEY", rsa.ExportCspBlob(false));
+            pemWriter.WriteObject(pemObject);
 
             return new RSAEphemeral
             {
                 Encrypt = encrypt,
                 Decrypt = decrypt,
-                PublicKey = Convert.ToBase64String(Encoding.UTF8.GetBytes(rsa.ToXmlString(false))),
-                PrivateKey = Convert.ToBase64String(Encoding.UTF8.GetBytes(rsa.ToXmlString(true)))
+                PublicKey = stringWriter.ToString(),
             };
         }
 

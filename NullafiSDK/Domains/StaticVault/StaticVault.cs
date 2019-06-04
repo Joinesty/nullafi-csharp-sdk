@@ -70,6 +70,11 @@ namespace NullafiSDK.Domains.StaticVault
             this.vehicleRegistration = new VehicleRegistrationManager(this);
         }
 
+        public string Hash(string value)
+        {
+            return this.security.HMACHash(value, this.client.HashKey);
+        }
+
         public AesEncryptedData Encrypt(string value)
         {
             var iv = this.security.AesGenerateInitializationVector();
