@@ -1,10 +1,10 @@
-﻿using NullafiSDK.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using NullafiSDK.Domains.StaticVault;
 
-namespace NullafiSDK.Managers.Tokens
+namespace NullafiSDK.Domains.StaticVault.Managers.Address.AddressManager
 {
     public class AddressManager
     {
@@ -15,7 +15,7 @@ namespace NullafiSDK.Managers.Tokens
             this.vault = vault;
         }
 
-        public async Task<AddressModel> PostAddress(string address, List<string> tags)
+        public async Task<AddressModel> Create(string address, List<string> tags)
         {
             var result = this.vault.Encrypt(address);
             var payload = new AddressModel
@@ -30,12 +30,12 @@ namespace NullafiSDK.Managers.Tokens
             return response;
         }
 
-        public async Task<AddressModel> GetAddress(string tokenId)
+        public async Task<AddressModel> Retrieve(string tokenId)
         {
             return await this.vault.client.Get<AddressModel>($"/vault/static/{this.vault.VaultId}/address/{tokenId}");
         }
 
-        public async void DeleteAddress(string tokenId)
+        public async void Delete(string tokenId)
         {
             await this.vault.client.Delete($"/vault/static/{this.vault.VaultId}/address/{tokenId}");
         }

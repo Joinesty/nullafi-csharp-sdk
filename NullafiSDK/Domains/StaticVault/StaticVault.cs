@@ -1,10 +1,10 @@
-﻿using NullafiSDK.Models;
+using NullafiSDK.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NullafiSDK.Managers
+namespace NullafiSDK.Domains.StaticVault
 {
     public class StaticVault
     {
@@ -27,7 +27,7 @@ namespace NullafiSDK.Managers
         public AesEncryptedData Encrypt(string value)
         {
             var iv = this.security.AesGenerateInitializationVector();
-            this.security.AesEncrypt(this.MasterKey, iv, value),
+            return this.security.AesEncrypt(this.MasterKey, iv, value);
         }
 
         public string Decrypt(string iv, string authTag, string value)

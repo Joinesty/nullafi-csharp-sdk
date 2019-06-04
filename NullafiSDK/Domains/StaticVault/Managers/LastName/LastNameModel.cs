@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NullafiSDK.Models.Tokens
+namespace NullafiSDK.Domains.StaticVault.Managers.LastName
 {
-    public class GenderModel
+    public class LastNameModel
     {
         public string Id { get; set; }
-        public string Gender { get; set; }
-        public string GenderToken { get; set; }
+        public string LastName { get; set; }
+        public string LastNameToken { get; set; }
         public string Iv { get; set; }
         public string AuthTag { get; set; }
         public string Tags { get; set; }

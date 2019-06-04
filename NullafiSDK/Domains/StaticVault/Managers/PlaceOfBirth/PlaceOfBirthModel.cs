@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NullafiSDK.Models.Tokens
+namespace NullafiSDK.Domains.StaticVault.Managers.PlaceOfBirth
 {
-    public class RandomModel
+    public class PlaceOfBirthModel
     {
         public string Id { get; set; }
-        public string Data { get; set; }
-        public string Token { get; set; }
+        public string PlaceOfBirth { get; set; }
+        public string PlaceOfBirthToken { get; set; }
         public string Iv { get; set; }
         public string AuthTag { get; set; }
         public string Tags { get; set; }

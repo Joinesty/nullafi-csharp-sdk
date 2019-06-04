@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NullafiSDK.Models.Tokens
+namespace NullafiSDK.Domains.StaticVault.Managers.Generic
 {
-    public class EmailModel
+    public class GenericModel
     {
         public string Id { get; set; }
-        public string Email { get; set; }
-        public string EmailToken { get; set; }
+        public string Data { get; set; }
+        public string Token { get; set; }
         public string Iv { get; set; }
         public string AuthTag { get; set; }
         public string Tags { get; set; }

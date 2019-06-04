@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NullafiSDK.Models.Tokens
+namespace NullafiSDK.Domains.StaticVault.Managers.Race
 {
     public class RaceModel
     {
