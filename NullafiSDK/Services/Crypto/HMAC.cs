@@ -2,9 +2,9 @@ using System;
 using System.Text;
 using System.Security.Cryptography;
 
-using NullafiSDK.Models;
+using Nullafi.Models;
 
-namespace NullafiSDK.Services.Crypto
+namespace Nullafi.Services.Crypto
 {
 
     public class HMAC

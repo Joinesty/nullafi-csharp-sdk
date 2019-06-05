@@ -1,24 +1,24 @@
-using NullafiSDK.Models;
+using Nullafi.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using NullafiSDK.Domains.StaticVault.Managers.Address;
-using NullafiSDK.Domains.StaticVault.Managers.DateOfBirth;
-using NullafiSDK.Domains.StaticVault.Managers.DriversLicense;
-using NullafiSDK.Domains.StaticVault.Managers.FirstName;
-using NullafiSDK.Domains.StaticVault.Managers.Gender;
-using NullafiSDK.Domains.StaticVault.Managers.Generic;
-using NullafiSDK.Domains.StaticVault.Managers.LastName;
-using NullafiSDK.Domains.StaticVault.Managers.Passport;
-using NullafiSDK.Domains.StaticVault.Managers.PlaceOfBirth;
-using NullafiSDK.Domains.StaticVault.Managers.Race;
-using NullafiSDK.Domains.StaticVault.Managers.Random;
-using NullafiSDK.Domains.StaticVault.Managers.Ssn;
-using NullafiSDK.Domains.StaticVault.Managers.TaxPayer;
-using NullafiSDK.Domains.StaticVault.Managers.VehicleRegistration;
+using Nullafi.Domains.StaticVault.Managers.Address;
+using Nullafi.Domains.StaticVault.Managers.DateOfBirth;
+using Nullafi.Domains.StaticVault.Managers.DriversLicense;
+using Nullafi.Domains.StaticVault.Managers.FirstName;
+using Nullafi.Domains.StaticVault.Managers.Gender;
+using Nullafi.Domains.StaticVault.Managers.Generic;
+using Nullafi.Domains.StaticVault.Managers.LastName;
+using Nullafi.Domains.StaticVault.Managers.Passport;
+using Nullafi.Domains.StaticVault.Managers.PlaceOfBirth;
+using Nullafi.Domains.StaticVault.Managers.Race;
+using Nullafi.Domains.StaticVault.Managers.Random;
+using Nullafi.Domains.StaticVault.Managers.Ssn;
+using Nullafi.Domains.StaticVault.Managers.TaxPayer;
+using Nullafi.Domains.StaticVault.Managers.VehicleRegistration;
 
-namespace NullafiSDK.Domains.StaticVault
+namespace Nullafi.Domains.StaticVault
 {
     public class StaticVault
     {
@@ -29,20 +29,20 @@ namespace NullafiSDK.Domains.StaticVault
         public string VaultName { get; set; }
         public string MasterKey { get; set; }
 
-        public AddressManager address { get; }
-        public DateOfBirthManager dateOfBirth { get; }
-        public DriversLicenseManager driversLicense { get; }
-        public FirstNameManager firstName { get; }
-        public GenderManager gender { get; }
-        public GenericManager generic { get; }
-        public LastNameManager lastName { get; }
-        public PassportManager passport { get; }
-        public PlaceOfBirthManager placeOfBirth { get; }
-        public RaceManager race { get; }
-        public RandomManager random { get; }
-        public SsnManager ssn { get; }
-        public TaxPayerManager taxPayer { get; }
-        public VehicleRegistrationManager vehicleRegistration { get; }
+        public AddressManager Address { get; }
+        public DateOfBirthManager DateOfBirth { get; }
+        public DriversLicenseManager DriversLicense { get; }
+        public FirstNameManager FirstName { get; }
+        public GenderManager Gender { get; }
+        public GenericManager Generic { get; }
+        public LastNameManager LastName { get; }
+        public PassportManager Passport { get; }
+        public PlaceOfBirthManager PlaceOfBirth { get; }
+        public RaceManager Race { get; }
+        public RandomManager Random { get; }
+        public SsnManager Ssn { get; }
+        public TaxPayerManager TaxPayer { get; }
+        public VehicleRegistrationManager VehicleRegistration { get; }
 
 
 
@@ -54,20 +54,20 @@ namespace NullafiSDK.Domains.StaticVault
             this.MasterKey = masterKey;
             this.security = new Security();
 
-            this.address = new AddressManager(this);
-            this.dateOfBirth = new DateOfBirthManager(this);
-            this.driversLicense = new DriversLicenseManager(this);
-            this.firstName = new FirstNameManager(this);
-            this.gender = new GenderManager(this);
-            this.generic = new GenericManager(this);
-            this.lastName = new LastNameManager(this);
-            this.passport = new PassportManager(this);
-            this.placeOfBirth = new PlaceOfBirthManager(this);
-            this.race = new RaceManager(this);
-            this.random = new RandomManager(this);
-            this.ssn = new SsnManager(this);
-            this.taxPayer = new TaxPayerManager(this);
-            this.vehicleRegistration = new VehicleRegistrationManager(this);
+            this.Address = new AddressManager(this);
+            this.DateOfBirth = new DateOfBirthManager(this);
+            this.DriversLicense = new DriversLicenseManager(this);
+            this.FirstName = new FirstNameManager(this);
+            this.Gender = new GenderManager(this);
+            this.Generic = new GenericManager(this);
+            this.LastName = new LastNameManager(this);
+            this.Passport = new PassportManager(this);
+            this.PlaceOfBirth = new PlaceOfBirthManager(this);
+            this.Race = new RaceManager(this);
+            this.Random = new RandomManager(this);
+            this.Ssn = new SsnManager(this);
+            this.TaxPayer = new TaxPayerManager(this);
+            this.VehicleRegistration = new VehicleRegistrationManager(this);
         }
 
         public string Hash(string value)
@@ -78,15 +78,15 @@ namespace NullafiSDK.Domains.StaticVault
         public AesEncryptedData Encrypt(string value)
         {
             var iv = this.security.aes.GenerateIv();
-            byte[] byteMasterKey = Encoding.UTF8.GetBytes(this.MasterKey);
+            byte[] byteMasterKey = Convert.FromBase64String(this.MasterKey);
             return this.security.aes.Encrypt(byteMasterKey, iv, value);
         }
 
         public string Decrypt(string iv, string authTag, string value)
         {
-            byte[] byteIv = Encoding.UTF8.GetBytes(iv);
-            byte[] byteAuthTag = Encoding.UTF8.GetBytes(authTag);
-            byte[] byteMasterKey = Encoding.UTF8.GetBytes(this.MasterKey);
+            byte[] byteIv = Convert.FromBase64String(iv);
+            byte[] byteAuthTag = Convert.FromBase64String(authTag);
+            byte[] byteMasterKey = Convert.FromBase64String(this.MasterKey);
 
             return this.security.aes.Decrypt(byteMasterKey, byteIv, byteAuthTag, value);
         }

@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NullafiSDK.Domains.StaticVault.Managers.Passport
+namespace Nullafi.Domains.StaticVault.Managers.Passport
 {
-    public class PassportModel
+    public class PassportRequest
     {
-        public string Id { get; set; }
         public string Passport { get; set; }
-        public string PassportToken { get; set; }
         public string PassportHash { get; set; }
         public string Iv { get; set; }
         public string AuthTag { get; set; }
-        public string Tags { get; set; }
+        public List<string> Tags { get; set; }
     }
 }

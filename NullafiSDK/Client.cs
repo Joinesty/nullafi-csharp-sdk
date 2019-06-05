@@ -1,22 +1,44 @@
-﻿using NullafiSDK.Models;
-using NullafiSDK.Services;
+﻿using Nullafi.Domains.CommunicationVault;
+using Nullafi.Domains.StaticVault;
+using Nullafi.Models;
+using Nullafi.Services;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace NullafiSDK
+namespace Nullafi
 {
-    public class Client: API
+    public class Client : API
     {
-        private string sessionToken;
         public string HashKey { get; private set; }
 
-        public async void Authenticate(string apiKey)
+        public async Task Authenticate(string apiKey)
         {
             var payload = new AuthenticationPayload() { ApiKey = apiKey };
             var response = await this.Post<AuthenticationPayload, AuthenticationResponse>("/authentication/token", payload);
 
             this.HashKey = response.HashKey;
-            SetSessionToken(response.Token);
+            SetSessionAlias(response.Token);
+        }
+
+        public async Task<StaticVault> CreateStaticVault(string name, List<string> tags)
+        {
+            return await StaticVault.CreateStaticVault(this, name, tags);
+        }
+
+        public async Task<StaticVault> RetrieveStaticVault(string vaultId, string masterKey)
+        {
+            return await StaticVault.RetrieveStaticVault(this, vaultId, masterKey);
+        }
+
+        public async Task<CommunicationVault> CreateCommunicationVault(string name, List<string> tags)
+        {
+            return await CommunicationVault.CreateCommunicationVault(this, name, tags);
+        }
+
+        public async Task<CommunicationVault> RetrieveCommunicationVault(string vaultId, string masterKey)
+        {
+            return await CommunicationVault.RetrieveCommunicationVault(this, vaultId, masterKey);
         }
     }
 }

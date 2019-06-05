@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NullafiSDK.Models
+namespace Nullafi.Models
 {
     class AuthenticationResponse
     {

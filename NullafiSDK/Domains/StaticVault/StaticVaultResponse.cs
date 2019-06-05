@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NullafiSDK.Domains.StaticVault
+namespace Nullafi.Domains.StaticVault
 {
     class StaticVaultResponse
     {

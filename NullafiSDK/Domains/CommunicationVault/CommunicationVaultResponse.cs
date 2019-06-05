@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NullafiSDK.Domains.CommunicationVault
+namespace Nullafi.Domains.CommunicationVault
 {
     class CommunicationVaultResponse
     {
@@ -11,7 +11,7 @@ namespace NullafiSDK.Domains.CommunicationVault
         public string PublicKey { get; set; }
         public string Iv { get; set; }
         public string AuthTag { get; set; }
-        public string VaultMasterKey { get; set; }
+        public string MasterKey { get; set; }
         public string SessionKey { get; set; }
         public List<string> Tags { get; set; }
     }

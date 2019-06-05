@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Threading.Tasks;
 
-namespace NullafiSDK
+namespace Nullafi
 {
     public class NullafiSDK
     {
@@ -11,10 +12,10 @@ namespace NullafiSDK
             this.apiKey = apiKey;
         }
 
-        public Client CreateClient()
+        public async Task<Client> CreateClient()
         {
             var client = new Client();
-            client.Authenticate(this.apiKey);
+            await client.Authenticate(this.apiKey);
             return client;
         }
     }

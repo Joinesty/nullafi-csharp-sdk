@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NullafiSDK.Domains.CommunicationVault
+namespace Nullafi.Domains.CommunicationVault
 {
     class CommunicationVaultPayload
     {

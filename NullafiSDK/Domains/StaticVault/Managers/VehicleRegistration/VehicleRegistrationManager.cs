@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using NullafiSDK.Domains.StaticVault;
+using Nullafi.Domains.StaticVault;
 
-namespace NullafiSDK.Domains.StaticVault.Managers.VehicleRegistration
+namespace Nullafi.Domains.StaticVault.Managers.VehicleRegistration
 {
   public class VehicleRegistrationManager
 {
@@ -15,10 +15,10 @@ namespace NullafiSDK.Domains.StaticVault.Managers.VehicleRegistration
   this.vault = vault;
 }
 
-  public async Task<VehicleRegistrationModel> Create(string vehicleregistration, List<string> tags)
+  public async Task<VehicleRegistrationResponse> Create(string vehicleregistration, List<string> tags)
   {
     var result = this.vault.Encrypt(vehicleregistration);
-    var payload = new VehicleRegistrationModel
+    var payload = new VehicleRegistrationRequest
     {
       VehicleRegistration = result.EncryptedData,
       VehicleRegistrationHash = this.vault.Hash(vehicleregistration),
@@ -26,19 +26,19 @@ namespace NullafiSDK.Domains.StaticVault.Managers.VehicleRegistration
       AuthTag = result.AuthTag
     };
 
-    var response = await this.vault.client.Post<VehicleRegistrationModel, VehicleRegistrationModel>($"/vault/static/${this.vault.VaultId}/vehicleregistration", payload);
+    var response = await this.vault.client.Post<VehicleRegistrationRequest, VehicleRegistrationResponse>($"/vault/static/${this.vault.VaultId}/vehicleregistration", payload);
     response.VehicleRegistration = this.vault.Decrypt(response.Iv, response.AuthTag, response.VehicleRegistration);
     return response;
   }
 
-  public async Task<VehicleRegistrationModel> Retrieve(string tokenId)
+  public async Task<VehicleRegistrationResponse> Retrieve(string aliasId)
   {
-    return await this.vault.client.Get<VehicleRegistrationModel>($"/vault/static/{this.vault.VaultId}/vehicleregistration/{tokenId}");
+    return await this.vault.client.Get<VehicleRegistrationResponse>($"/vault/static/{this.vault.VaultId}/vehicleregistration/{aliasId}");
   }
 
-  public async void Delete(string tokenId)
+  public async Task Delete(string aliasId)
   {
-    await this.vault.client.Delete($"/vault/static/{this.vault.VaultId}/vehicleregistration/{tokenId}");
+    await this.vault.client.Delete($"/vault/static/{this.vault.VaultId}/vehicleregistration/{aliasId}");
   }
 }
 }

@@ -1,10 +1,11 @@
-﻿using NullafiSDK.Models;
+﻿using Nullafi.Domains.CommunicationVault.Managers.Email;
+using Nullafi.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NullafiSDK.Domains.CommunicationVault
+namespace Nullafi.Domains.CommunicationVault
 {
     public class CommunicationVault
     {
@@ -14,6 +15,7 @@ namespace NullafiSDK.Domains.CommunicationVault
         public string VaultId { get; set; }
         public string VaultName { get; set; }
         public string MasterKey { get; set; }
+        public EmailManager Email { get; private set; }
 
         private CommunicationVault(Client client, string vaultId, string vaultName, string masterKey)
         {
@@ -22,6 +24,8 @@ namespace NullafiSDK.Domains.CommunicationVault
             this.VaultName = vaultName;
             this.MasterKey = masterKey;
             this.security = new Security();
+
+            this.Email = new EmailManager(this);
         }
 
         public string Hash(string value)
@@ -32,23 +36,23 @@ namespace NullafiSDK.Domains.CommunicationVault
         public AesEncryptedData Encrypt(string value)
         {
             var iv = this.security.aes.GenerateIv();
-            byte[] byteMasterKey = Encoding.UTF8.GetBytes(this.MasterKey);
+            byte[] byteMasterKey = Convert.FromBase64String(this.MasterKey);
             return this.security.aes.Encrypt(byteMasterKey, iv, value);
         }
 
         public string Decrypt(string iv, string authTag, string value)
         {
-            byte[] byteIv = Encoding.UTF8.GetBytes(iv);
-            byte[] byteAuthTag = Encoding.UTF8.GetBytes(authTag);
-            byte[] byteMasterKey = Encoding.UTF8.GetBytes(this.MasterKey);
+            byte[] byteIv = Convert.FromBase64String(iv);
+            byte[] byteAuthTag = Convert.FromBase64String(authTag);
+            byte[] byteMasterKey = Convert.FromBase64String(this.MasterKey);
 
             return this.security.aes.Decrypt(byteMasterKey, byteIv, byteAuthTag, value);
         }
 
-        public async static Task<CommunicationVault> PostCommunicationVault(Client client, string name, List<string> tags)
+        public async static Task<CommunicationVault> CreateCommunicationVault(Client client, string name, List<string> tags)
         {
             var security = new Security();
-            var rsaEphemeral = security.rsa.RSAGenerateManager(security.aes.GenerateStringMasterKey());
+            var rsaEphemeral = security.rsa.RSAGenerateManager();
 
             var payload = new CommunicationVaultPayload()
             {
@@ -60,16 +64,16 @@ namespace NullafiSDK.Domains.CommunicationVault
             var response = await client.Post<CommunicationVaultPayload, CommunicationVaultResponse>("/vault/communication", payload);
 
             string aesEncryptedMasterKey = rsaEphemeral.Decrypt(response.SessionKey);
-            byte[] byteAesEncryptedMasterKey = Encoding.UTF8.GetBytes(aesEncryptedMasterKey);
-            byte[] byteIv = Encoding.UTF8.GetBytes(response.Iv);
-            byte[] byteAuthTag = Encoding.UTF8.GetBytes(response.AuthTag);
+            byte[] byteAesEncryptedMasterKey = Convert.FromBase64String(aesEncryptedMasterKey.Replace("\"", ""));
+            byte[] byteIv = Convert.FromBase64String(response.Iv);
+            byte[] byteAuthTag = Convert.FromBase64String(response.AuthTag);
             
-            var masterKey = security.aes.Decrypt(byteAesEncryptedMasterKey, byteIv, byteAuthTag, response.VaultMasterKey);
+            var masterKey = security.aes.Decrypt(byteAesEncryptedMasterKey, byteIv, byteAuthTag, response.MasterKey);
 
             return new CommunicationVault(client, response.Id, response.Name, masterKey);
         }
 
-        public async static Task<CommunicationVault> GetCommunicationVault(Client client, string vaultId, string masterKey)
+        public async static Task<CommunicationVault> RetrieveCommunicationVault(Client client, string vaultId, string masterKey)
         {
             var response = await client.Get<CommunicationVaultResponse>($"/vault/communication/${vaultId}");
             return new CommunicationVault(client, vaultId, response.Name, masterKey);

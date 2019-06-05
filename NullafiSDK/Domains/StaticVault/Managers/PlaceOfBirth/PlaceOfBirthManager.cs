@@ -2,45 +2,46 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using NullafiSDK.Domains.StaticVault;
+using Nullafi.Domains.StaticVault;
 
-namespace NullafiSDK.Domains.StaticVault.Managers.PlaceOfBirth
+namespace Nullafi.Domains.StaticVault.Managers.PlaceOfBirth
 {
-  public class PlaceOfBirthManager
-{
-  StaticVault vault;
-
-  public PlaceOfBirthManager(StaticVault vault)
-{
-  this.vault = vault;
-}
-
-  public async Task<PlaceOfBirthModel> Create(string placeofbirth, List<string> tags)
-  {
-    var result = this.vault.Encrypt(placeofbirth);
-    var payload = new PlaceOfBirthModel
+    public class PlaceOfBirthManager
     {
-      PlaceOfBirth = result.EncryptedData,
-      PlaceOfBirthHash = this.vault.Hash(placeofbirth),
-      Iv = result.Iv,
-      AuthTag = result.AuthTag
-    };
+        StaticVault vault;
 
-    var response = await this.vault.client.Post<PlaceOfBirthModel, PlaceOfBirthModel>($"/vault/static/${this.vault.VaultId}/placeofbirth", payload);
-    response.PlaceOfBirth = this.vault.Decrypt(response.Iv, response.AuthTag, response.PlaceOfBirth);
-    return response;
-  }
+        public PlaceOfBirthManager(StaticVault vault)
+        {
+            this.vault = vault;
+        }
 
-  public async Task<PlaceOfBirthModel> Retrieve(string tokenId)
-  {
-    var response = await this.vault.client.Get<PlaceOfBirthModel>($"/vault/static/{this.vault.VaultId}/placeofbirth/{tokenId}");
-    response.PlaceOfBirth = this.vault.Decrypt(response.Iv, response.AuthTag, response.PlaceOfBirth);
-    return response;
-  }
+        public async Task<PlaceOfBirthResponse> Create(string placeofbirth, List<string> tags)
+        {
+            var result = this.vault.Encrypt(placeofbirth);
+            var payload = new PlaceOfBirthRequest
+            {
+                PlaceOfBirth = result.EncryptedData,
+                PlaceOfBirthHash = this.vault.Hash(placeofbirth),
+                Tags = tags,
+                Iv = result.Iv,
+                AuthTag = result.AuthTag
+            };
 
-  public async void Delete(string tokenId)
-  {
-    await this.vault.client.Delete($"/vault/static/{this.vault.VaultId}/placeofbirth/{tokenId}");
-  }
-}
+            var response = await this.vault.client.Post<PlaceOfBirthRequest, PlaceOfBirthResponse>($"/vault/static/${this.vault.VaultId}/placeofbirth", payload);
+            response.PlaceOfBirth = this.vault.Decrypt(response.Iv, response.AuthTag, response.PlaceOfBirth);
+            return response;
+        }
+
+        public async Task<PlaceOfBirthResponse> Retrieve(string aliasId)
+        {
+            var response = await this.vault.client.Get<PlaceOfBirthResponse>($"/vault/static/{this.vault.VaultId}/placeofbirth/{aliasId}");
+            response.PlaceOfBirth = this.vault.Decrypt(response.Iv, response.AuthTag, response.PlaceOfBirth);
+            return response;
+        }
+
+        public async Task Delete(string aliasId)
+        {
+            await this.vault.client.Delete($"/vault/static/{this.vault.VaultId}/placeofbirth/{aliasId}");
+        }
+    }
 }

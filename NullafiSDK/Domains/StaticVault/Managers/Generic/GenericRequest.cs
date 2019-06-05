@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NullafiSDK.Domains.StaticVault.Managers.Generic
+namespace Nullafi.Domains.StaticVault.Managers.Generic
 {
-    public class GenericModel
+    public class GenericRequest
     {
-        public string Id { get; set; }
         public string Data { get; set; }
-        public string Token { get; set; }
         public string DataHash { get; set; }
         public string Iv { get; set; }
         public string AuthTag { get; set; }
-        public string Tags { get; set; }
+        public List<string> Tags { get; set; }
     }
 }

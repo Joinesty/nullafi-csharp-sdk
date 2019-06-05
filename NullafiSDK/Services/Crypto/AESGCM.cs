@@ -10,9 +10,9 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 using System.Security.Cryptography;
 
-using NullafiSDK.Models;
+using Nullafi.Models;
 
-namespace NullafiSDK.Services.Crypto
+namespace Nullafi.Services.Crypto
 {
 
     public class AESGCM

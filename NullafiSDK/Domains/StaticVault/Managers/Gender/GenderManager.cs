@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using NullafiSDK.Domains.StaticVault;
+using Nullafi.Domains.StaticVault;
 
-namespace NullafiSDK.Domains.StaticVault.Managers.Gender
+namespace Nullafi.Domains.StaticVault.Managers.Gender
 {
   public class GenderManager
 {
@@ -15,32 +15,33 @@ namespace NullafiSDK.Domains.StaticVault.Managers.Gender
   this.vault = vault;
 }
 
-  public async Task<GenderModel> Create(string gender, List<string> tags)
+  public async Task<GenderResponse> Create(string gender, List<string> tags)
   {
     var result = this.vault.Encrypt(gender);
-    var payload = new GenderModel
+    var payload = new GenderRequest
     {
         Gender = result.EncryptedData,
         GenderHash = this.vault.Hash(gender),
+        Tags = tags,
         Iv = result.Iv,
         AuthTag = result.AuthTag
     };
 
-    var response = await this.vault.client.Post<GenderModel, GenderModel>($"/vault/static/${this.vault.VaultId}/gender", payload);
+    var response = await this.vault.client.Post<GenderRequest, GenderResponse>($"/vault/static/${this.vault.VaultId}/gender", payload);
     response.Gender = this.vault.Decrypt(response.Iv, response.AuthTag, response.Gender);
     return response;
   }
 
-  public async Task<GenderModel> Retrieve(string tokenId)
+  public async Task<GenderResponse> Retrieve(string aliasId)
   {
-    var response = await this.vault.client.Get<GenderModel>($"/vault/static/{this.vault.VaultId}/gender/{tokenId}");
+    var response = await this.vault.client.Get<GenderResponse>($"/vault/static/{this.vault.VaultId}/gender/{aliasId}");
     response.Gender = this.vault.Decrypt(response.Iv, response.AuthTag, response.Gender);
     return response;
   }
 
-  public async void Delete(string tokenId)
+  public async Task Delete(string aliasId)
   {
-    await this.vault.client.Delete($"/vault/static/{this.vault.VaultId}/gender/{tokenId}");
+    await this.vault.client.Delete($"/vault/static/{this.vault.VaultId}/gender/{aliasId}");
   }
 }
 }

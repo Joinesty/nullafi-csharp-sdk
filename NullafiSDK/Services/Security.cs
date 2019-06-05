@@ -1,11 +1,11 @@
-using NullafiSDK.Models;
+using Nullafi.Models;
 using System;
 
 using System.Text;
 
-using NullafiSDK.Services.Crypto;
+using Nullafi.Services.Crypto;
 
-namespace NullafiSDK
+namespace Nullafi
 {
     
     public class Security

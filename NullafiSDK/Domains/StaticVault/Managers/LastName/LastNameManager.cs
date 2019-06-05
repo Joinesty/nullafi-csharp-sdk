@@ -2,45 +2,46 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using NullafiSDK.Domains.StaticVault;
+using Nullafi.Domains.StaticVault;
 
-namespace NullafiSDK.Domains.StaticVault.Managers.LastName
+namespace Nullafi.Domains.StaticVault.Managers.LastName
 {
-  public class LastNameManager
-{
-  StaticVault vault;
-
-  public LastNameManager(StaticVault vault)
-{
-  this.vault = vault;
-}
-
-  public async Task<LastNameModel> Create(string lastname, List<string> tags)
-  {
-    var result = this.vault.Encrypt(lastname);
-    var payload = new LastNameModel
+    public class LastNameManager
     {
-        LastName = result.EncryptedData,
-        LastNameHash = this.vault.Hash(lastname),
-        Iv = result.Iv,
-        AuthTag = result.AuthTag
-    };
+        StaticVault vault;
 
-    var response = await this.vault.client.Post<LastNameModel, LastNameModel>($"/vault/static/${this.vault.VaultId}/lastname", payload);
-    response.LastName = this.vault.Decrypt(response.Iv, response.AuthTag, response.LastName);
-    return response;
-  }
+        public LastNameManager(StaticVault vault)
+        {
+            this.vault = vault;
+        }
 
-  public async Task<LastNameModel> Retrieve(string tokenId)
-  {
-    var response = await this.vault.client.Get<LastNameModel>($"/vault/static/{this.vault.VaultId}/lastname/{tokenId}");
-    response.LastName = this.vault.Decrypt(response.Iv, response.AuthTag, response.LastName);
-    return response;
-  }
+        public async Task<LastNameResponse> Create(string lastname, List<string> tags)
+        {
+            var result = this.vault.Encrypt(lastname);
+            var payload = new LastNameRequest
+            {
+                LastName = result.EncryptedData,
+                LastNameHash = this.vault.Hash(lastname),
+                Tags = tags,
+                Iv = result.Iv,
+                AuthTag = result.AuthTag
+            };
 
-  public async void Delete(string tokenId)
-  {
-    await this.vault.client.Delete($"/vault/static/{this.vault.VaultId}/lastname/{tokenId}");
-  }
-}
+            var response = await this.vault.client.Post<LastNameRequest, LastNameResponse>($"/vault/static/${this.vault.VaultId}/lastname", payload);
+            response.LastName = this.vault.Decrypt(response.Iv, response.AuthTag, response.LastName);
+            return response;
+        }
+
+        public async Task<LastNameResponse> Retrieve(string aliasId)
+        {
+            var response = await this.vault.client.Get<LastNameResponse>($"/vault/static/{this.vault.VaultId}/lastname/{aliasId}");
+            response.LastName = this.vault.Decrypt(response.Iv, response.AuthTag, response.LastName);
+            return response;
+        }
+
+        public async Task Delete(string aliasId)
+        {
+            await this.vault.client.Delete($"/vault/static/{this.vault.VaultId}/lastname/{aliasId}");
+        }
+    }
 }

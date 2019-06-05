@@ -5,61 +5,57 @@ using System.Security;
 using System.Security.Cryptography;
 using Org.BouncyCastle.Utilities.IO.Pem;
 
-using NullafiSDK.Models;
+using Nullafi.Models;
+using Org.BouncyCastle.Crypto.Generators;
+using Org.BouncyCastle.Crypto;
+using Org.BouncyCastle.Security;
+using Org.BouncyCastle.Crypto.Engines;
+using Org.BouncyCastle.Crypto.Encodings;
+using Org.BouncyCastle.Crypto.Parameters;
+using Org.BouncyCastle.Asn1.X509;
+using Org.BouncyCastle.X509;
 
-namespace NullafiSDK.Services.Crypto
+namespace Nullafi.Services.Crypto
 {
 
     public class RSAManager
     {
-        public Func<string, string> Encrypt { get; set; }
         public Func<string, string> Decrypt { get; set; }
         public string PublicKey { get; set; }
     }
 
     public class RSA
     {
-        public RSAManager RSAGenerateManager(string passphrase)
+        public RSAManager RSAGenerateManager()
         {
-            CspParameters param = new CspParameters
-            {
-                Flags = CspProviderFlags.CreateEphemeralKey
-            };
+            RsaKeyPairGenerator keyGen = new RsaKeyPairGenerator();
+            keyGen.Init(new KeyGenerationParameters(new SecureRandom(), 2048));
+            var keyPair = keyGen.GenerateKeyPair();
 
             SecureString secureString = new SecureString();
 
-            foreach (char c in passphrase.ToCharArray())
-            {
-                secureString.AppendChar(c);
-            }
-
-            param.KeyPassword = secureString;
-
-            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(param);
-
-            Func<string, string> encrypt = (string value) =>
-            {
-                return Convert.ToBase64String(rsa.Encrypt(Encoding.UTF8.GetBytes(value), RSAEncryptionPadding.OaepSHA1));
-            };
 
             Func<string, string> decrypt = (string encryptedValue) =>
             {
-                return Encoding.UTF8.GetString(rsa.Decrypt(Convert.FromBase64String(encryptedValue), RSAEncryptionPadding.OaepSHA1));
+                var decryptEngine = new OaepEncoding(new RsaEngine());
+                var bytesToDecrypt = Convert.FromBase64String(encryptedValue);
+                decryptEngine.Init(false, keyPair.Private as RsaPrivateCrtKeyParameters);
+                return Encoding.UTF8.GetString(decryptEngine.ProcessBlock(bytesToDecrypt, 0, bytesToDecrypt.Length));
             };
+
+            var info = SubjectPublicKeyInfoFactory.CreateSubjectPublicKeyInfo(keyPair.Public);
 
             StringWriter stringWriter = new StringWriter();
             PemWriter pemWriter = new PemWriter(stringWriter);
-            PemObject pemObject = new PemObject("PUBLIC KEY", rsa.ExportCspBlob(false));
+            PemObject pemObject = new PemObject("PUBLIC KEY", info.GetEncoded());
             pemWriter.WriteObject(pemObject);
 
             return new RSAManager
             {
-                Encrypt = encrypt,
                 Decrypt = decrypt,
                 PublicKey = stringWriter.ToString(),
             };
         }
-        
+
     }
 }
- 

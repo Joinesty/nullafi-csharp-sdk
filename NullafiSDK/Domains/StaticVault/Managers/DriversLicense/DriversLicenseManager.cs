@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using NullafiSDK.Domains.StaticVault;
+using Nullafi.Domains.StaticVault;
 
-namespace NullafiSDK.Domains.StaticVault.Managers.DriversLicense
+namespace Nullafi.Domains.StaticVault.Managers.DriversLicense
 {
     public class DriversLicenseManager
     {
@@ -15,32 +15,33 @@ namespace NullafiSDK.Domains.StaticVault.Managers.DriversLicense
             this.vault = vault;
         }
 
-        public async Task<DriversLicenseModel> Create(string driversLicense, List<string> tags)
+        public async Task<DriversLicenseResponse> Create(string driversLicense, List<string> tags)
         {
             var result = this.vault.Encrypt(driversLicense);
-            var payload = new DriversLicenseModel
+            var payload = new DriversLicenseRequest
             {
                 DriversLicense = result.EncryptedData,
                 DriversLicenseHash = this.vault.Hash(driversLicense),
+                Tags = tags,
                 Iv = result.Iv,
                 AuthTag = result.AuthTag
             };
 
-            var response = await this.vault.client.Post<DriversLicenseModel, DriversLicenseModel>($"/vault/static/${this.vault.VaultId}/driverslicense", payload);
+            var response = await this.vault.client.Post<DriversLicenseRequest, DriversLicenseResponse>($"/vault/static/${this.vault.VaultId}/driverslicense", payload);
             response.DriversLicense = this.vault.Decrypt(response.Iv, response.AuthTag, response.DriversLicense);
             return response;
         }
 
-        public async Task<DriversLicenseModel> Retrieve(string tokenId)
+        public async Task<DriversLicenseResponse> Retrieve(string aliasId)
         {
-            var response = await this.vault.client.Get<DriversLicenseModel>($"/vault/static/{this.vault.VaultId}/driverslicense/{tokenId}");
+            var response = await this.vault.client.Get<DriversLicenseResponse>($"/vault/static/{this.vault.VaultId}/driverslicense/{aliasId}");
             response.DriversLicense = this.vault.Decrypt(response.Iv, response.AuthTag, response.DriversLicense);
             return response;
         }
 
-        public async void Delete(string tokenId)
+        public async Task Delete(string aliasId)
         {
-            await this.vault.client.Delete($"/vault/static/{this.vault.VaultId}/driverslicense/{tokenId}");
+            await this.vault.client.Delete($"/vault/static/{this.vault.VaultId}/driverslicense/{aliasId}");
         }
     }
 }
