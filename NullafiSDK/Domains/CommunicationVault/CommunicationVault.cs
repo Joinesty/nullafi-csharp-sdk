@@ -26,7 +26,7 @@ namespace NullafiSDK.Domains.CommunicationVault
 
         public string Hash(string value)
         {
-            return this.security.HMACHash(value, this.client.HashKey);
+            return this.security.hmac.Hash(value, this.client.HashKey);
         }
 
         public AesEncryptedData Encrypt(string value)
@@ -38,13 +38,17 @@ namespace NullafiSDK.Domains.CommunicationVault
 
         public string Decrypt(string iv, string authTag, string value)
         {
-            return this.security.AesDecrypt(this.MasterKey, iv, authTag, value);
+            byte[] byteIv = Encoding.UTF8.GetBytes(iv);
+            byte[] byteAuthTag = Encoding.UTF8.GetBytes(authTag);
+            byte[] byteMasterKey = Encoding.UTF8.GetBytes(this.MasterKey);
+
+            return this.security.aes.Decrypt(byteMasterKey, byteIv, byteAuthTag, value);
         }
 
         public async static Task<CommunicationVault> PostCommunicationVault(Client client, string name, List<string> tags)
         {
             var security = new Security();
-            var rsaEphemeral = security.RSAGenerateManager(security.aes.GenerateStringMasterKey());
+            var rsaEphemeral = security.rsa.RSAGenerateManager(security.aes.GenerateStringMasterKey());
 
             var payload = new CommunicationVaultPayload()
             {
@@ -55,8 +59,12 @@ namespace NullafiSDK.Domains.CommunicationVault
 
             var response = await client.Post<CommunicationVaultPayload, CommunicationVaultResponse>("/vault/communication", payload);
 
-            var aesEncryptedMasterKey = rsaEphemeral.Decrypt(response.SessionKey);
-            var masterKey = security.AesDecrypt(aesEncryptedMasterKey, response.Iv, response.AuthTag, response.VaultMasterKey);
+            string aesEncryptedMasterKey = rsaEphemeral.Decrypt(response.SessionKey);
+            byte[] byteAesEncryptedMasterKey = Encoding.UTF8.GetBytes(aesEncryptedMasterKey);
+            byte[] byteIv = Encoding.UTF8.GetBytes(response.Iv);
+            byte[] byteAuthTag = Encoding.UTF8.GetBytes(response.AuthTag);
+            
+            var masterKey = security.aes.Decrypt(byteAesEncryptedMasterKey, byteIv, byteAuthTag, response.VaultMasterKey);
 
             return new CommunicationVault(client, response.Id, response.Name, masterKey);
         }

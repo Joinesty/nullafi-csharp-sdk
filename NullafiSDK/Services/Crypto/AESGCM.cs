@@ -8,6 +8,7 @@ using Org.BouncyCastle.Crypto.Generators;
 using Org.BouncyCastle.Crypto.Modes;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
+using System.Security.Cryptography;
 
 using NullafiSDK.Models;
 
@@ -70,62 +71,62 @@ namespace NullafiSDK.Services.Crypto
             };
         }
 
-        public string SimpleDecrypt(string encryptedMessage, byte[] key)
+        public string Decrypt(byte[] masterKey, byte[] iv, byte[] authTag, string cipherText)
         {
-            if (string.IsNullOrEmpty(encryptedMessage))
-                throw new ArgumentException("Encrypted Message Required!", "encryptedMessage");
-
-            var cipherText = Convert.FromBase64String(encryptedMessage);
-            var plainText = SimpleDecrypt(cipherText, key, nonSecretPayloadLength);
-            return plainText == null ? null : Encoding.UTF8.GetString(plainText);
+            byte[] byteCipherText = Encoding.UTF8.GetBytes(cipherText);
+            byte[] bytePlainText = Decrypt(masterKey, iv, authTag, byteCipherText);
+            return bytePlainText == null ? null : Encoding.UTF8.GetString(bytePlainText);
         }
 
-        
-        
-
-        public byte[] SimpleDecrypt(byte[] encryptedMessage, byte[] key, int nonSecretPayloadLength = 0)
+        public byte[] Decrypt(byte[] masterKey, byte[] iv, byte[] authKey, byte[] cipherText)
         {
-            //User Error Checks
-            if (key == null || key.Length != SECRET_KEY_BIT_LENGTH / 8)
-                throw new ArgumentException(String.Format("Key needs to be {0} bit!", SECRET_KEY_BIT_LENGTH), "key");
-
-            if (encryptedMessage == null || encryptedMessage.Length == 0)
-                throw new ArgumentException("Encrypted Message Required!", "encryptedMessage");
-
-            using (var cipherStream = new MemoryStream(encryptedMessage))
-            using (var cipherReader = new BinaryReader(cipherStream))
+            using (var hmac = new HMACSHA256(authKey))
             {
-                //Grab Payload
-                var nonSecretPayload = cipherReader.ReadBytes(nonSecretPayloadLength);
+                var sentTag = new byte[hmac.HashSize / 8];
+                var calcTag = hmac.ComputeHash(cipherText, 0, cipherText.Length - sentTag.Length);
+                var ivLength = (IV_BIT_LENGTH / 8);
 
-                //Grab Nonce
-                var nonce = cipherReader.ReadBytes(IV_BIT_LENGTH / 8);
-             
-                var cipher = new GcmBlockCipher(new AesFastEngine());
-                var parameters = new AeadParameters(new KeyParameter(key), AUTH_TAG_BIT_LENGTH, nonce, nonSecretPayload);
-                cipher.Init(false, parameters);
-
-                //Decrypt Cipher Text
-                var cipherText = cipherReader.ReadBytes(encryptedMessage.Length - nonSecretPayloadLength - nonce.Length);
-                var plainText = new byte[cipher.GetOutputSize(cipherText.Length)];  
-
-                try
-                {
-                    var len = cipher.ProcessBytes(cipherText, 0, cipherText.Length, plainText, 0);
-                    cipher.DoFinal(plainText, len);
-
-                }
-                catch (InvalidCipherTextException)
-                {
-                    //Return null if it doesn't authenticate
+                if (cipherText.Length < sentTag.Length + ivLength)
                     return null;
+
+                Array.Copy(cipherText, cipherText.Length - sentTag.Length, sentTag, 0, sentTag.Length);
+
+                var compare = 0;
+                for (var i = 0; i < sentTag.Length; i++)
+                    compare |= sentTag[i] ^ calcTag[i]; 
+
+                if (compare != 0)
+                    return null;
+
+                using (var aes = new AesManaged
+                {
+                    KeySize = SECRET_KEY_BIT_LENGTH,
+                    BlockSize = IV_BIT_LENGTH,
+                    Mode = CipherMode.CBC,
+                    Padding = PaddingMode.PKCS7
+                })
+                {
+                    Array.Copy(cipherText, 0, iv, 0, iv.Length);
+
+                    using (var decrypter = aes.CreateDecryptor(masterKey, iv))
+                    using (var plainTextStream = new MemoryStream())
+                    {
+                        using (var decrypterStream = new CryptoStream(plainTextStream, decrypter, CryptoStreamMode.Write))
+                        using (var binaryWriter = new BinaryWriter(decrypterStream))
+                        {
+                            //Decrypt Cipher Text from Message
+                            binaryWriter.Write(
+                                cipherText,
+                                iv.Length,
+                                cipherText.Length - iv.Length - sentTag.Length
+                            );
+                        }
+                        //Return Plain Text
+                        return plainTextStream.ToArray();
+                    }
                 }
-
-                return plainText;
             }
-
         }
-
     }
 }
  

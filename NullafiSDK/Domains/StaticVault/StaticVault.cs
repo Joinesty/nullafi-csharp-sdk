@@ -72,7 +72,7 @@ namespace NullafiSDK.Domains.StaticVault
 
         public string Hash(string value)
         {
-            return this.security.HMACHash(value, this.client.HashKey);
+            return this.security.hmac.Hash(value, this.client.HashKey);
         }
 
         public AesEncryptedData Encrypt(string value)
@@ -84,7 +84,11 @@ namespace NullafiSDK.Domains.StaticVault
 
         public string Decrypt(string iv, string authTag, string value)
         {
-            return this.security.AesDecrypt(this.MasterKey, iv, authTag, value);
+            byte[] byteIv = Encoding.UTF8.GetBytes(iv);
+            byte[] byteAuthTag = Encoding.UTF8.GetBytes(authTag);
+            byte[] byteMasterKey = Encoding.UTF8.GetBytes(this.MasterKey);
+
+            return this.security.aes.Decrypt(byteMasterKey, byteIv, byteAuthTag, value);
         }
 
         public async static Task<StaticVault> CreateStaticVault(Client client, string name, List<string> tags)
