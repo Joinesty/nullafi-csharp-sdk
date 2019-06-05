@@ -6,6 +6,8 @@ using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 
+using NullafiSDK.Services.Crypto;
+
 namespace NullafiSDK
 {
 
@@ -18,6 +20,14 @@ namespace NullafiSDK
 
     public class Security
     {
+        
+        public AESGCM aes {get; }
+
+        public Security()
+        {
+            this.aes = new AESGCM();
+        }
+
         public string HMACHash(string value, string secret)
         {
             var keyByte = Encoding.UTF8.GetBytes(secret);
@@ -67,30 +77,6 @@ namespace NullafiSDK
                 Encrypt = encrypt,
                 Decrypt = decrypt,
                 PublicKey = stringWriter.ToString(),
-            };
-        }
-
-        public string AesGenerateMasterKey()
-        {
-            RijndaelManaged aes = new RijndaelManaged();
-            aes.GenerateKey();
-            return Convert.ToBase64String(aes.Key);
-        }
-
-        public string AesGenerateInitializationVector()
-        {
-            RijndaelManaged aes = new RijndaelManaged();
-            aes.GenerateKey();
-            return Convert.ToBase64String(aes.Key);
-        }
-
-        public AesEncryptedData AesEncrypt(string Key, string IV, string plainText)
-        {
-            return new AesEncryptedData
-            {
-                EncryptedData = plainText,
-                Iv = "",
-                AuthTag = "",
             };
         }
 

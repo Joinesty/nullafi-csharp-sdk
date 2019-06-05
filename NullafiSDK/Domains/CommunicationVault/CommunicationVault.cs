@@ -31,8 +31,9 @@ namespace NullafiSDK.Domains.CommunicationVault
 
         public AesEncryptedData Encrypt(string value)
         {
-            var iv = this.security.AesGenerateInitializationVector();
-            return this.security.AesEncrypt(this.MasterKey, iv, value);
+            var iv = this.security.aes.GenerateIv();
+            byte[] byteMasterKey = Encoding.UTF8.GetBytes(this.MasterKey);
+            return this.security.aes.Encrypt(byteMasterKey, iv, value);
         }
 
         public string Decrypt(string iv, string authTag, string value)
@@ -43,7 +44,7 @@ namespace NullafiSDK.Domains.CommunicationVault
         public async static Task<CommunicationVault> PostCommunicationVault(Client client, string name, List<string> tags)
         {
             var security = new Security();
-            var rsaEphemeral = security.RSAGenerateManager(security.AesGenerateMasterKey());
+            var rsaEphemeral = security.RSAGenerateManager(security.aes.GenerateStringMasterKey());
 
             var payload = new CommunicationVaultPayload()
             {

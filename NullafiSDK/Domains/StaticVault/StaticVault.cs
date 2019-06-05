@@ -77,8 +77,9 @@ namespace NullafiSDK.Domains.StaticVault
 
         public AesEncryptedData Encrypt(string value)
         {
-            var iv = this.security.AesGenerateInitializationVector();
-            return this.security.AesEncrypt(this.MasterKey, iv, value);
+            var iv = this.security.aes.GenerateIv();
+            byte[] byteMasterKey = Encoding.UTF8.GetBytes(this.MasterKey);
+            return this.security.aes.Encrypt(byteMasterKey, iv, value);
         }
 
         public string Decrypt(string iv, string authTag, string value)
@@ -98,7 +99,7 @@ namespace NullafiSDK.Domains.StaticVault
 
             var response = await client.Post<StaticVaultPayload, StaticVaultResponse>("/vault/static", payload);
 
-            return new StaticVault(client, response.Id, response.Name, security.AesGenerateMasterKey());
+            return new StaticVault(client, response.Id, response.Name, security.aes.GenerateStringMasterKey());
         }
 
         public async static Task<StaticVault> RetrieveStaticVault(Client client, string vaultId, string masterKey)
