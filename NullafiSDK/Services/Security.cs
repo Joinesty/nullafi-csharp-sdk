@@ -7,9 +7,7 @@ using NullafiSDK.Services.Crypto;
 
 namespace NullafiSDK
 {
-
     
-
     public class Security
     {
         
