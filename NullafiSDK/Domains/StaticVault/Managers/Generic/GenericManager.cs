@@ -27,7 +27,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Generic
         AuthTag = result.AuthTag
     };
 
-    var response = await this.vault.client.Post<GenericRequest, GenericResponse>($"/vault/static/${this.vault.VaultId}/generic", payload);
+    var response = await this.vault.client.Post<GenericRequest, GenericResponse>($"/vault/static/{this.vault.VaultId}/generic", payload);
     response.Data = this.vault.Decrypt(response.Iv, response.AuthTag, response.Data);
     return response;
   }

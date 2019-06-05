@@ -68,14 +68,14 @@ namespace Nullafi.Domains.CommunicationVault
             byte[] byteIv = Convert.FromBase64String(response.Iv);
             byte[] byteAuthTag = Convert.FromBase64String(response.AuthTag);
             
-            var masterKey = security.aes.Decrypt(byteAesEncryptedMasterKey, byteIv, byteAuthTag, response.MasterKey);
+            var masterKey = Convert.ToBase64String(security.aes.Decrypt(byteAesEncryptedMasterKey, byteIv, byteAuthTag, Convert.FromBase64String(response.MasterKey)));
 
             return new CommunicationVault(client, response.Id, response.Name, masterKey);
         }
 
         public async static Task<CommunicationVault> RetrieveCommunicationVault(Client client, string vaultId, string masterKey)
         {
-            var response = await client.Get<CommunicationVaultResponse>($"/vault/communication/${vaultId}");
+            var response = await client.Get<CommunicationVaultResponse>($"/vault/communication/{vaultId}");
             return new CommunicationVault(client, vaultId, response.Name, masterKey);
         }
     }

@@ -27,7 +27,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Passport
                 AuthTag = result.AuthTag
             };
 
-            var response = await this.vault.client.Post<PassportRequest, PassportResponse>($"/vault/static/${this.vault.VaultId}/passport", payload);
+            var response = await this.vault.client.Post<PassportRequest, PassportResponse>($"/vault/static/{this.vault.VaultId}/passport", payload);
             response.Passport = this.vault.Decrypt(response.Iv, response.AuthTag, response.Passport);
             return response;
         }

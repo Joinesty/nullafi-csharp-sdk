@@ -26,7 +26,7 @@ namespace Nullafi.Domains.StaticVault.Managers.VehicleRegistration
       AuthTag = result.AuthTag
     };
 
-    var response = await this.vault.client.Post<VehicleRegistrationRequest, VehicleRegistrationResponse>($"/vault/static/${this.vault.VaultId}/vehicleregistration", payload);
+    var response = await this.vault.client.Post<VehicleRegistrationRequest, VehicleRegistrationResponse>($"/vault/static/{this.vault.VaultId}/vehicleregistration", payload);
     response.VehicleRegistration = this.vault.Decrypt(response.Iv, response.AuthTag, response.VehicleRegistration);
     return response;
   }

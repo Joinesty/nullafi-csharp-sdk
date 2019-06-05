@@ -27,7 +27,7 @@ namespace Nullafi.Domains.StaticVault.Managers.DriversLicense
                 AuthTag = result.AuthTag
             };
 
-            var response = await this.vault.client.Post<DriversLicenseRequest, DriversLicenseResponse>($"/vault/static/${this.vault.VaultId}/driverslicense", payload);
+            var response = await this.vault.client.Post<DriversLicenseRequest, DriversLicenseResponse>($"/vault/static/{this.vault.VaultId}/driverslicense", payload);
             response.DriversLicense = this.vault.Decrypt(response.Iv, response.AuthTag, response.DriversLicense);
             return response;
         }

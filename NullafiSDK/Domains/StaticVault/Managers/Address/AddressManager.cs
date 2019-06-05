@@ -27,7 +27,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Address
                 AuthTag = result.AuthTag
             };
 
-            var response = await this.vault.client.Post<AddressRequest, AddressResponse>($"/vault/static/${this.vault.VaultId}/address", payload);
+            var response = await this.vault.client.Post<AddressRequest, AddressResponse>($"/vault/static/{this.vault.VaultId}/address", payload);
             response.Address = this.vault.Decrypt(response.Iv, response.AuthTag, response.Address);
             return response;
         }

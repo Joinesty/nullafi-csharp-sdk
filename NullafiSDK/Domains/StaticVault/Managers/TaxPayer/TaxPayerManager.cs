@@ -27,7 +27,7 @@ namespace Nullafi.Domains.StaticVault.Managers.TaxPayer
                 AuthTag = result.AuthTag
             };
 
-            var response = await this.vault.client.Post<TaxPayerRequest, TaxPayerResponse>($"/vault/static/${this.vault.VaultId}/taxpayer", payload);
+            var response = await this.vault.client.Post<TaxPayerRequest, TaxPayerResponse>($"/vault/static/{this.vault.VaultId}/taxpayer", payload);
             response.TaxPayer = this.vault.Decrypt(response.Iv, response.AuthTag, response.TaxPayer);
             return response;
         }

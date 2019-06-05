@@ -27,7 +27,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Ssn
                 AuthTag = result.AuthTag
             };
 
-            var response = await this.vault.client.Post<SsnRequest, SsnResponse>($"/vault/static/${this.vault.VaultId}/ssn", payload);
+            var response = await this.vault.client.Post<SsnRequest, SsnResponse>($"/vault/static/{this.vault.VaultId}/ssn", payload);
             response.Ssn = this.vault.Decrypt(response.Iv, response.AuthTag, response.Ssn);
             return response;
         }

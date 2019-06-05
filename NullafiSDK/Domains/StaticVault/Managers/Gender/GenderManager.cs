@@ -27,7 +27,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Gender
         AuthTag = result.AuthTag
     };
 
-    var response = await this.vault.client.Post<GenderRequest, GenderResponse>($"/vault/static/${this.vault.VaultId}/gender", payload);
+    var response = await this.vault.client.Post<GenderRequest, GenderResponse>($"/vault/static/{this.vault.VaultId}/gender", payload);
     response.Gender = this.vault.Decrypt(response.Iv, response.AuthTag, response.Gender);
     return response;
   }

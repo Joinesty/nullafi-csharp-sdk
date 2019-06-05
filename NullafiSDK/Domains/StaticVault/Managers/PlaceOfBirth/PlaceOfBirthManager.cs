@@ -27,7 +27,7 @@ namespace Nullafi.Domains.StaticVault.Managers.PlaceOfBirth
                 AuthTag = result.AuthTag
             };
 
-            var response = await this.vault.client.Post<PlaceOfBirthRequest, PlaceOfBirthResponse>($"/vault/static/${this.vault.VaultId}/placeofbirth", payload);
+            var response = await this.vault.client.Post<PlaceOfBirthRequest, PlaceOfBirthResponse>($"/vault/static/{this.vault.VaultId}/placeofbirth", payload);
             response.PlaceOfBirth = this.vault.Decrypt(response.Iv, response.AuthTag, response.PlaceOfBirth);
             return response;
         }

@@ -108,7 +108,7 @@ namespace Nullafi.Domains.StaticVault
 
         public async static Task<StaticVault> RetrieveStaticVault(Client client, string vaultId, string masterKey)
         {
-            var response = await client.Get<StaticVaultResponse>($"/vault/static/${vaultId}");
+            var response = await client.Get<StaticVaultResponse>($"/vault/static/{vaultId}");
             return new StaticVault(client, vaultId, response.Name, masterKey);
         }
     }

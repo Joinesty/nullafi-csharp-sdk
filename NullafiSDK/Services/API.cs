@@ -15,6 +15,7 @@ namespace Nullafi.Services
         private static readonly JsonSerializerSettings serializerSettings = new JsonSerializerSettings
         {
             ContractResolver = new CamelCasePropertyNamesContractResolver(),
+            NullValueHandling = NullValueHandling.Ignore,
         };
 
         public API()

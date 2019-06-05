@@ -26,7 +26,7 @@ namespace Nullafi.Domains.CommunicationVault.Managers.Email
                 Tags = tags
             };
 
-            var response = await this.vault.client.Post<EmailRequest, EmailResponse>($"/vault/communication/${this.vault.VaultId}/email", payload);
+            var response = await this.vault.client.Post<EmailRequest, EmailResponse>($"/vault/communication/{this.vault.VaultId}/email", payload);
             response.Email = this.vault.Decrypt(response.Iv, response.AuthTag, response.Email);
             return response;
         }

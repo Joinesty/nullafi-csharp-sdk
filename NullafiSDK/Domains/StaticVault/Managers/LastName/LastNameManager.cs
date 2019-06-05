@@ -27,7 +27,7 @@ namespace Nullafi.Domains.StaticVault.Managers.LastName
                 AuthTag = result.AuthTag
             };
 
-            var response = await this.vault.client.Post<LastNameRequest, LastNameResponse>($"/vault/static/${this.vault.VaultId}/lastname", payload);
+            var response = await this.vault.client.Post<LastNameRequest, LastNameResponse>($"/vault/static/{this.vault.VaultId}/lastname", payload);
             response.LastName = this.vault.Decrypt(response.Iv, response.AuthTag, response.LastName);
             return response;
         }

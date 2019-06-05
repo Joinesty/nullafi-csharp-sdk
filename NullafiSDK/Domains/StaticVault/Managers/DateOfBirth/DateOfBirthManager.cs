@@ -27,7 +27,7 @@ namespace Nullafi.Domains.StaticVault.Managers.DateOfBirth
                 AuthTag = result.AuthTag
             };
 
-            var response = await this.vault.client.Post<DateOfBirthRequest, DateOfBirthResponse>($"/vault/static/${this.vault.VaultId}/dateofbirth", payload);
+            var response = await this.vault.client.Post<DateOfBirthRequest, DateOfBirthResponse>($"/vault/static/{this.vault.VaultId}/dateofbirth", payload);
             response.DateOfBirth = this.vault.Decrypt(response.Iv, response.AuthTag, response.DateOfBirth);
             return response;
         }

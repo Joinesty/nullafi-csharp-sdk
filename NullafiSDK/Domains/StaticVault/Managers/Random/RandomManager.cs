@@ -27,7 +27,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Random
       AuthTag = result.AuthTag
     };
 
-    var response = await this.vault.client.Post<RandomRequest, RandomResponse>($"/vault/static/${this.vault.VaultId}/random", payload);
+    var response = await this.vault.client.Post<RandomRequest, RandomResponse>($"/vault/static/{this.vault.VaultId}/random", payload);
     response.Data = this.vault.Decrypt(response.Iv, response.AuthTag, response.Data);
     return response;
   }

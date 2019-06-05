@@ -23,7 +23,7 @@ namespace Nullafi
 
         public async Task<StaticVault> CreateStaticVault(string name, List<string> tags)
         {
-            return await StaticVault.CreateStaticVault(this, name, tags);
+            return await StaticVault.CreateStaticVault(this, name, null);
         }
 
         public async Task<StaticVault> RetrieveStaticVault(string vaultId, string masterKey)
@@ -33,7 +33,7 @@ namespace Nullafi
 
         public async Task<CommunicationVault> CreateCommunicationVault(string name, List<string> tags)
         {
-            return await CommunicationVault.CreateCommunicationVault(this, name, tags);
+            return await CommunicationVault.CreateCommunicationVault(this, name, null);
         }
 
         public async Task<CommunicationVault> RetrieveCommunicationVault(string vaultId, string masterKey)

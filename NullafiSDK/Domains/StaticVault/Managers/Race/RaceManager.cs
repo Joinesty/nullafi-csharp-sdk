@@ -27,7 +27,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Race
       AuthTag = result.AuthTag
     };
 
-    var response = await this.vault.client.Post<RaceRequest, RaceResponse>($"/vault/static/${this.vault.VaultId}/race", payload);
+    var response = await this.vault.client.Post<RaceRequest, RaceResponse>($"/vault/static/{this.vault.VaultId}/race", payload);
     response.Race = this.vault.Decrypt(response.Iv, response.AuthTag, response.Race);
     return response;
   }

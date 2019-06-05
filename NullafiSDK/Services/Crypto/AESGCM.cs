@@ -56,77 +56,63 @@ namespace Nullafi.Services.Crypto
         public AesEncryptedData Encrypt(byte[] masterKey, byte[] iv, byte[] plainText)
         {
             var cipher = new GcmBlockCipher(new AesFastEngine());
-            var parameters = new AeadParameters(new KeyParameter(masterKey), AUTH_TAG_BIT_LENGTH, iv, null);
+            var parameters = new AeadParameters(new KeyParameter(masterKey), AUTH_TAG_BIT_LENGTH, iv);
             cipher.Init(true, parameters);
 
-            //Generate Cipher Text With Auth Tag
-            var cipherText = new byte[cipher.GetOutputSize(plainText.Length)];
-            var len = cipher.ProcessBytes(plainText, 0, plainText.Length, cipherText, 0);
-            cipher.DoFinal(cipherText, len);
+            int outputLength = cipher.GetOutputSize(plainText.Length);
+            byte[] output = new byte[outputLength];
+
+            // Produce cipher text
+            int outputOffset = cipher.ProcessBytes(plainText, 0, plainText.Length, output, 0);
+
+            // Produce authentication tag
+            outputOffset += cipher.DoFinal(output, outputOffset);
+
+            // Split output into cipher text and authentication tag
+            int authTagLength = AUTH_TAG_BIT_LENGTH / 8;
+
+            byte[] cipherText = new byte[outputOffset - authTagLength];
+            byte[] authTag = new byte[authTagLength];
+
+            Array.Copy(output, 0, cipherText, 0, cipherText.Length);
+            Array.Copy(output, outputOffset - authTagLength, authTag, 0, authTag.Length);
 
             return new AesEncryptedData() {
                 EncryptedData = Convert.ToBase64String(cipherText),
-                AuthTag = Convert.ToBase64String(cipher.GetMac()),
+                AuthTag = Convert.ToBase64String(authTag),
                 Iv = Convert.ToBase64String(iv)
             };
         }
 
         public string Decrypt(byte[] masterKey, byte[] iv, byte[] authTag, string cipherText)
         {
-            byte[] byteCipherText = Encoding.UTF8.GetBytes(cipherText);
+            byte[] byteCipherText = Convert.FromBase64String(cipherText);
             byte[] bytePlainText = Decrypt(masterKey, iv, authTag, byteCipherText);
-            return bytePlainText == null ? null : Encoding.UTF8.GetString(bytePlainText);
+            return bytePlainText == null ? null : Encoding.UTF8.GetString(bytePlainText).TrimEnd("\r\n\0".ToCharArray());
         }
 
         public byte[] Decrypt(byte[] masterKey, byte[] iv, byte[] authKey, byte[] cipherText)
         {
-            using (var hmac = new HMACSHA256(authKey))
-            {
-                var sentTag = new byte[hmac.HashSize / 8];
-                var calcTag = hmac.ComputeHash(cipherText, 0, cipherText.Length - sentTag.Length);
-                var ivLength = (IV_BIT_LENGTH / 8);
+            var input = new byte[cipherText.Length + authKey.Length];
 
-                if (cipherText.Length < sentTag.Length + ivLength)
-                    return null;
+            Array.Copy(cipherText, 0, input, 0, cipherText.Length);
+            Array.Copy(authKey, 0, input, cipherText.Length, authKey.Length);
 
-                Array.Copy(cipherText, cipherText.Length - sentTag.Length, sentTag, 0, sentTag.Length);
 
-                var compare = 0;
-                for (var i = 0; i < sentTag.Length; i++)
-                    compare |= sentTag[i] ^ calcTag[i]; 
+            GcmBlockCipher cipher = new GcmBlockCipher(new AesFastEngine());
+            AeadParameters parameters =
+                      new AeadParameters(new KeyParameter(masterKey), 128, iv);
 
-                if (compare != 0)
-                    return null;
+            cipher.Init(false, parameters);
 
-                using (var aes = new AesManaged
-                {
-                    KeySize = SECRET_KEY_BIT_LENGTH,
-                    BlockSize = IV_BIT_LENGTH,
-                    Mode = CipherMode.CBC,
-                    Padding = PaddingMode.PKCS7
-                })
-                {
-                    Array.Copy(cipherText, 0, iv, 0, iv.Length);
+            byte[] output = new byte[cipher.GetOutputSize(input.Length)];
 
-                    using (var decrypter = aes.CreateDecryptor(masterKey, iv))
-                    using (var plainTextStream = new MemoryStream())
-                    {
-                        using (var decrypterStream = new CryptoStream(plainTextStream, decrypter, CryptoStreamMode.Write))
-                        using (var binaryWriter = new BinaryWriter(decrypterStream))
-                        {
-                            //Decrypt Cipher Text from Message
-                            binaryWriter.Write(
-                                cipherText,
-                                iv.Length,
-                                cipherText.Length - iv.Length - sentTag.Length
-                            );
-                        }
-                        //Return Plain Text
-                        return plainTextStream.ToArray();
-                    }
-                }
-            }
+            Int32 outputOffset = cipher.ProcessBytes
+                           (input, 0, input.Length, output, 0);
+
+            cipher.DoFinal(output, outputOffset);
+
+            return output;
         }
     }
 }
- 
