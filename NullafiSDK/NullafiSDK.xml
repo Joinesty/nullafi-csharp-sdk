@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NullafiSDK</name>
+    </assembly>
+    <members>
+        <member name="T:Nullafi.Client">
+            <summary>
+            Client class
+            </summary>
+        </member>
+        <member name="M:Nullafi.Client.Authenticate(System.String)">
+            <summary>
+            Authenticate the client API
+            </summary>
+            <param name="apiKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Client.CreateStaticVault(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new static vault
+            </summary>
+            <param name="name"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Client.RetrieveStaticVault(System.String,System.String)">
+            <summary>
+            retrieve an existing static vault
+            </summary>
+            <param name="vaultId"></param>
+            <param name="masterKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Client.CreateCommunicationVault(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new communication vault
+            </summary>
+            <param name="name"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Client.RetrieveCommunicationVault(System.String,System.String)">
+            <summary>
+            retrieve an existing communication vault
+            </summary>
+            <param name="vaultId"></param>
+            <param name="masterKey"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
