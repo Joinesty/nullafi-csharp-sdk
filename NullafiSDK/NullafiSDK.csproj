@@ -2,6 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Authors>Joinesty, Inc</Authors>
+    <Product>Joinesty Nullafi</Product>
+    <Copyright>Joinesty, Inc 2019</Copyright>
+    <RepositoryUrl>https://github.com/Joinesty/nullafi-csharp-sdk</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/Joinesty/nullafi-csharp-sdk</PackageProjectUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseUrl>https://github.com/Joinesty/nullafi-csharp-sdk/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>
