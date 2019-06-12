@@ -15,7 +15,12 @@ namespace Nullafi.Domains.StaticVault.Managers.Ssn
             this.vault = vault;
         }
 
-        public async Task<SsnResponse> Create(string ssn, List<string> tags, string state)
+        public async Task<SsnResponse> Create(string ssn, List<string> tags)
+        {
+            return await this.Create(ssn, null, tags);
+        }
+
+        public async Task<SsnResponse> Create(string ssn, string state = null, List<string> tags = null)
         {
             var result = this.vault.Encrypt(ssn);
             var payload = new SsnRequest

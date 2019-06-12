@@ -15,7 +15,12 @@ namespace Nullafi.Domains.StaticVault.Managers.PlaceOfBirth
             this.vault = vault;
         }
 
-        public async Task<PlaceOfBirthResponse> Create(string placeofbirth, List<string> tags, string state)
+        public async Task<PlaceOfBirthResponse> Create(string placeofbirth, List<string> tags)
+        {
+            return await this.Create(placeofbirth, null, tags);
+        }
+
+        public async Task<PlaceOfBirthResponse> Create(string placeofbirth, string state = null, List<string> tags = null)
         {
             var result = this.vault.Encrypt(placeofbirth);
             var payload = new PlaceOfBirthRequest

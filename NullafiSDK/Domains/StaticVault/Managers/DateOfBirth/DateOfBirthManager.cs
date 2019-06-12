@@ -15,7 +15,12 @@ namespace Nullafi.Domains.StaticVault.Managers.DateOfBirth
             this.vault = vault;
         }
 
-        public async Task<DateOfBirthResponse> Create(string dateofbirth, List<string> tags, int? year, int? month)
+        public async Task<DateOfBirthResponse> Create(string dateofbirth, List<string> tags)
+        {
+            return await this.Create(dateofbirth, null, null, tags);
+        }
+
+        public async Task<DateOfBirthResponse> Create(string dateofbirth, int? year = null, int? month = null, List<string> tags = null)
         {
             var result = this.vault.Encrypt(dateofbirth);
             var payload = new DateOfBirthRequest

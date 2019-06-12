@@ -15,7 +15,12 @@ namespace Nullafi.Domains.StaticVault.Managers.LastName
             this.vault = vault;
         }
 
-        public async Task<LastNameResponse> Create(string lastname, List<string> tags, string gender)
+        public async Task<LastNameResponse> Create(string lastname, List<string> tags)
+        {
+            return await this.Create(lastname, null, tags);
+        }
+
+        public async Task<LastNameResponse> Create(string lastname, string gender = null, List<string> tags = null)
         {
             var result = this.vault.Encrypt(lastname);
             var payload = new LastNameRequest

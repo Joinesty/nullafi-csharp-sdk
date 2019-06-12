@@ -15,7 +15,12 @@ namespace Nullafi.Domains.StaticVault.Managers.Address
             this.vault = vault;
         }
 
-        public async Task<AddressResponse> Create(string address, List<string> tags, string state)
+        public async Task<AddressResponse> Create(string address, List<string> tags)
+        {
+            return await this.Create(address, null, tags);
+        }
+
+        public async Task<AddressResponse> Create(string address, string state = null, List<string> tags = null)
         {
             var result = this.vault.Encrypt(address);
             var payload = new AddressRequest
