@@ -15,7 +15,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Gender
   this.vault = vault;
 }
 
-  public async Task<GenderResponse> Create(string gender, List<string> tags, string gender)
+  public async Task<GenderResponse> Create(string gender, List<string> tags)
   {
     var result = this.vault.Encrypt(gender);
     var payload = new GenderRequest
@@ -27,10 +27,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Gender
         AuthTag = result.AuthTag
     };
 
-    String url = $"/vault/static/{this.vault.VaultId}/gender";
-    if (gender != null) url += $"/{gender}";
-
-    var response = await this.vault.client.Post<GenderRequest, GenderResponse>(url, payload);
+    var response = await this.vault.client.Post<GenderRequest, GenderResponse>($"/vault/static/{this.vault.VaultId}/gender", payload);
     response.Gender = this.vault.Decrypt(response.Iv, response.AuthTag, response.Gender);
     return response;
   }
