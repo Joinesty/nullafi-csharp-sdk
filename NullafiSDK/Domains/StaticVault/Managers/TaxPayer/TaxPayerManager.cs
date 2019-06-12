@@ -1,47 +1,44 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using Nullafi.Domains.StaticVault;
 
 namespace Nullafi.Domains.StaticVault.Managers.TaxPayer
 {
     public class TaxPayerManager
     {
-        StaticVault vault;
+        private readonly StaticVault _vault;
 
         public TaxPayerManager(StaticVault vault)
         {
-            this.vault = vault;
+            _vault = vault;
         }
 
         public async Task<TaxPayerResponse> Create(string taxpayer, List<string> tags)
         {
-            var result = this.vault.Encrypt(taxpayer);
+            var result = _vault.Encrypt(taxpayer);
             var payload = new TaxPayerRequest
             {
                 TaxPayer = result.EncryptedData,
-                TaxPayerHash = this.vault.Hash(taxpayer),
+                TaxPayerHash = _vault.Hash(taxpayer),
                 Tags = tags,
                 Iv = result.Iv,
                 AuthTag = result.AuthTag
             };
 
-            var response = await this.vault.client.Post<TaxPayerRequest, TaxPayerResponse>($"/vault/static/{this.vault.VaultId}/taxpayer", payload);
-            response.TaxPayer = this.vault.Decrypt(response.Iv, response.AuthTag, response.TaxPayer);
+            var response = await _vault.Client.Post<TaxPayerRequest, TaxPayerResponse>($"/vault/static/{_vault.VaultId}/taxpayer", payload);
+            response.TaxPayer = _vault.Decrypt(response.Iv, response.AuthTag, response.TaxPayer);
             return response;
         }
 
         public async Task<TaxPayerResponse> Retrieve(string aliasId)
         {
-            var response = await this.vault.client.Get<TaxPayerResponse>($"/vault/static/{this.vault.VaultId}/taxpayer/{aliasId}");
-            response.TaxPayer = this.vault.Decrypt(response.Iv, response.AuthTag, response.TaxPayer);
+            var response = await _vault.Client.Get<TaxPayerResponse>($"/vault/static/{_vault.VaultId}/taxpayer/{aliasId}");
+            response.TaxPayer = _vault.Decrypt(response.Iv, response.AuthTag, response.TaxPayer);
             return response;
         }
 
         public async Task Delete(string aliasId)
         {
-            await this.vault.client.Delete($"/vault/static/{this.vault.VaultId}/taxpayer/{aliasId}");
+            await _vault.Client.Delete($"/vault/static/{_vault.VaultId}/taxpayer/{aliasId}");
         }
     }
 }

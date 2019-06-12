@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Nullafi.Models
+﻿namespace Nullafi.Models
 {
-    class AuthenticationPayload
+    internal class AuthenticationPayload
     {
         public string ApiKey { get; set; }
     }

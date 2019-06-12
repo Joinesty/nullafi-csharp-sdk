@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Nullafi.Models
+﻿namespace Nullafi.Models
 {
     public class AesEncryptedData
     {

@@ -1,44 +1,41 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using Nullafi.Domains.StaticVault;
 
 namespace Nullafi.Domains.StaticVault.Managers.VehicleRegistration
 {
   public class VehicleRegistrationManager
 {
-  StaticVault vault;
+    private readonly StaticVault _vault;
 
   public VehicleRegistrationManager(StaticVault vault)
 {
-  this.vault = vault;
+  _vault = vault;
 }
 
   public async Task<VehicleRegistrationResponse> Create(string vehicleregistration, List<string> tags)
   {
-    var result = this.vault.Encrypt(vehicleregistration);
+    var result = _vault.Encrypt(vehicleregistration);
     var payload = new VehicleRegistrationRequest
     {
       VehicleRegistration = result.EncryptedData,
-      VehicleRegistrationHash = this.vault.Hash(vehicleregistration),
+      VehicleRegistrationHash = _vault.Hash(vehicleregistration),
       Iv = result.Iv,
       AuthTag = result.AuthTag
     };
 
-    var response = await this.vault.client.Post<VehicleRegistrationRequest, VehicleRegistrationResponse>($"/vault/static/{this.vault.VaultId}/vehicleregistration", payload);
-    response.VehicleRegistration = this.vault.Decrypt(response.Iv, response.AuthTag, response.VehicleRegistration);
+    var response = await _vault.Client.Post<VehicleRegistrationRequest, VehicleRegistrationResponse>($"/vault/static/{_vault.VaultId}/vehicleregistration", payload);
+    response.VehicleRegistration = _vault.Decrypt(response.Iv, response.AuthTag, response.VehicleRegistration);
     return response;
   }
 
   public async Task<VehicleRegistrationResponse> Retrieve(string aliasId)
   {
-    return await this.vault.client.Get<VehicleRegistrationResponse>($"/vault/static/{this.vault.VaultId}/vehicleregistration/{aliasId}");
+    return await _vault.Client.Get<VehicleRegistrationResponse>($"/vault/static/{_vault.VaultId}/vehicleregistration/{aliasId}");
   }
 
   public async Task Delete(string aliasId)
   {
-    await this.vault.client.Delete($"/vault/static/{this.vault.VaultId}/vehicleregistration/{aliasId}");
+    await _vault.Client.Delete($"/vault/static/{_vault.VaultId}/vehicleregistration/{aliasId}");
   }
 }
 }

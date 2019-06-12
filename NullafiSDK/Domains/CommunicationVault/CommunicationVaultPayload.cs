@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Nullafi.Domains.CommunicationVault
 {
-    class CommunicationVaultPayload
+    internal class CommunicationVaultPayload
     {
         public string Name { get; set; }
         public string PublicKey { get; set; }

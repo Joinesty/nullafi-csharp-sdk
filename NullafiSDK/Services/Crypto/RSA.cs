@@ -2,17 +2,13 @@ using System;
 using System.IO;
 using System.Text;
 using System.Security;
-using System.Security.Cryptography;
 using Org.BouncyCastle.Utilities.IO.Pem;
-
-using Nullafi.Models;
 using Org.BouncyCastle.Crypto.Generators;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Crypto.Engines;
 using Org.BouncyCastle.Crypto.Encodings;
 using Org.BouncyCastle.Crypto.Parameters;
-using Org.BouncyCastle.Asn1.X509;
 using Org.BouncyCastle.X509;
 
 namespace Nullafi.Services.Crypto
@@ -28,11 +24,11 @@ namespace Nullafi.Services.Crypto
     {
         public RSAManager RSAGenerateManager()
         {
-            RsaKeyPairGenerator keyGen = new RsaKeyPairGenerator();
+            var keyGen = new RsaKeyPairGenerator();
             keyGen.Init(new KeyGenerationParameters(new SecureRandom(), 2048));
             var keyPair = keyGen.GenerateKeyPair();
 
-            SecureString secureString = new SecureString();
+            var secureString = new SecureString();
 
 
             Func<string, string> decrypt = (string encryptedValue) =>
@@ -45,9 +41,9 @@ namespace Nullafi.Services.Crypto
 
             var info = SubjectPublicKeyInfoFactory.CreateSubjectPublicKeyInfo(keyPair.Public);
 
-            StringWriter stringWriter = new StringWriter();
-            PemWriter pemWriter = new PemWriter(stringWriter);
-            PemObject pemObject = new PemObject("PUBLIC KEY", info.GetEncoded());
+            var stringWriter = new StringWriter();
+            var pemWriter = new PemWriter(stringWriter);
+            var pemObject = new PemObject("PUBLIC KEY", info.GetEncoded());
             pemWriter.WriteObject(pemObject);
 
             return new RSAManager

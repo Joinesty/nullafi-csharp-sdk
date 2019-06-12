@@ -2,12 +2,10 @@ using System;
 using System.Text;
 using System.Security.Cryptography;
 
-using Nullafi.Models;
-
 namespace Nullafi.Services.Crypto
 {
 
-    public class HMAC
+    public class Hmac
     {
         public string Hash(string value, string secret)
         {

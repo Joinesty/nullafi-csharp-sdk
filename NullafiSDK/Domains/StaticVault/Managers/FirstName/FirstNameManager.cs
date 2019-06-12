@@ -1,50 +1,48 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using Nullafi.Domains.StaticVault;
 
 namespace Nullafi.Domains.StaticVault.Managers.FirstName
 {
     public class FirstNameManager
     {
-        StaticVault vault;
+        private readonly StaticVault _vault;
 
         public FirstNameManager(StaticVault vault)
         {
-            this.vault = vault;
+            _vault = vault;
         }
 
         public async Task<FirstNameResponse> Create(string firstname, List<string> tags, string gender)
         {
-            var result = this.vault.Encrypt(firstname);
+            var result = _vault.Encrypt(firstname);
             var payload = new FirstNameRequest
             {
                 FirstName = result.EncryptedData,
-                FirstNameHash = this.vault.Hash(firstname),
+                FirstNameHash = _vault.Hash(firstname),
                 Tags = tags,
                 Iv = result.Iv,
                 AuthTag = result.AuthTag
             };
 
-            String url = $"/vault/static/{this.vault.VaultId}/firstname";
+            var url = $"/vault/static/{_vault.VaultId}/firstname";
             if (gender != null) url += $"/{gender}";
 
-            var response = await this.vault.client.Post<FirstNameRequest, FirstNameResponse>(url, payload);
-            response.FirstName = this.vault.Decrypt(response.Iv, response.AuthTag, response.FirstName);
+            var response = await _vault.Client.Post<FirstNameRequest, FirstNameResponse>(url, payload);
+            response.FirstName = _vault.Decrypt(response.Iv, response.AuthTag, response.FirstName);
             return response;
         }
 
         public async Task<FirstNameResponse> Retrieve(string aliasId)
         {
-            var response = await this.vault.client.Get<FirstNameResponse>($"/vault/static/{this.vault.VaultId}/firstname/{aliasId}");
-            response.FirstName = this.vault.Decrypt(response.Iv, response.AuthTag, response.FirstName);
+            var response = await _vault.Client.Get<FirstNameResponse>($"/vault/static/{_vault.VaultId}/firstname/{aliasId}");
+            response.FirstName = _vault.Decrypt(response.Iv, response.AuthTag, response.FirstName);
             return response;
         }
 
         public async Task Delete(string aliasId)
         {
-            await this.vault.client.Delete($"/vault/static/{this.vault.VaultId}/firstname/{aliasId}");
+            await _vault.Client.Delete($"/vault/static/{_vault.VaultId}/firstname/{aliasId}");
         }
     }
 }
