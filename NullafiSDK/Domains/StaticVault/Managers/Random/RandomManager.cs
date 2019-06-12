@@ -12,7 +12,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Random
   _vault = vault;
 }
 
-  public async Task<RandomResponse> Create(string data, List<string> tags)
+  public async Task<RandomResponse> Create(string data, List<string> tags = null)
   {
     var result = _vault.Encrypt(data);
     var payload = new RandomRequest

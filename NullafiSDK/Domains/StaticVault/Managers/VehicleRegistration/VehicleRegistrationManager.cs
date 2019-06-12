@@ -12,7 +12,7 @@ namespace Nullafi.Domains.StaticVault.Managers.VehicleRegistration
   _vault = vault;
 }
 
-  public async Task<VehicleRegistrationResponse> Create(string vehicleregistration, List<string> tags)
+  public async Task<VehicleRegistrationResponse> Create(string vehicleregistration, List<string> tags = null)
   {
     var result = _vault.Encrypt(vehicleregistration);
     var payload = new VehicleRegistrationRequest

@@ -12,7 +12,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Race
   _vault = vault;
 }
 
-  public async Task<RaceResponse> Create(string race, List<string> tags)
+  public async Task<RaceResponse> Create(string race, List<string> tags = null)
   {
     var result = _vault.Encrypt(race);
     var payload = new RaceRequest
