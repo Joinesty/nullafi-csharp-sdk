@@ -13,7 +13,12 @@ namespace Nullafi.Domains.StaticVault.Managers.DriversLicense
             _vault = vault;
         }
 
-        public async Task<DriversLicenseResponse> Create(string driversLicense, List<string> tags, string state)
+        public async Task<DriversLicenseResponse> Create(string driversLicense, List<string> tags)
+        {
+            return await this.Create(driversLicense, null, tags);
+        }
+
+        public async Task<DriversLicenseResponse> Create(string driversLicense, string state = null, List<string> tags = null)
         {
             var result = _vault.Encrypt(driversLicense);
             var payload = new DriversLicenseRequest

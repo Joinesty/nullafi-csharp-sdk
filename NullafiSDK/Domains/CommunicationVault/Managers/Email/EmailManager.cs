@@ -12,7 +12,7 @@ namespace Nullafi.Domains.CommunicationVault.Managers.Email
             _vault = vault;
         }
 
-        public async Task<EmailResponse> Create(string email, List<string> tags)
+        public async Task<EmailResponse> Create(string email, List<string> tags = null)
         {
             var result = _vault.Encrypt(email);
             var payload = new EmailRequest
