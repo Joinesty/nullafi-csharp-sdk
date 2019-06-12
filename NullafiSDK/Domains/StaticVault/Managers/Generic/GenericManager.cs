@@ -12,7 +12,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Generic
   _vault = vault;
 }
 
-  public async Task<GenericResponse> Create(string data, List<string> tags)
+  public async Task<GenericResponse> Create(string data, List<string> tags = null)
   {
     var result = _vault.Encrypt(data);
     var payload = new GenericRequest

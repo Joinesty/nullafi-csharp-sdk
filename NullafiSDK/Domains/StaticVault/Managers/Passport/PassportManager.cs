@@ -12,7 +12,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Passport
             _vault = vault;
         }
 
-        public async Task<PassportResponse> Create(string passport, List<string> tags)
+        public async Task<PassportResponse> Create(string passport, List<string> tags = null)
         {
             var result = _vault.Encrypt(passport);
             var payload = new PassportRequest

@@ -12,7 +12,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Gender
   _vault = vault;
 }
 
-  public async Task<GenderResponse> Create(string gender, List<string> tags)
+  public async Task<GenderResponse> Create(string gender, List<string> tags = null)
   {
     var result = _vault.Encrypt(gender);
     var payload = new GenderRequest

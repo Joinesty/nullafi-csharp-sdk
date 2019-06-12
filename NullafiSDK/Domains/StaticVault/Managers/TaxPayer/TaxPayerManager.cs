@@ -12,7 +12,7 @@ namespace Nullafi.Domains.StaticVault.Managers.TaxPayer
             _vault = vault;
         }
 
-        public async Task<TaxPayerResponse> Create(string taxpayer, List<string> tags)
+        public async Task<TaxPayerResponse> Create(string taxpayer, List<string> tags = null)
         {
             var result = _vault.Encrypt(taxpayer);
             var payload = new TaxPayerRequest
