@@ -15,7 +15,7 @@ namespace Nullafi.Domains.StaticVault.Managers.DriversLicense
             this.vault = vault;
         }
 
-        public async Task<DriversLicenseResponse> Create(string driversLicense, List<string> tags)
+        public async Task<DriversLicenseResponse> Create(string driversLicense, List<string> tags, string state)
         {
             var result = this.vault.Encrypt(driversLicense);
             var payload = new DriversLicenseRequest
@@ -27,7 +27,10 @@ namespace Nullafi.Domains.StaticVault.Managers.DriversLicense
                 AuthTag = result.AuthTag
             };
 
-            var response = await this.vault.client.Post<DriversLicenseRequest, DriversLicenseResponse>($"/vault/static/{this.vault.VaultId}/driverslicense", payload);
+            String url = $"/vault/static/{this.vault.VaultId}/driverslicense";
+            if (state != null) url += $"/{state}";
+
+            var response = await this.vault.client.Post<DriversLicenseRequest, DriversLicenseResponse>(url, payload);
             response.DriversLicense = this.vault.Decrypt(response.Iv, response.AuthTag, response.DriversLicense);
             return response;
         }

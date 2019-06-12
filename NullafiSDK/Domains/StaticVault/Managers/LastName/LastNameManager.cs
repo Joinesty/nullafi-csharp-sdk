@@ -15,7 +15,7 @@ namespace Nullafi.Domains.StaticVault.Managers.LastName
             this.vault = vault;
         }
 
-        public async Task<LastNameResponse> Create(string lastname, List<string> tags)
+        public async Task<LastNameResponse> Create(string lastname, List<string> tags, string gender)
         {
             var result = this.vault.Encrypt(lastname);
             var payload = new LastNameRequest
@@ -27,7 +27,10 @@ namespace Nullafi.Domains.StaticVault.Managers.LastName
                 AuthTag = result.AuthTag
             };
 
-            var response = await this.vault.client.Post<LastNameRequest, LastNameResponse>($"/vault/static/{this.vault.VaultId}/lastname", payload);
+            String url = $"/vault/static/{this.vault.VaultId}/lastname";
+            if (gender != null) url += $"/{gender}";
+
+            var response = await this.vault.client.Post<LastNameRequest, LastNameResponse>(url, payload);
             response.LastName = this.vault.Decrypt(response.Iv, response.AuthTag, response.LastName);
             return response;
         }

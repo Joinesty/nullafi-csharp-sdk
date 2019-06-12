@@ -15,7 +15,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Ssn
             this.vault = vault;
         }
 
-        public async Task<SsnResponse> Create(string ssn, List<string> tags)
+        public async Task<SsnResponse> Create(string ssn, List<string> tags, string state)
         {
             var result = this.vault.Encrypt(ssn);
             var payload = new SsnRequest
@@ -27,7 +27,10 @@ namespace Nullafi.Domains.StaticVault.Managers.Ssn
                 AuthTag = result.AuthTag
             };
 
-            var response = await this.vault.client.Post<SsnRequest, SsnResponse>($"/vault/static/{this.vault.VaultId}/ssn", payload);
+            String url = $"/vault/static/{this.vault.VaultId}/ssn";
+            if (state != null) url += $"/{state}";
+
+            var response = await this.vault.client.Post<SsnRequest, SsnResponse>(url, payload);
             response.Ssn = this.vault.Decrypt(response.Iv, response.AuthTag, response.Ssn);
             return response;
         }

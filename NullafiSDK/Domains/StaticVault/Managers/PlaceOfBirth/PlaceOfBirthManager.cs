@@ -15,7 +15,7 @@ namespace Nullafi.Domains.StaticVault.Managers.PlaceOfBirth
             this.vault = vault;
         }
 
-        public async Task<PlaceOfBirthResponse> Create(string placeofbirth, List<string> tags)
+        public async Task<PlaceOfBirthResponse> Create(string placeofbirth, List<string> tags, string state)
         {
             var result = this.vault.Encrypt(placeofbirth);
             var payload = new PlaceOfBirthRequest
@@ -27,7 +27,10 @@ namespace Nullafi.Domains.StaticVault.Managers.PlaceOfBirth
                 AuthTag = result.AuthTag
             };
 
-            var response = await this.vault.client.Post<PlaceOfBirthRequest, PlaceOfBirthResponse>($"/vault/static/{this.vault.VaultId}/placeofbirth", payload);
+            String url = $"/vault/static/{this.vault.VaultId}/placeofbirth";
+            if (state != null) url += $"/{state}";
+
+            var response = await this.vault.client.Post<PlaceOfBirthRequest, PlaceOfBirthResponse>(url, payload);
             response.PlaceOfBirth = this.vault.Decrypt(response.Iv, response.AuthTag, response.PlaceOfBirth);
             return response;
         }

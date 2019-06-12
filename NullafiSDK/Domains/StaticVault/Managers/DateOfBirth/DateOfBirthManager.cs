@@ -15,7 +15,7 @@ namespace Nullafi.Domains.StaticVault.Managers.DateOfBirth
             this.vault = vault;
         }
 
-        public async Task<DateOfBirthResponse> Create(string dateofbirth, List<string> tags)
+        public async Task<DateOfBirthResponse> Create(string dateofbirth, List<string> tags, int? year, int? month)
         {
             var result = this.vault.Encrypt(dateofbirth);
             var payload = new DateOfBirthRequest
@@ -27,7 +27,11 @@ namespace Nullafi.Domains.StaticVault.Managers.DateOfBirth
                 AuthTag = result.AuthTag
             };
 
-            var response = await this.vault.client.Post<DateOfBirthRequest, DateOfBirthResponse>($"/vault/static/{this.vault.VaultId}/dateofbirth", payload);
+            var url = $"/vault/static/{this.vault.VaultId}/dateofbirth";
+            if (year != null) url += $"year={year}&";
+            if (month != null) url += $"month={month}";
+
+            var response = await this.vault.client.Post<DateOfBirthRequest, DateOfBirthResponse>(url, payload);
             response.DateOfBirth = this.vault.Decrypt(response.Iv, response.AuthTag, response.DateOfBirth);
             return response;
         }

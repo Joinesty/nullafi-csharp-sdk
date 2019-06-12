@@ -15,7 +15,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Address
             this.vault = vault;
         }
 
-        public async Task<AddressResponse> Create(string address, List<string> tags)
+        public async Task<AddressResponse> Create(string address, List<string> tags, string state)
         {
             var result = this.vault.Encrypt(address);
             var payload = new AddressRequest
@@ -27,7 +27,10 @@ namespace Nullafi.Domains.StaticVault.Managers.Address
                 AuthTag = result.AuthTag
             };
 
-            var response = await this.vault.client.Post<AddressRequest, AddressResponse>($"/vault/static/{this.vault.VaultId}/address", payload);
+            var url = $"/vault/static/{this.vault.VaultId}/address";
+            if (state != null) url += $"/{state}";
+
+            var response = await this.vault.client.Post<AddressRequest, AddressResponse>(url, payload);
             response.Address = this.vault.Decrypt(response.Iv, response.AuthTag, response.Address);
             return response;
         }
