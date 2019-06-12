@@ -4,7 +4,6 @@ using System.Security.Cryptography;
 
 namespace Nullafi.Services.Crypto
 {
-
     public class Hmac
     {
         public string Hash(string value, string secret)
@@ -16,7 +15,6 @@ namespace Nullafi.Services.Crypto
                 return Convert.ToBase64String(hmacsha256.Hash);
             }
         }
-        
     }
 }
  

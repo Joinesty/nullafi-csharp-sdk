@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NullafiSDK", "NullafiSDK\NullafiSDK.csproj", "{A671319F-92B0-4243-BAD0-521A74F5E565}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NullafiSDK", "NullafiSDK\NullafiSDK.csproj", "{A671319F-92B0-4243-BAD0-521A74F5E565}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NullafiSDK.Tests", "NullafiSDK.Tests\NullafiSDK.Tests.csproj", "{451A0FAE-1EF5-44C4-AD73-A8E8CAA2F974}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{A671319F-92B0-4243-BAD0-521A74F5E565}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A671319F-92B0-4243-BAD0-521A74F5E565}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A671319F-92B0-4243-BAD0-521A74F5E565}.Release|Any CPU.Build.0 = Release|Any CPU
+		{451A0FAE-1EF5-44C4-AD73-A8E8CAA2F974}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{451A0FAE-1EF5-44C4-AD73-A8E8CAA2F974}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{451A0FAE-1EF5-44C4-AD73-A8E8CAA2F974}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{451A0FAE-1EF5-44C4-AD73-A8E8CAA2F974}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
