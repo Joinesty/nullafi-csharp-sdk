@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nullafi;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using WireMock.Server;
+using WireMock.Settings;
 
 namespace Nullafi.Tests
 {
@@ -14,10 +16,9 @@ namespace Nullafi.Tests
     public class NullafiSDKTests
     {
         [TestMethod]
-        public async void GivenRequestToUseTheSDK_WhenCreatingClient_ShouldReturnAuthenticatedClientInstance()
+        public async Task GivenRequestToUseTheSDK_WhenCreatingClient_ShouldReturnAuthenticatedClientInstance()
         {
-            FluentMockServer.Start("https://dashboard-api.nullafi.com")
-            .Given(Request.Create().WithPath("/authentication/token").UsingPost())
+            Mock.Server.Given(Request.Create().WithPath("/authentication/token").UsingPost())
             .RespondWith(
                 Response.Create()
                 .WithStatusCode(HttpStatusCode.OK)

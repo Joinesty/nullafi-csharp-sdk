@@ -24,9 +24,9 @@ namespace Nullafi.Domains.StaticVault
         internal readonly Client Client;
         private readonly Security _security;
 
-        public string VaultId { get; set; }
-        public string VaultName { get; set; }
-        public string MasterKey { get; set; }
+        public string VaultId { get; }
+        public string VaultName { get; }
+        public string MasterKey { get; }
 
         public AddressManager Address { get; }
         public DateOfBirthManager DateOfBirth { get; }
