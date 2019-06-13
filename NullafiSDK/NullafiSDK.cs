@@ -2,15 +2,27 @@
 
 namespace Nullafi
 {
+    /// <summary>
+    /// NullafiSDK class
+    /// </summary>
     public class NullafiSDK
     {
         private readonly string _apiKey;
 
+        /// <summary>
+        /// Create an instance of NullafiSDK
+        /// </summary>
+        /// <param name="apiKey"></param>
+        /// <returns></returns>
         public NullafiSDK(string apiKey)
         {
             _apiKey = apiKey;
         }
 
+        /// <summary>
+        /// Create a new instance of client
+        /// </summary>
+        /// <returns></returns>
         public async Task<Client> CreateClient()
         {
             var client = new Client();

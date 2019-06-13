@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Nullafi.Domains.CommunicationVault
 {
+    /// <summary>
+    /// Communication Vault
+    /// </summary>
     public class CommunicationVault
     {
         public readonly Client Client;
@@ -16,6 +19,14 @@ namespace Nullafi.Domains.CommunicationVault
         public string MasterKey { get; set; }
         public EmailManager Email { get; private set; }
 
+        /// <summary>
+        /// Create an instance of CommunicationVault
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="vaultId"></param>
+        /// <param name="vaultName"></param>
+        /// <param name="masterKey"></param>
+        /// <returns></returns>
         private CommunicationVault(Client client, string vaultId, string vaultName, string masterKey)
         {
             Client = client;

@@ -7,11 +7,21 @@ namespace Nullafi.Domains.CommunicationVault.Managers.Email
     {
         private readonly CommunicationVault _vault;
 
+        /// <summary>
+        /// Create an instance of EmailManager
+        /// </summary>
+        /// <param name="vault"></param>
+        /// <returns></returns>
         public EmailManager(CommunicationVault vault)
         {
             _vault = vault;
         }
-
+        /// <summary>
+        /// Create a new Email to be aliased within communication vault
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="tags"></param>
+        /// <returns></returns>
         public async Task<EmailResponse> Create(string email, List<string> tags = null)
         {
             var result = _vault.Encrypt(email);
@@ -29,6 +39,11 @@ namespace Nullafi.Domains.CommunicationVault.Managers.Email
             return response;
         }
 
+        /// <summary>
+        /// Retrieve the Email alias from a communication vault. Returns an array of matching values. Array will be sorted by date created.
+        /// </summary>
+        /// <param name="aliasId"></param>
+        /// <returns></returns>
         public async Task<EmailResponse> Retrieve(string aliasId)
         {
             var response = await _vault.Client.Get<EmailResponse>($"/vault/communication/{_vault.VaultId}/email/{aliasId}");
@@ -36,6 +51,11 @@ namespace Nullafi.Domains.CommunicationVault.Managers.Email
             return response;
         }
 
+        /// <summary>
+        /// Delete the Email alias from communication vault
+        /// </summary>
+        /// <param name="aliasId"></param>
+        /// <returns></returns>
         public async Task Delete(string aliasId)
         {
             await _vault.Client.Delete($"/vault/communication/{_vault.VaultId}/email/{aliasId}");

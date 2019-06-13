@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NullafiSDK</name>
+    </assembly>
+    <members>
+        <member name="T:Nullafi.Client">
+            <summary>
+            Client class
+            </summary>
+        </member>
+        <member name="M:Nullafi.Client.Authenticate(System.String)">
+            <summary>
+            Authenticate the client API
+            </summary>
+            <param name="apiKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Client.CreateStaticVault(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new static vault
+            </summary>
+            <param name="name"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Client.RetrieveStaticVault(System.String,System.String)">
+            <summary>
+            retrieve an existing static vault
+            </summary>
+            <param name="vaultId"></param>
+            <param name="masterKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Client.CreateCommunicationVault(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new communication vault
+            </summary>
+            <param name="name"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Client.RetrieveCommunicationVault(System.String,System.String)">
+            <summary>
+            retrieve an existing communication vault
+            </summary>
+            <param name="vaultId"></param>
+            <param name="masterKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.CommunicationVault.Managers.Email.EmailManager.#ctor(Nullafi.Domains.CommunicationVault.CommunicationVault)">
+            <summary>
+            Create an instance of EmailManager
+            </summary>
+            <param name="vault"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.CommunicationVault.Managers.Email.EmailManager.Create(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new Email to be aliased within communication vault
+            </summary>
+            <param name="email"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.CommunicationVault.Managers.Email.EmailManager.Retrieve(System.String)">
+            <summary>
+            Retrieve the Email alias from a communication vault. Returns an array of matching values. Array will be sorted by date created.
+            </summary>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.CommunicationVault.Managers.Email.EmailManager.Delete(System.String)">
+            <summary>
+            Delete the Email alias from communication vault
+            </summary>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.NullafiSDK">
+            <summary>
+            NullafiSDK class
+            </summary>
+        </member>
+        <member name="M:Nullafi.NullafiSDK.#ctor(System.String)">
+            <summary>
+            Create an instance of NullafiSDK
+            </summary>
+            <param name="apiKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.NullafiSDK.CreateClient">
+            <summary>
+            Create a new instance of client
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
