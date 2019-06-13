@@ -6,7 +6,7 @@ namespace Nullafi.Tests.Services.Crypto
     [TestClass]
     public class HmacTests
     {
-        //Please follow the pattern "GivenX_WhenY_ShouldZ
+        //Please follow the pattern "GivenX_WhenY_ThenZ
         [TestMethod]
         public void WhenDoingEncryption_ShouldHashTheValue()
         {
