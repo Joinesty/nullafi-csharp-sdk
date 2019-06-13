@@ -21,7 +21,7 @@ namespace Nullafi.Domains.StaticVault
 {
     public class StaticVault
     {
-        public readonly Client Client;
+        internal readonly Client Client;
         private readonly Security _security;
 
         public string VaultId { get; set; }
@@ -75,18 +75,14 @@ namespace Nullafi.Domains.StaticVault
 
         public AesEncryptedData Encrypt(string value)
         {
-            var iv = _security.Aes.GenerateIv();
+            var iv = _security.Aes.GenerateStringIv();
             var byteMasterKey = Convert.FromBase64String(MasterKey);
-            return _security.Aes.Encrypt(byteMasterKey, iv, value);
+            return _security.Aes.Encrypt(MasterKey, iv, value);
         }
 
         public string Decrypt(string iv, string authTag, string value)
         {
-            var byteIv = Convert.FromBase64String(iv);
-            var byteAuthTag = Convert.FromBase64String(authTag);
-            var byteMasterKey = Convert.FromBase64String(MasterKey);
-
-            return _security.Aes.Decrypt(byteMasterKey, byteIv, byteAuthTag, value);
+            return _security.Aes.Decrypt(MasterKey, iv, authTag, value);
         }
 
         public static async Task<StaticVault> CreateStaticVault(Client client, string name, List<string> tags)

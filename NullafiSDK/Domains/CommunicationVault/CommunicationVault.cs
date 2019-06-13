@@ -34,18 +34,13 @@ namespace Nullafi.Domains.CommunicationVault
 
         public AesEncryptedData Encrypt(string value)
         {
-            var iv = _security.Aes.GenerateIv();
-            var byteMasterKey = Convert.FromBase64String(MasterKey);
-            return _security.Aes.Encrypt(byteMasterKey, iv, value);
+            var iv = _security.Aes.GenerateStringIv();
+            return _security.Aes.Encrypt(MasterKey, iv, value);
         }
 
         public string Decrypt(string iv, string authTag, string value)
         {
-            var byteIv = Convert.FromBase64String(iv);
-            var byteAuthTag = Convert.FromBase64String(authTag);
-            var byteMasterKey = Convert.FromBase64String(MasterKey);
-
-            return _security.Aes.Decrypt(byteMasterKey, byteIv, byteAuthTag, value);
+            return _security.Aes.Decrypt(MasterKey, iv, authTag, value);
         }
 
         public static async Task<CommunicationVault> CreateCommunicationVault(Client client, string name, List<string> tags)
@@ -63,11 +58,8 @@ namespace Nullafi.Domains.CommunicationVault
             var response = await client.Post<CommunicationVaultPayload, CommunicationVaultResponse>("/vault/communication", payload);
 
             var aesEncryptedMasterKey = rsaEphemeral.Decrypt(response.SessionKey);
-            var byteAesEncryptedMasterKey = Convert.FromBase64String(aesEncryptedMasterKey.Replace("\"", ""));
-            var byteIv = Convert.FromBase64String(response.Iv);
-            var byteAuthTag = Convert.FromBase64String(response.AuthTag);
             
-            var masterKey = Convert.ToBase64String(security.Aes.Decrypt(byteAesEncryptedMasterKey, byteIv, byteAuthTag, Convert.FromBase64String(response.MasterKey)));
+            var masterKey = security.Aes.Decrypt(aesEncryptedMasterKey.Replace("\"", ""), response.Iv, response.AuthTag, response.MasterKey, true);
 
             return new CommunicationVault(client, response.Id, response.Name, masterKey);
         }

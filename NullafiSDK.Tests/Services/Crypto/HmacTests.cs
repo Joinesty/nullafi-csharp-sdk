@@ -1,14 +1,14 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nullafi.Services.Crypto;
 
-namespace NullafiSDK.Tests.Services.Crypto
+namespace Nullafi.Tests.Services.Crypto
 {
     [TestClass]
     public class HmacTests
     {
         //Please follow the pattern "GivenX_WhenY_ShouldZ
         [TestMethod]
-        public void GivenString_WhenDoingEncryption_ShouldHashTheValue()
+        public void WhenDoingEncryption_ShouldHashTheValue()
         {
             const string plainString = "stringtohash";
             const string key = "key";

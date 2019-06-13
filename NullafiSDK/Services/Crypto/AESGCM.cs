@@ -18,7 +18,7 @@ namespace Nullafi.Services.Crypto
         public readonly int SecretKeyBitLength = 256;
         public readonly int IvBitLength = 128;
         
-        public byte[] GenerateMasterKey()
+        private byte[] GenerateMasterKey()
         {
             var key = new byte[SecretKeyBitLength / 8];
             _random.NextBytes(key);
@@ -30,7 +30,7 @@ namespace Nullafi.Services.Crypto
             return Convert.ToBase64String(GenerateMasterKey());
         }
 
-        public byte[] GenerateIv()
+        private byte[] GenerateIv()
         {
             var key = new byte[IvBitLength / 8];
             _random.NextBytes(key);
@@ -42,13 +42,13 @@ namespace Nullafi.Services.Crypto
             return Convert.ToBase64String(GenerateIv());
         }
 
-        public AesEncryptedData Encrypt(byte[] masterKey, byte[] iv, string plainText)
+        public AesEncryptedData Encrypt(string masterKey, string iv, string plainText)
         {
             var bytePlainText = Encoding.UTF8.GetBytes(plainText);
-            return Encrypt(masterKey, iv, bytePlainText);
+            return Encrypt(Convert.FromBase64String(masterKey), Convert.FromBase64String(iv), bytePlainText);
         }
 
-        public AesEncryptedData Encrypt(byte[] masterKey, byte[] iv, byte[] plainText)
+        private AesEncryptedData Encrypt(byte[] masterKey, byte[] iv, byte[] plainText)
         {
             var cipher = new GcmBlockCipher(new AesEngine());
             var parameters = new AeadParameters(new KeyParameter(masterKey), AuthTagBitLength, iv);
@@ -79,14 +79,20 @@ namespace Nullafi.Services.Crypto
             };
         }
 
-        public string Decrypt(byte[] masterKey, byte[] iv, byte[] authTag, string cipherText)
+        public string Decrypt(string masterKey, string iv, string authTag, string cipherText, bool returnBase64 = false)
         {
             var byteCipherText = Convert.FromBase64String(cipherText);
-            var bytePlainText = Decrypt(masterKey, iv, authTag, byteCipherText);
-            return bytePlainText == null ? null : Encoding.UTF8.GetString(bytePlainText).TrimEnd("\r\n\0".ToCharArray());
+            var bytePlainText = Decrypt(Convert.FromBase64String(masterKey), Convert.FromBase64String(iv), Convert.FromBase64String(authTag), byteCipherText);
+
+            if (bytePlainText == null)
+            {
+                return null;
+            }
+
+            return returnBase64 ? Convert.ToBase64String(bytePlainText) : Encoding.UTF8.GetString(bytePlainText).TrimEnd("\r\n\0".ToCharArray());
         }
 
-        public byte[] Decrypt(byte[] masterKey, byte[] iv, byte[] authKey, byte[] cipherText)
+        private byte[] Decrypt(byte[] masterKey, byte[] iv, byte[] authKey, byte[] cipherText)
         {
             var input = new byte[cipherText.Length + authKey.Length];
 

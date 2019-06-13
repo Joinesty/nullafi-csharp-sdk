@@ -9,6 +9,7 @@
     <PackageProjectUrl>https://github.com/Joinesty/nullafi-csharp-sdk</PackageProjectUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseUrl>https://github.com/Joinesty/nullafi-csharp-sdk/blob/master/LICENSE</PackageLicenseUrl>
+    <RootNamespace>Nullafi</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

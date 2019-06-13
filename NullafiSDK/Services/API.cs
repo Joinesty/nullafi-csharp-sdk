@@ -9,7 +9,7 @@ using System.Web;
 
 namespace Nullafi.Services
 {
-    public class Api
+    public abstract class Api
     {
         private static readonly HttpClient Client = new HttpClient();
         private static readonly JsonSerializerSettings SerializerSettings = new JsonSerializerSettings
@@ -22,7 +22,7 @@ namespace Nullafi.Services
         {
             if (Client.BaseAddress == null)
             {
-                Client.BaseAddress = new Uri("http://localhost:5000");
+                Client.BaseAddress = new Uri("https://dashboard-api.nullafi.com");
             }
 
             if (!Client.DefaultRequestHeaders.Contains("Accept"))
@@ -47,15 +47,15 @@ namespace Nullafi.Services
                              where p.GetValue(obj, null) != null
                              select p.Name + "=" + HttpUtility.UrlEncode(p.GetValue(obj, null).ToString());
 
-            return String.Join("&", properties.ToArray());
+            return string.Join("&", properties.ToArray());
         }
 
-        public async Task<TResponse> Get<TResponse>(string path)
+        internal async Task<TResponse> Get<TResponse>(string path)
         {
             return JsonConvert.DeserializeObject<TResponse>(await Client.GetStringAsync(path));
         }
 
-        public async Task<TResponse> Patch<TPayload, TResponse>(string path, TPayload data)
+        internal async Task<TResponse> Patch<TPayload, TResponse>(string path, TPayload data)
         {
             var content = new StringContent(JsonConvert.SerializeObject(data, SerializerSettings), Encoding.UTF8, "application/json");
             var response = await Client.PatchAsync(path, content);
@@ -63,7 +63,7 @@ namespace Nullafi.Services
             return JsonConvert.DeserializeObject<TResponse>(await response.Content.ReadAsStringAsync(), SerializerSettings);
         }
 
-        public async Task<TResponse> Post<TPayload, TResponse>(string path, TPayload data)
+        internal async Task<TResponse> Post<TPayload, TResponse>(string path, TPayload data)
         {
             var content = new StringContent(JsonConvert.SerializeObject(data, SerializerSettings), Encoding.UTF8, "application/json");
             var response = await Client.PostAsync(path, content);
@@ -71,7 +71,7 @@ namespace Nullafi.Services
             return JsonConvert.DeserializeObject<TResponse>(await response.Content.ReadAsStringAsync(), SerializerSettings);
         }
 
-        public async Task<TResponse> Put<TPayload, TResponse>(string path, TPayload data)
+        internal async Task<TResponse> Put<TPayload, TResponse>(string path, TPayload data)
         {
             var content = new StringContent(JsonConvert.SerializeObject(data, SerializerSettings), Encoding.UTF8, "application/json");
             var response = await Client.PutAsync(path, content);
@@ -79,7 +79,7 @@ namespace Nullafi.Services
             return JsonConvert.DeserializeObject<TResponse>(await response.Content.ReadAsStringAsync(), SerializerSettings);
         }
 
-        public async Task Delete(string path)
+        internal async Task Delete(string path)
         {
             var response = await Client.DeleteAsync(path);
             response.EnsureSuccessStatusCode();
