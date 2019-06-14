@@ -14,6 +14,7 @@ namespace Nullafi.Domains.CommunicationVault
         internal readonly Client Client;
         private readonly Security _security;
 
+
         public string VaultId { get; set; }
         public string VaultName { get; set; }
         public string MasterKey { get; set; }
@@ -49,7 +50,7 @@ namespace Nullafi.Domains.CommunicationVault
         }
 
         /// <summary>
-        /// Encrypt static aliases (before sending info to the API)
+        /// Encrypt communication aliases (before sending info to the API)
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -60,8 +61,10 @@ namespace Nullafi.Domains.CommunicationVault
         }
 
         /// <summary>
-        /// Decrypt static aliases
+        /// Decrypt communication aliases
         /// </summary>
+        /// <param name="iv"></param>
+        /// <param name="authTag"></param>
         /// <param name="value"></param>
         /// <returns></returns>
         public string Decrypt(string iv, string authTag, string value)

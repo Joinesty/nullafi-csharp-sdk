@@ -14,14 +14,26 @@ using Org.BouncyCastle.X509;
 namespace Nullafi.Services.Crypto
 {
 
+    /// <summary>
+    /// RSAManager
+    /// </summary>
     public class RSAManager
     {
+        /// <summary>
+        /// Decrypt object to a base64 string using a private key
+        /// </summary>
         public Func<string, string> Decrypt { get; set; }
         public string PublicKey { get; set; }
     }
 
+    /// <summary>
+    /// RSA
+    /// </summary>
     public class RSA
     {
+        /// <summary>
+        /// Create instance of RSAManager
+        /// </summary>
         public RSAManager RSAGenerateManager()
         {
             var keyGen = new RsaKeyPairGenerator();

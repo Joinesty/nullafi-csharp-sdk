@@ -19,14 +19,17 @@ using Nullafi.Domains.StaticVault.Managers.VehicleRegistration;
 
 namespace Nullafi.Domains.StaticVault
 {
+    /// <summary>
+    /// Communication Vault
+    /// </summary>
     public class StaticVault
     {
         internal readonly Client Client;
         private readonly Security _security;
 
-        public string VaultId { get; }
-        public string VaultName { get; }
-        public string MasterKey { get; }
+        public string VaultId { get; set; }
+        public string VaultName { get; set; }
+        public string MasterKey { get; set; }
 
         public AddressManager Address { get; }
         public DateOfBirthManager DateOfBirth { get; }
@@ -43,7 +46,14 @@ namespace Nullafi.Domains.StaticVault
         public TaxPayerManager TaxPayer { get; }
         public VehicleRegistrationManager VehicleRegistration { get; }
 
-
+        /// <summary>
+        /// Create an instance of StaticVault
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="vaultId"></param>
+        /// <param name="vaultName"></param>
+        /// <param name="masterKey"></param>
+        /// <returns></returns>
         private StaticVault(Client client, string vaultId, string vaultName, string masterKey)
         {
             Client = client;
@@ -68,11 +78,21 @@ namespace Nullafi.Domains.StaticVault
             VehicleRegistration = new VehicleRegistrationManager(this);
         }
 
+        /// <summary>
+        /// Generate a hash for the real data
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public string Hash(string value)
         {
             return _security.Hmac.Hash(value, Client.HashKey);
         }
 
+        /// <summary>
+        /// Encrypt static aliases (before sending info to the API)
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public AesEncryptedData Encrypt(string value)
         {
             var iv = _security.Aes.GenerateStringIv();
@@ -80,11 +100,25 @@ namespace Nullafi.Domains.StaticVault
             return _security.Aes.Encrypt(MasterKey, iv, value);
         }
 
+        /// <summary>
+        /// Decrypt static aliases
+        /// </summary>
+        /// <param name="iv"></param>
+        /// <param name="authTag"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public string Decrypt(string iv, string authTag, string value)
         {
             return _security.Aes.Decrypt(MasterKey, iv, authTag, value);
         }
 
+        /// <summary>
+        /// Create the API to create a new static vault
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="name"></param>
+        /// <param name="tags"></param>
+        /// <returns></returns>
         public static async Task<StaticVault> CreateStaticVault(Client client, string name, List<string> tags)
         {
             var security = new Security();
@@ -100,6 +134,13 @@ namespace Nullafi.Domains.StaticVault
             return new StaticVault(client, response.Id, response.Name, security.Aes.GenerateStringMasterKey());
         }
 
+        /// <summary>
+        /// Retrieve the static vault from id
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="vaultId"></param>
+        /// <param name="masterKey"></param>
+        /// <returns></returns>
         public static async Task<StaticVault> RetrieveStaticVault(Client client, string vaultId, string masterKey)
         {
             var response = await client.Get<StaticVaultResponse>($"/vault/static/{vaultId}");
