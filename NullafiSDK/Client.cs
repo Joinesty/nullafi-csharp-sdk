@@ -34,9 +34,9 @@ namespace Nullafi
         /// <param name="name"></param>
         /// <param name="tags"></param>
         /// <returns></returns>
-        public async Task<StaticVault> CreateStaticVault(string name, List<string> tags)
+        public async Task<StaticVault> CreateStaticVault(string name, List<string> tags = null)
         {
-            return await StaticVault.CreateStaticVault(this, name, null);
+            return await StaticVault.CreateStaticVault(this, name, tags);
         }
 
         /// <summary>
@@ -56,9 +56,9 @@ namespace Nullafi
         /// <param name="name"></param>
         /// <param name="tags"></param>
         /// <returns></returns>
-        public async Task<CommunicationVault> CreateCommunicationVault(string name, List<string> tags)
+        public async Task<CommunicationVault> CreateCommunicationVault(string name, List<string> tags = null)
         {
-            return await CommunicationVault.CreateCommunicationVault(this, name, null);
+            return await CommunicationVault.CreateCommunicationVault(this, name, tags);
         }
 
         /// <summary>

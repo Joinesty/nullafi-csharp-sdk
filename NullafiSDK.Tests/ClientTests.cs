@@ -8,6 +8,7 @@ using System.Linq;
 using WireMock.Server;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
+using System.Threading.Tasks;
 
 namespace Nullafi.Tests
 {
@@ -15,39 +16,30 @@ namespace Nullafi.Tests
     public class ClientTests
     {
         [TestMethod]
-        public async void GivenTheNeedToCommunicateWithAPI_WhenUsingTheSDK_ShouldAuthenticate()
+        public async Task GivenTheNeedToCommunicateWithAPI_WhenUsingTheSDK_ShouldAuthenticate()
         {
-            var hashKey = "some-hash-key";
-            FluentMockServer.Start("https://dashboard-api.nullafi.com")
-                .Given(Request.Create().WithPath("/authentication/token").UsingPost())
-                .RespondWith(
-                    Response.Create()
-                    .WithStatusCode(HttpStatusCode.OK)
-                    .WithBody(@"{ ""token"": ""some-token"", ""hashKey"": """ + hashKey + @""" }")
-                 );
-
             var client = new Client();
-            await client.Authenticate("API_KEY");
+            await client.Authenticate(Mock.API_KEY);
 
-            Assert.AreEqual(client.HashKey, "some-hash-key");
+            Assert.AreEqual(client.HashKey, Mock.HASH_KEY);
         }
 
         [TestMethod]
-        public async void GivenRequestToCreateStaticVault_WhenCreatingAStaticVault_ReturnAStaticVaultInstance()
+        public async Task GivenRequestToCreateStaticVault_WhenCreatingAStaticVault_ReturnAStaticVaultInstance()
         {
             var vaultId = "some-vault-id";
             var vaultName = "some-vault-name";
             var tags = new List<string> { "some-vault-tag-1", "some-vault-tag-2" };
 
-            FluentMockServer.Start("https://dashboard-api.nullafi.com")
-                .Given(Request.Create().WithPath("/vault/static").UsingPost())
-                .RespondWith(
-                    Response.Create()
-                    .WithStatusCode(HttpStatusCode.OK)
-                    .WithBody("{ \"id\": " + vaultId + "\"\", \"name\": \"" + vaultName + "\", \"tags\": [" + string.Join(",", tags.Select(x => $"\"{x}\"")) + "] }")
-                 );
+            Mock.Server.Given(Request.Create().WithPath("/vault/static").UsingPost())
+            .RespondWith(
+                Response.Create()
+                .WithStatusCode(HttpStatusCode.OK)
+                .WithBody("{ \"id\": \"" + vaultId + "\", \"name\": \"" + vaultName + "\", \"tags\": [" + string.Join(",", tags.Select(x => $"\"{x}\"")) + "] }")
+             );
 
             var client = new Client();
+            await client.Authenticate(Mock.API_KEY);
             var vault = await client.CreateStaticVault(vaultName, tags);
 
             Assert.AreEqual(vault.VaultId, vaultId);
@@ -69,6 +61,35 @@ namespace Nullafi.Tests
             Assert.IsNotNull(vault.Ssn);
             Assert.IsNotNull(vault.TaxPayer);
             Assert.IsNotNull(vault.VehicleRegistration);
+        }
+
+        [TestMethod]
+        public async Task GivenRequestToCreateCommunicationVault_WhenCreatingACommunicationVault_ReturnACommunicationVaultInstance()
+        {
+            var vaultId = "some-vault-id";
+            var vaultName = "some-vault-name";
+            var tags = new List<string> { "some-vault-tag-1", "some-vault-tag-2" };
+
+            Mock.Server.Given(Request.Create().WithPath("/vault/communication").UsingPost())
+            .RespondWith(
+                Response.Create()
+                .WithStatusCode(HttpStatusCode.OK)
+                .WithBody("{ \"id\": \"" + vaultId + "\", " +
+                            "\"name\": \"" + vaultName + "\", " +
+                            "\"tags\": [" + string.Join(",", tags.Select(x => $"\"{x}\"")) + "] " +
+                          "}")
+             );
+
+            var client = new Client();
+            await client.Authenticate(Mock.API_KEY);
+            var vault = await client.CreateCommunicationVault(vaultName, tags);
+
+            Assert.AreEqual(vault.VaultId, vaultId);
+            Assert.AreEqual(vault.VaultName, vaultName);
+
+            Assert.IsNotNull(vault.MasterKey);
+
+            Assert.IsNotNull(vault.Email);
         }
     }
 }

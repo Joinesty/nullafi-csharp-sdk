@@ -11,7 +11,7 @@ namespace Nullafi.Domains.CommunicationVault
     /// </summary>
     public class CommunicationVault
     {
-        public readonly Client Client;
+        internal readonly Client Client;
         private readonly Security _security;
 
         public string VaultId { get; set; }
@@ -76,7 +76,7 @@ namespace Nullafi.Domains.CommunicationVault
         /// <param name="name"></param>
         /// <param name="tags"></param>
         /// <returns></returns>
-        public static async Task<CommunicationVault> CreateCommunicationVault(Client client, string name, List<string> tags)
+        public static async Task<CommunicationVault> CreateCommunicationVault(Client client, string name, List<string> tags = null)
         {
             var security = new Security();
             var rsaEphemeral = security.RSA.RSAGenerateManager();

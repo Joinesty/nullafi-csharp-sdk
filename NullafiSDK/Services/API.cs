@@ -22,7 +22,7 @@ namespace Nullafi.Services
         {
             if (Client.BaseAddress == null)
             {
-                Client.BaseAddress = new Uri("https://dashboard-api.nullafi.com");
+                Client.BaseAddress = new Uri("http://localhost:5000");
             }
 
             if (!Client.DefaultRequestHeaders.Contains("Accept"))
