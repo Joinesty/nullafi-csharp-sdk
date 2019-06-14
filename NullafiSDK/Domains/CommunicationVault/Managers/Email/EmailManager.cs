@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 
 namespace Nullafi.Domains.CommunicationVault.Managers.Email
 {
+    /// <summary>
+    /// EmailManager
+    /// </summary>
     public class EmailManager
     {
         private readonly CommunicationVault _vault;

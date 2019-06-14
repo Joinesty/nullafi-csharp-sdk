@@ -4,20 +4,41 @@ using System.Threading.Tasks;
 
 namespace Nullafi.Domains.StaticVault.Managers.LastName
 {
+    /// <summary>
+    /// LastNameManager
+    /// </summary>
     public class LastNameManager
     {
         private readonly StaticVault _vault;
 
+        /// <summary>
+        /// Create an instance of LastNameManager
+        /// </summary>
+        /// <param name="vault"></param>
+        /// <returns></returns>
         public LastNameManager(StaticVault vault)
         {
             _vault = vault;
         }
 
+        /// <summary>
+        /// Create a new LastName string to be aliased within static vault
+        /// </summary>
+        /// <param name="lastname"></param>
+        /// <param name="tags"></param>
+        /// <returns></returns>
         public async Task<LastNameResponse> Create(string lastname, List<string> tags)
         {
             return await this.Create(lastname, null, tags);
         }
 
+        /// <summary>
+        /// Create a new LastName string to be aliased within static vault
+        /// </summary>
+        /// <param name="lastname"></param>
+        /// <param name="gender"></param>
+        /// <param name="tags"></param>
+        /// <returns></returns>
         public async Task<LastNameResponse> Create(string lastname, string gender = null, List<string> tags = null)
         {
             var result = _vault.Encrypt(lastname);
@@ -38,6 +59,11 @@ namespace Nullafi.Domains.StaticVault.Managers.LastName
             return response;
         }
 
+        /// <summary>
+        /// Retrieve the LastName string alias from a static vault. Returns an array of matching values. Array will be sorted by date created.
+        /// </summary>
+        /// <param name="aliasId"></param>
+        /// <returns></returns>
         public async Task<LastNameResponse> Retrieve(string aliasId)
         {
             var response = await _vault.Client.Get<LastNameResponse>($"/vault/static/{_vault.VaultId}/lastname/{aliasId}");
@@ -45,6 +71,11 @@ namespace Nullafi.Domains.StaticVault.Managers.LastName
             return response;
         }
 
+        /// <summary>
+        /// Delete the LastName alias from static vault
+        /// </summary>
+        /// <param name="aliasId"></param>
+        /// <returns></returns>
         public async Task Delete(string aliasId)
         {
             await _vault.Client.Delete($"/vault/static/{_vault.VaultId}/lastname/{aliasId}");
