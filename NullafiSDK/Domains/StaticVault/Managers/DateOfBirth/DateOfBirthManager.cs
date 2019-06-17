@@ -3,20 +3,43 @@ using System.Threading.Tasks;
 
 namespace Nullafi.Domains.StaticVault.Managers.DateOfBirth
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class DateOfBirthManager
     {
         private readonly StaticVault _vault;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vault"></param>
         public DateOfBirthManager(StaticVault vault)
         {
             _vault = vault;
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dateOfBirth"></param>
+        /// <param name="tags"></param>
+        /// <returns></returns>
         public async Task<DateOfBirthResponse> Create(string dateOfBirth, List<string> tags)
         {
             return await this.Create(dateOfBirth, null, null, tags);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dateOfBirth"></param>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <param name="tags"></param>
+        /// <returns></returns>
         public async Task<DateOfBirthResponse> Create(string dateOfBirth, int? year = null, int? month = null, List<string> tags = null)
         {
             var result = _vault.Encrypt(dateOfBirth);
@@ -38,6 +61,11 @@ namespace Nullafi.Domains.StaticVault.Managers.DateOfBirth
             return response;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aliasId"></param>
+        /// <returns></returns>
         public async Task<DateOfBirthResponse> Retrieve(string aliasId)
         {
             var response = await _vault.Client.Get<DateOfBirthResponse>($"/vault/static/{_vault.VaultId}/dateofbirth/{aliasId}");
@@ -45,6 +73,11 @@ namespace Nullafi.Domains.StaticVault.Managers.DateOfBirth
             return response;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aliasId"></param>
+        /// <returns></returns>
         public async Task Delete(string aliasId)
         {
             await _vault.Client.Delete($"/vault/static/{_vault.VaultId}/dateofbirth/{aliasId}");

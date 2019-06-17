@@ -18,7 +18,7 @@ namespace Nullafi.Services
             NullValueHandling = NullValueHandling.Ignore,
         };
 
-        public Api()
+        internal Api()
         {
             if (Client.BaseAddress == null)
             {

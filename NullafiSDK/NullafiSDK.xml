@@ -48,5 +48,433 @@
             <param name="masterKey"></param>
             <returns></returns>
         </member>
+        <member name="T:Nullafi.Domains.CommunicationVault.CommunicationVault">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.CommunicationVault.CommunicationVault.VaultId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.CommunicationVault.CommunicationVault.VaultName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.CommunicationVault.CommunicationVault.MasterKey">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.CommunicationVault.CommunicationVault.Email">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Nullafi.Domains.CommunicationVault.CommunicationVault.CreateCommunicationVault(Nullafi.Client,System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            
+            </summary>
+            <param name="client"></param>
+            <param name="name"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.CommunicationVault.CommunicationVault.RetrieveCommunicationVault(Nullafi.Client,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="client"></param>
+            <param name="vaultId"></param>
+            <param name="masterKey"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.Address.AddressManager">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Address.AddressManager.#ctor(Nullafi.Domains.StaticVault.StaticVault)">
+            <summary>
+            
+            </summary>
+            <param name="vault"></param>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Address.AddressManager.Create(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            
+            </summary>
+            <param name="address"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Address.AddressManager.Create(System.String,System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            
+            </summary>
+            <param name="address"></param>
+            <param name="state"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Address.AddressManager.Retrieve(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Address.AddressManager.Delete(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.Address.AddressRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Address.AddressRequest.Address">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Address.AddressRequest.AddressHash">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Address.AddressRequest.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Address.AddressRequest.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Address.AddressRequest.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.Address.AddressResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Address.AddressResponse.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Address.AddressResponse.Address">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Address.AddressResponse.AddressAlias">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Address.AddressResponse.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Address.AddressResponse.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Address.AddressResponse.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Address.AddressResponse.CreatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Address.AddressResponse.UpdatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthManager">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthManager.#ctor(Nullafi.Domains.StaticVault.StaticVault)">
+            <summary>
+            
+            </summary>
+            <param name="vault"></param>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthManager.Create(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            
+            </summary>
+            <param name="dateOfBirth"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthManager.Create(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Collections.Generic.List{System.String})">
+            <summary>
+            
+            </summary>
+            <param name="dateOfBirth"></param>
+            <param name="year"></param>
+            <param name="month"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthManager.Retrieve(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthManager.Delete(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthRequest.DateOfBirth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthRequest.DateOfBirthHash">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthRequest.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthRequest.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthRequest.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthResponse.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthResponse.DateOfBirth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthResponse.DateOfBirthAlias">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthResponse.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthResponse.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthResponse.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthResponse.CreatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthResponse.UpdatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.StaticVault">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.VaultId">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.VaultName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.MasterKey">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.Address">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.DateOfBirth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.DriversLicense">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.FirstName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.Gender">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.Generic">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.LastName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.Passport">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.PlaceOfBirth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.Race">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.Random">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.Ssn">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.TaxPayer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.VehicleRegistration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.StaticVault.CreateStaticVault(Nullafi.Client,System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            
+            </summary>
+            <param name="client"></param>
+            <param name="name"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.StaticVault.RetrieveStaticVault(Nullafi.Client,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="client"></param>
+            <param name="vaultId"></param>
+            <param name="masterKey"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.NullafiSDK">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Nullafi.NullafiSDK.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="apiKey"></param>
+        </member>
+        <member name="M:Nullafi.NullafiSDK.CreateClient">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.Security">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Security.Aes">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Security.RSA">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Security.Hmac">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Nullafi.Security.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
     </members>
 </doc>

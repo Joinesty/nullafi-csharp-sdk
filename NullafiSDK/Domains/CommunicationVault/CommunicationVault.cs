@@ -6,14 +6,32 @@ using System.Threading.Tasks;
 
 namespace Nullafi.Domains.CommunicationVault
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class CommunicationVault
     {
         internal readonly Client Client;
         private readonly Security _security;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string VaultId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string VaultName { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string MasterKey { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public EmailManager Email { get; private set; }
 
         private CommunicationVault(Client client, string vaultId, string vaultName, string masterKey)
@@ -32,17 +50,24 @@ namespace Nullafi.Domains.CommunicationVault
             return _security.Hmac.Hash(value, Client.HashKey);
         }
 
-        public AesEncryptedData Encrypt(string value)
+        internal AesEncryptedData Encrypt(string value)
         {
             var iv = _security.Aes.GenerateStringIv();
             return _security.Aes.Encrypt(MasterKey, iv, value);
         }
 
-        public string Decrypt(string iv, string authTag, string value)
+        internal string Decrypt(string iv, string authTag, string value)
         {
             return _security.Aes.Decrypt(MasterKey, iv, authTag, value);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="name"></param>
+        /// <param name="tags"></param>
+        /// <returns></returns>
         public static async Task<CommunicationVault> CreateCommunicationVault(Client client, string name, List<string> tags = null)
         {
             var security = new Security();
@@ -64,6 +89,13 @@ namespace Nullafi.Domains.CommunicationVault
             return new CommunicationVault(client, response.Id, response.Name, masterKey);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="vaultId"></param>
+        /// <param name="masterKey"></param>
+        /// <returns></returns>
         public static async Task<CommunicationVault> RetrieveCommunicationVault(Client client, string vaultId, string masterKey)
         {
             var response = await client.Get<CommunicationVaultResponse>($"/vault/communication/{vaultId}");
