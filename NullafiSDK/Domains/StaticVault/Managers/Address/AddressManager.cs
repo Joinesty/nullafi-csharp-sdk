@@ -14,7 +14,6 @@ namespace Nullafi.Domains.StaticVault.Managers.Address
         /// Create an instance of AddressManager
         /// </summary>
         /// <param name="vault"></param>
-        /// <returns></returns>
         public AddressManager(StaticVault vault)
         {
             _vault = vault;

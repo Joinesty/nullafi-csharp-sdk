@@ -14,11 +14,11 @@ namespace Nullafi.Domains.CommunicationVault.Managers.Email
         /// Create an instance of EmailManager
         /// </summary>
         /// <param name="vault"></param>
-        /// <returns></returns>
         public EmailManager(CommunicationVault vault)
         {
             _vault = vault;
         }
+
         /// <summary>
         /// Create a new Email to be aliased within communication vault
         /// </summary>

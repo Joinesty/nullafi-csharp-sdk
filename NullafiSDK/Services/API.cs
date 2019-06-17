@@ -25,7 +25,8 @@ namespace Nullafi.Services
         /// Create an instance of Api
         /// </summary>
         /// <returns></returns>
-        public Api()
+
+        internal Api()
         {
             if (Client.BaseAddress == null)
             {

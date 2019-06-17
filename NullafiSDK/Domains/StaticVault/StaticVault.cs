@@ -20,30 +20,96 @@ using Nullafi.Domains.StaticVault.Managers.VehicleRegistration;
 namespace Nullafi.Domains.StaticVault
 {
     /// <summary>
-    /// Communication Vault
+    /// Static Vault
     /// </summary>
     public class StaticVault
     {
         internal readonly Client Client;
         private readonly Security _security;
 
-        public string VaultId { get; set; }
-        public string VaultName { get; set; }
-        public string MasterKey { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string VaultId { get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public string VaultName { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string MasterKey { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public AddressManager Address { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public DateOfBirthManager DateOfBirth { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public DriversLicenseManager DriversLicense { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public FirstNameManager FirstName { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public GenderManager Gender { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public GenericManager Generic { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public LastNameManager LastName { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public PassportManager Passport { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public PlaceOfBirthManager PlaceOfBirth { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public RaceManager Race { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public RandomManager Random { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public SsnManager Ssn { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public TaxPayerManager TaxPayer { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public VehicleRegistrationManager VehicleRegistration { get; }
 
         /// <summary>
@@ -88,26 +154,14 @@ namespace Nullafi.Domains.StaticVault
             return _security.Hmac.Hash(value, Client.HashKey);
         }
 
-        /// <summary>
-        /// Encrypt static aliases (before sending info to the API)
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public AesEncryptedData Encrypt(string value)
+        internal AesEncryptedData Encrypt(string value)
         {
             var iv = _security.Aes.GenerateStringIv();
             var byteMasterKey = Convert.FromBase64String(MasterKey);
             return _security.Aes.Encrypt(MasterKey, iv, value);
         }
 
-        /// <summary>
-        /// Decrypt static aliases
-        /// </summary>
-        /// <param name="iv"></param>
-        /// <param name="authTag"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public string Decrypt(string iv, string authTag, string value)
+        internal string Decrypt(string iv, string authTag, string value)
         {
             return _security.Aes.Decrypt(MasterKey, iv, authTag, value);
         }

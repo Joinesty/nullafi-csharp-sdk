@@ -14,7 +14,6 @@ namespace Nullafi.Domains.StaticVault.Managers.DateOfBirth
         /// Create an instance of DateOfBirthManager
         /// </summary>
         /// <param name="vault"></param>
-        /// <returns></returns>
         public DateOfBirthManager(StaticVault vault)
         {
             _vault = vault;

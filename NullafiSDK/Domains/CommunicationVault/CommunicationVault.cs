@@ -14,10 +14,24 @@ namespace Nullafi.Domains.CommunicationVault
         internal readonly Client Client;
         private readonly Security _security;
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         public string VaultId { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string VaultName { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string MasterKey { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public EmailManager Email { get; private set; }
 
         /// <summary>
@@ -49,25 +63,13 @@ namespace Nullafi.Domains.CommunicationVault
             return _security.Hmac.Hash(value, Client.HashKey);
         }
 
-        /// <summary>
-        /// Encrypt communication aliases (before sending info to the API)
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public AesEncryptedData Encrypt(string value)
+        internal AesEncryptedData Encrypt(string value)
         {
             var iv = _security.Aes.GenerateStringIv();
             return _security.Aes.Encrypt(MasterKey, iv, value);
         }
 
-        /// <summary>
-        /// Decrypt communication aliases
-        /// </summary>
-        /// <param name="iv"></param>
-        /// <param name="authTag"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public string Decrypt(string iv, string authTag, string value)
+        internal string Decrypt(string iv, string authTag, string value)
         {
             return _security.Aes.Decrypt(MasterKey, iv, authTag, value);
         }
