@@ -1,8 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Nullafi.Services.Crypto;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Nullafi.Tests.Services.Crypto
 {

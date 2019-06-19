@@ -1,11 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Nullafi;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Net;
 using System.Linq;
-using WireMock.Server;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using System.Threading.Tasks;

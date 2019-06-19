@@ -1,12 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
-using WireMock.Server;
 
 namespace Nullafi.Tests.Domains.StaticVault
 {
