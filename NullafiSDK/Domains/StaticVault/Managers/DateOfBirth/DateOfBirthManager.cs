@@ -4,14 +4,14 @@ using System.Threading.Tasks;
 namespace Nullafi.Domains.StaticVault.Managers.DateOfBirth
 {
     /// <summary>
-    /// 
+    /// AddressManager
     /// </summary>
     public class DateOfBirthManager
     {
         private readonly StaticVault _vault;
 
         /// <summary>
-        /// 
+        /// Create an instance of DateOfBirthManager
         /// </summary>
         /// <param name="vault"></param>
         public DateOfBirthManager(StaticVault vault)
@@ -19,9 +19,8 @@ namespace Nullafi.Domains.StaticVault.Managers.DateOfBirth
             _vault = vault;
         }
 
-
         /// <summary>
-        /// 
+        /// Create a new DateOfBirth string to be aliased within static vault
         /// </summary>
         /// <param name="dateOfBirth"></param>
         /// <param name="tags"></param>
@@ -31,9 +30,8 @@ namespace Nullafi.Domains.StaticVault.Managers.DateOfBirth
             return await this.Create(dateOfBirth, null, null, tags);
         }
 
-
         /// <summary>
-        /// 
+        /// Create a new DateOfBirth string to be aliased within static vault
         /// </summary>
         /// <param name="dateOfBirth"></param>
         /// <param name="year"></param>
@@ -62,7 +60,7 @@ namespace Nullafi.Domains.StaticVault.Managers.DateOfBirth
         }
 
         /// <summary>
-        /// 
+        /// Retrieve the Address string alias from a static vault. Returns an array of matching values. Array will be sorted by date created.
         /// </summary>
         /// <param name="aliasId"></param>
         /// <returns></returns>
@@ -74,7 +72,7 @@ namespace Nullafi.Domains.StaticVault.Managers.DateOfBirth
         }
 
         /// <summary>
-        /// 
+        /// Delete the Address alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>
         /// <returns></returns>

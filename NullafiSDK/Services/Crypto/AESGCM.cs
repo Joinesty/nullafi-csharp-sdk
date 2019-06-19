@@ -10,6 +10,9 @@ using Nullafi.Models;
 namespace Nullafi.Services.Crypto
 {
 
+    /// <summary>
+    /// Aesgcm
+    /// </summary>
     public class Aesgcm
     {
         private readonly SecureRandom _random = new SecureRandom();
@@ -23,8 +26,12 @@ namespace Nullafi.Services.Crypto
             var key = new byte[SecretKeyBitLength / 8];
             _random.NextBytes(key);
             return key;
-        } 
+        }
 
+        /// <summary>
+        /// Generate masterkey to be used on AES encrypt/decrypt
+        /// </summary>
+        /// <returns></returns>
         public string GenerateStringMasterKey()
         {
             return Convert.ToBase64String(GenerateMasterKey());
@@ -37,11 +44,22 @@ namespace Nullafi.Services.Crypto
             return key;
         }
 
+        /// <summary>
+        /// Generate initialization vector to be used on AES encrypt/decrypt
+        /// </summary>
+        /// <returns></returns>
         public string GenerateStringIv()
         {
             return Convert.ToBase64String(GenerateIv());
         }
 
+        /// <summary>
+        /// Encrypt the data using AES GCM 256bit
+        /// </summary>
+        /// <param name="masterKey"></param>
+        /// <param name="iv"></param>
+        /// <param name="plainText"></param>
+        /// <returns></returns>
         public AesEncryptedData Encrypt(string masterKey, string iv, string plainText)
         {
             var bytePlainText = Encoding.UTF8.GetBytes(plainText);
@@ -79,6 +97,15 @@ namespace Nullafi.Services.Crypto
             };
         }
 
+        /// <summary>
+        /// Decrypt the data using AES GCM 256bit
+        /// </summary>
+        /// <param name="masterKey"></param>
+        /// <param name="iv"></param>
+        /// <param name="authTag"></param>
+        /// <param name="cipherText"></param>
+        /// <param name="returnBase64"></param>
+        /// <returns></returns>
         public string Decrypt(string masterKey, string iv, string authTag, string cipherText, bool returnBase64 = false)
         {
             var byteCipherText = Convert.FromBase64String(cipherText);

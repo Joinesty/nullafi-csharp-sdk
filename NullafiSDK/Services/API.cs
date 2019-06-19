@@ -9,6 +9,9 @@ using System.Web;
 
 namespace Nullafi.Services
 {
+    /// <summary>
+    /// Api
+    /// </summary>
     public abstract class Api
     {
         private static readonly HttpClient Client = new HttpClient();
@@ -17,6 +20,11 @@ namespace Nullafi.Services
             ContractResolver = new CamelCasePropertyNamesContractResolver(),
             NullValueHandling = NullValueHandling.Ignore,
         };
+
+        /// <summary>
+        /// Create an instance of Api
+        /// </summary>
+        /// <returns></returns>
 
         internal Api()
         {

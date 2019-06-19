@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Nullafi.Domains.CommunicationVault
 {
     /// <summary>
-    /// 
+    /// Communication Vault
     /// </summary>
     public class CommunicationVault
     {
@@ -34,6 +34,14 @@ namespace Nullafi.Domains.CommunicationVault
         /// </summary>
         public EmailManager Email { get; private set; }
 
+        /// <summary>
+        /// Create an instance of CommunicationVault
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="vaultId"></param>
+        /// <param name="vaultName"></param>
+        /// <param name="masterKey"></param>
+        /// <returns></returns>
         private CommunicationVault(Client client, string vaultId, string vaultName, string masterKey)
         {
             Client = client;
@@ -45,6 +53,11 @@ namespace Nullafi.Domains.CommunicationVault
             Email = new EmailManager(this);
         }
 
+        /// <summary>
+        /// Generate a hash for the real data
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public string Hash(string value)
         {
             return _security.Hmac.Hash(value, Client.HashKey);
@@ -62,7 +75,7 @@ namespace Nullafi.Domains.CommunicationVault
         }
 
         /// <summary>
-        /// 
+        /// Create the API to create a new communication vault
         /// </summary>
         /// <param name="client"></param>
         /// <param name="name"></param>
@@ -90,7 +103,7 @@ namespace Nullafi.Domains.CommunicationVault
         }
 
         /// <summary>
-        /// 
+        /// Retrieve the communication vault from id
         /// </summary>
         /// <param name="client"></param>
         /// <param name="vaultId"></param>

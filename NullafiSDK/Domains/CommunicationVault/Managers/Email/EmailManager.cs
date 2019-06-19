@@ -4,14 +4,14 @@ using System.Threading.Tasks;
 namespace Nullafi.Domains.CommunicationVault.Managers.Email
 {
     /// <summary>
-    /// 
+    /// EmailManager
     /// </summary>
     public class EmailManager
     {
         private readonly CommunicationVault _vault;
 
         /// <summary>
-        /// 
+        /// Create an instance of EmailManager
         /// </summary>
         /// <param name="vault"></param>
         public EmailManager(CommunicationVault vault)
@@ -20,7 +20,7 @@ namespace Nullafi.Domains.CommunicationVault.Managers.Email
         }
 
         /// <summary>
-        /// 
+        /// Create a new Email to be aliased within communication vault
         /// </summary>
         /// <param name="email"></param>
         /// <param name="tags"></param>
@@ -43,7 +43,7 @@ namespace Nullafi.Domains.CommunicationVault.Managers.Email
         }
 
         /// <summary>
-        /// 
+        /// Retrieve the Email alias from a communication vault. Returns an array of matching values. Array will be sorted by date created.
         /// </summary>
         /// <param name="aliasId"></param>
         /// <returns></returns>
@@ -55,7 +55,7 @@ namespace Nullafi.Domains.CommunicationVault.Managers.Email
         }
 
         /// <summary>
-        /// 
+        /// Delete the Email alias from communication vault
         /// </summary>
         /// <param name="aliasId"></param>
         /// <returns></returns>

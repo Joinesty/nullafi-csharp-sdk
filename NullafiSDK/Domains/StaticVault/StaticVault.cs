@@ -20,7 +20,7 @@ using Nullafi.Domains.StaticVault.Managers.VehicleRegistration;
 namespace Nullafi.Domains.StaticVault
 {
     /// <summary>
-    /// 
+    /// Static Vault
     /// </summary>
     public class StaticVault
     {
@@ -112,7 +112,14 @@ namespace Nullafi.Domains.StaticVault
         /// </summary>
         public VehicleRegistrationManager VehicleRegistration { get; }
 
-
+        /// <summary>
+        /// Create an instance of StaticVault
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="vaultId"></param>
+        /// <param name="vaultName"></param>
+        /// <param name="masterKey"></param>
+        /// <returns></returns>
         private StaticVault(Client client, string vaultId, string vaultName, string masterKey)
         {
             Client = client;
@@ -137,6 +144,11 @@ namespace Nullafi.Domains.StaticVault
             VehicleRegistration = new VehicleRegistrationManager(this);
         }
 
+        /// <summary>
+        /// Generate a hash for the real data
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public string Hash(string value)
         {
             return _security.Hmac.Hash(value, Client.HashKey);
@@ -155,7 +167,7 @@ namespace Nullafi.Domains.StaticVault
         }
 
         /// <summary>
-        /// 
+        /// Create the API to create a new static vault
         /// </summary>
         /// <param name="client"></param>
         /// <param name="name"></param>
@@ -177,7 +189,7 @@ namespace Nullafi.Domains.StaticVault
         }
 
         /// <summary>
-        /// 
+        /// Retrieve the static vault from id
         /// </summary>
         /// <param name="client"></param>
         /// <param name="vaultId"></param>

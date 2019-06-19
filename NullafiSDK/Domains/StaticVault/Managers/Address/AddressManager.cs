@@ -4,14 +4,14 @@ using System.Threading.Tasks;
 namespace Nullafi.Domains.StaticVault.Managers.Address
 {
     /// <summary>
-    /// 
+    /// AddressManager
     /// </summary>
     public class AddressManager
     {
         private readonly StaticVault _vault;
 
         /// <summary>
-        /// 
+        /// Create an instance of AddressManager
         /// </summary>
         /// <param name="vault"></param>
         public AddressManager(StaticVault vault)
@@ -20,7 +20,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Address
         }
 
         /// <summary>
-        /// 
+        /// Create a new Address string to be aliased for static vault
         /// </summary>
         /// <param name="address"></param>
         /// <param name="tags"></param>
@@ -31,7 +31,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Address
         }
 
         /// <summary>
-        /// 
+        /// Create a new Address string to be aliased for static vault
         /// </summary>
         /// <param name="address"></param>
         /// <param name="state"></param>
@@ -58,7 +58,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Address
         }
 
         /// <summary>
-        /// 
+        /// Retrieve the Address string alias from a static vault. Returns an array of matching values. Array will be sorted by date created.
         /// </summary>
         /// <param name="aliasId"></param>
         /// <returns></returns>
@@ -70,7 +70,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Address
         }
 
         /// <summary>
-        /// 
+        /// Delete the Address alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>
         /// <returns></returns>
