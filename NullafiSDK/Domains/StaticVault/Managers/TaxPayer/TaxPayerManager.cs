@@ -3,15 +3,29 @@ using System.Threading.Tasks;
 
 namespace Nullafi.Domains.StaticVault.Managers.TaxPayer
 {
+    /// <summary>
+    /// TaxPayer Manager
+    /// </summary>
     public class TaxPayerManager
     {
         private readonly StaticVault _vault;
 
+        /// <summary>
+        /// Create an instance of TaxPayer Manager
+        /// </summary>
+        /// <param name="vault"></param>
+        /// <returns></returns>
         public TaxPayerManager(StaticVault vault)
         {
             _vault = vault;
         }
 
+        /// <summary>
+        /// Create a new TaxPayer string to be aliased within static vault
+        /// </summary>
+        /// <param name="taxpayer"></param>
+        /// <param name="tags"></param>
+        /// <returns></returns>
         public async Task<TaxPayerResponse> Create(string taxpayer, List<string> tags = null)
         {
             var result = _vault.Encrypt(taxpayer);
@@ -29,6 +43,11 @@ namespace Nullafi.Domains.StaticVault.Managers.TaxPayer
             return response;
         }
 
+        /// <summary>
+        /// Retrieve the TaxPayer string alias from a static vault. Returns an array of matching values. Array will be sorted by date created.
+        /// </summary>
+        /// <param name="aliasId"></param>
+        /// <returns></returns>
         public async Task<TaxPayerResponse> Retrieve(string aliasId)
         {
             var response = await _vault.Client.Get<TaxPayerResponse>($"/vault/static/{_vault.VaultId}/taxpayer/{aliasId}");
@@ -36,6 +55,11 @@ namespace Nullafi.Domains.StaticVault.Managers.TaxPayer
             return response;
         }
 
+        /// <summary>
+        /// Delete the TaxPayer alias from static vault
+        /// </summary>
+        /// <param name="aliasId"></param>
+        /// <returns></returns>
         public async Task Delete(string aliasId)
         {
             await _vault.Client.Delete($"/vault/static/{_vault.VaultId}/taxpayer/{aliasId}");
