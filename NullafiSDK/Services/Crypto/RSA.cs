@@ -23,6 +23,10 @@ namespace Nullafi.Services.Crypto
         /// Decrypt object to a base64 string using a private key
         /// </summary>
         public Func<string, string> Decrypt { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string PublicKey { get; set; }
     }
 
@@ -39,9 +43,6 @@ namespace Nullafi.Services.Crypto
             var keyGen = new RsaKeyPairGenerator();
             keyGen.Init(new KeyGenerationParameters(new SecureRandom(), 2048));
             var keyPair = keyGen.GenerateKeyPair();
-
-            var secureString = new SecureString();
-
 
             Func<string, string> decrypt = (string encryptedValue) =>
             {
@@ -64,6 +65,5 @@ namespace Nullafi.Services.Crypto
                 PublicKey = stringWriter.ToString(),
             };
         }
-
     }
 }
