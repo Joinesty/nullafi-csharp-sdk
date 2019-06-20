@@ -106,7 +106,7 @@ namespace Nullafi.Services.Crypto
         /// <param name="cipherText"></param>
         /// <param name="returnBase64"></param>
         /// <returns></returns>
-        public string Decrypt(string masterKey, string iv, string authTag, string cipherText, bool returnBase64 = false)
+        public string Decrypt(string masterKey, string iv, string authTag, string cipherText)
         {
             var byteCipherText = Convert.FromBase64String(cipherText);
             var bytePlainText = Decrypt(Convert.FromBase64String(masterKey), Convert.FromBase64String(iv), Convert.FromBase64String(authTag), byteCipherText);
@@ -116,7 +116,7 @@ namespace Nullafi.Services.Crypto
                 return null;
             }
 
-            return returnBase64 ? Convert.ToBase64String(bytePlainText) : Encoding.UTF8.GetString(bytePlainText).TrimEnd("\r\n\0".ToCharArray());
+            return Encoding.UTF8.GetString(bytePlainText).TrimEnd("\r\n\0".ToCharArray());
         }
 
         private byte[] Decrypt(byte[] masterKey, byte[] iv, byte[] authKey, byte[] cipherText)
