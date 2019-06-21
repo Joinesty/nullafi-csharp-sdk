@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using System.Net;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
@@ -23,7 +24,11 @@ namespace Nullafi.Tests
                         .RespondWith(
                             Response.Create()
                             .WithStatusCode(HttpStatusCode.OK)
-                            .WithBody(@"{ ""token"": ""some-token"", ""hashKey"": """ + HASH_KEY + @""" }")
+                            .WithBody(JsonConvert.SerializeObject(new
+                            {
+                                Token = "some-token",
+                                HashKey = HASH_KEY
+                            }))
                          );
         }
 
