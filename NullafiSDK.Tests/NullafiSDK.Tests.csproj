@@ -19,8 +19,4 @@
     <ProjectReference Include="..\NullafiSDK\NullafiSDK.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Domains\CommuncationVault\" />
-  </ItemGroup>
-
 </Project>

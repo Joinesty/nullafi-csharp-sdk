@@ -24,15 +24,17 @@ namespace Nullafi.Domains.StaticVault.Managers.Generic
         /// Create a new Gender string to be aliased within static vault
         /// </summary>
         /// <param name="data"></param>
+        /// <param name="regexTemplate"></param>
         /// <param name="tags"></param>
         /// <returns></returns>
-        public async Task<GenericResponse> Create(string data, List<string> tags = null)
+        public async Task<GenericResponse> Create(string data, string regexTemplate, List<string> tags = null)
         {   
             var result = _vault.Encrypt(data);
             var payload = new GenericRequest
             {
                 Data = result.EncryptedData,
                 DataHash = _vault.Hash(data),
+                Template = regexTemplate,
                 Tags = tags,
                 Iv = result.Iv,
                 AuthTag = result.AuthTag

@@ -70,6 +70,51 @@ namespace Nullafi.Tests
         }
 
         [TestMethod]
+        public async Task GivenRequestToRetrieveStaticVault_WhenRetrievingAStaticVault_ReturnAStaticVaultInstance()
+        {
+            var vaultId = "some-vault-id";
+            var vaultName = "some-vault-name";
+            var tags = new List<string> { "some-vault-tag-1", "some-vault-tag-2" };
+
+            Mock.Server.Given(Request.Create().WithPath($"/vault/static/{vaultId}").UsingGet())
+          .RespondWith(
+              Response.Create()
+              .WithStatusCode(HttpStatusCode.OK)
+              .WithBody(JsonConvert.SerializeObject(new
+              {
+                  Id = vaultId,
+                  Name = vaultName,
+                  Tags = tags
+              }))
+              );
+
+            var security = new Security();
+            var client = new Client();
+            await client.Authenticate(Mock.API_KEY);
+            var vault = await client.RetrieveStaticVault(vaultId, security.Aes.GenerateStringMasterKey());
+
+            Assert.AreEqual(vault.VaultId, vaultId);
+            Assert.AreEqual(vault.VaultName, vaultName);
+
+            Assert.IsNotNull(vault.MasterKey);
+
+            Assert.IsNotNull(vault.Address);
+            Assert.IsNotNull(vault.DateOfBirth);
+            Assert.IsNotNull(vault.DriversLicense);
+            Assert.IsNotNull(vault.FirstName);
+            Assert.IsNotNull(vault.Gender);
+            Assert.IsNotNull(vault.Generic);
+            Assert.IsNotNull(vault.LastName);
+            Assert.IsNotNull(vault.Passport);
+            Assert.IsNotNull(vault.PlaceOfBirth);
+            Assert.IsNotNull(vault.Race);
+            Assert.IsNotNull(vault.Random);
+            Assert.IsNotNull(vault.Ssn);
+            Assert.IsNotNull(vault.TaxPayer);
+            Assert.IsNotNull(vault.VehicleRegistration);
+        }
+
+        [TestMethod]
         public async Task GivenRequestToCreateCommunicationVault_WhenCreatingACommunicationVault_ReturnACommunicationVaultInstance()
         {
             var vaultId = "some-vault-id";
@@ -112,5 +157,38 @@ namespace Nullafi.Tests
 
             Assert.IsNotNull(vault.Email);
         }
+
+        [TestMethod]
+        public async Task GivenRequestToRetrieveCommunicationVault_WhenRetrievingACommunicationVault_ReturnACommunicationVaultInstance()
+        {
+            var vaultId = "some-vault-id";
+            var vaultName = "some-vault-name";
+            var tags = new List<string> { "some-vault-tag-1", "some-vault-tag-2" };
+
+            Mock.Server.Given(Request.Create().WithPath($"/vault/communication/{vaultId}").UsingGet())
+          .RespondWith(
+              Response.Create()
+              .WithStatusCode(HttpStatusCode.OK)
+              .WithBody(JsonConvert.SerializeObject(new
+              {
+                  Id = vaultId,
+                  Name = vaultName,
+                  Tags = tags
+              }))
+              );
+
+            var security = new Security();
+            var client = new Client();
+            await client.Authenticate(Mock.API_KEY);
+            var vault = await client.RetrieveCommunicationVault(vaultId, security.Aes.GenerateStringMasterKey());
+
+            Assert.AreEqual(vault.VaultId, vaultId);
+            Assert.AreEqual(vault.VaultName, vaultName);
+
+            Assert.IsNotNull(vault.MasterKey);
+
+            Assert.IsNotNull(vault.Email);
+        }
+
     }
 }

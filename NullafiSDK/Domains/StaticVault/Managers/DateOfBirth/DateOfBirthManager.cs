@@ -50,9 +50,9 @@ namespace Nullafi.Domains.StaticVault.Managers.DateOfBirth
                 AuthTag = result.AuthTag
             };
 
-            var url = $"/vault/static/{_vault.VaultId}/dateofbirth";
-            if (year != null) url += $"year={year}&";
-            if (month != null) url += $"month={month}";
+            var url = $"/vault/static/{_vault.VaultId}/dateofbirth?";
+            if (year != null) url += $"year={year}";
+            if (month != null) url += year != null ? "&" : "" + $"month={month}";
 
             var response = await _vault.Client.Post<DateOfBirthRequest, DateOfBirthResponse>(url, payload);
             response.DateOfBirth = _vault.Decrypt(response.Iv, response.AuthTag, response.DateOfBirth);
