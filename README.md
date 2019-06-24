@@ -18,6 +18,8 @@ Getting Started
 To get started with the SDK as a new developer, one must create a developer account. Go to the 
 <a href="https://dashboard.nullafi.com/signup" target="_blank">Nullafi Signup Page</a>, and create a new developer account. As an account owner, you can retrieve the API key by going to the settings page, and selecting the 'API Key' tab. You may manage API key generation for the SDK from here. Create a new key and store the key value somewhere secure, as Nullafi will not store this key.
 
+The full documentation can be found <a href="NullafiSDK/NullafiSDK.md"> here </a>
+
 **Note:** Make sure to implement the nullafi-sdk in back end products only. Implementing the nullafi key on a front end product will expose the key to the public, and risk exposing private data. 
 
 ```c#
