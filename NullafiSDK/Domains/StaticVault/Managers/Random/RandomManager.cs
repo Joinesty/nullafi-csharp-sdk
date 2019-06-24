@@ -44,8 +44,12 @@ namespace Nullafi.Domains.StaticVault.Managers.Random
         }
 
         /// <summary>
-        /// Retrieve the Random string alias from a static vault. Returns an array of matching values. Array will be sorted by date created.
+        /// Retrieve the Random string alias from a static vault.
         /// </summary>
+        /// <remarks>
+        /// <para>Returns an array of matching values.</para>
+        /// <para>Array will be sorted by date created.</para>
+        /// </remarks>
         /// <param name="aliasId"></param>
         /// <returns></returns>
         public async Task<RandomResponse> Retrieve(string aliasId)

@@ -45,8 +45,12 @@ namespace Nullafi.Domains.StaticVault.Managers.Race
           }
 
         /// <summary>
-        /// Retrieve the race string alias from a static vault. Returns an array of matching values. Array will be sorted by date created.
+        /// Retrieve the race string alias from a static vault.
         /// </summary>
+        /// <remarks>
+        /// <para>Returns an array of matching values.</para>
+        /// <para>Array will be sorted by date created.</para>
+        /// </remarks>
         /// <param name="aliasId"></param>
         /// <returns></returns>
         public async Task<RaceResponse> Retrieve(string aliasId)
@@ -65,5 +69,5 @@ namespace Nullafi.Domains.StaticVault.Managers.Race
           {
             await _vault.Client.Delete($"/vault/static/{_vault.VaultId}/race/{aliasId}");
           }
-}
+    }
 }

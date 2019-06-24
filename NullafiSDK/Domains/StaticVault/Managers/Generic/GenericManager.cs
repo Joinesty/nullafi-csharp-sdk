@@ -44,8 +44,12 @@ namespace Nullafi.Domains.StaticVault.Managers.Generic
         }
 
         /// <summary>
-        /// Retrieve the Generic string alias from a static vault. Returns an array of matching values. Array will be sorted by date created.
+        /// Retrieve the Generic string alias from a static vault.
         /// </summary>
+        /// <remarks>
+        /// <para>Returns an array of matching values.</para>
+        /// <para>Array will be sorted by date created.</para>
+        /// </remarks>
         /// <param name="aliasId"></param>
         /// <returns></returns>
         public async Task<GenericResponse> Retrieve(string aliasId)
