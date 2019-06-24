@@ -12,6 +12,9 @@ namespace Nullafi
     /// </summary>
     public class Client : Api
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public string HashKey { get; private set; }
 
         /// <summary>

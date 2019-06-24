@@ -9,6 +9,11 @@
             Client class
             </summary>
         </member>
+        <member name="P:Nullafi.Client.HashKey">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:Nullafi.Client.Authenticate(System.String)">
             <summary>
             Authenticate the client API
@@ -1984,7 +1989,7 @@
             <param name="plainText"></param>
             <returns></returns>
         </member>
-        <member name="M:Nullafi.Services.Crypto.Aesgcm.Decrypt(System.String,System.String,System.String,System.String,System.Boolean)">
+        <member name="M:Nullafi.Services.Crypto.Aesgcm.Decrypt(System.String,System.String,System.String,System.String)">
             <summary>
             Decrypt the data using AES GCM 256bit
             </summary>

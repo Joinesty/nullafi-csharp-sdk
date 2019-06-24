@@ -20,35 +20,42 @@ To get started with the SDK as a new developer, one must create a developer acco
 
 **Note:** Make sure to implement the nullafi-sdk in back end products only. Implementing the nullafi key on a front end product will expose the key to the public, and risk exposing private data. 
 
-```js
-const NullafiSDK = require('nullafi-node-sdk');
+```c#
 
 //We recommend storing your key in a secure non-public facing env file
-const NULLAFI_API_KEY = ENV.fetch('NULLAFI_API_KEY')
+static readonly string API_KEY = Environment.GetEnvironmentVariable("NULLAFI_APIKEY");
 
 // Initialize the SDK with your API credentials
-const sdk = new NullafiSDK(NULLAFI_API_KEY);
+var SDK = new NullafiSDK(API_KEY);
 
 // Create a basic API client, which will also authenticate your client. 
 // Client authentication will expire after 60 minutes
-const client = await sdk.createClient();
+var client = await SDK.CreateClient();
 
 // Get your own user object from the Nullafi API
 // All client methods return a promise that resolves to the results of the API call,
 // or rejects when an error occurs
 // Adding tags is an important way to retrieve data
-const staticVault = await client.createStaticVault('my-static-vault', ['my-tag-1', 'my-tag-2']);
-const firstNameAliasObj = await staticVault.firstName.createFirstName('John', ['my-fName-tag1', 'my-fName-tag2']);
-console.log(firstNameAliasObj); 
+var staticVault = await client.createStaticVault('my-static-vault', ['my-tag-1', 'my-tag-2']);
+String name = "example";
+String gender = "male";
+FirstNameResponse created = await vault.FirstName.Create(name, gender);
+
+Console.WriteLine("//// FirstNameExample.CreateWithGender:");
+Console.WriteLine("/// Name: " + name);
+Console.WriteLine(created);
 /*
-	output example:
-	{ 
-		id: 'e490157b23534215b0369a2685aab47g', 
-		firstname: 'John',
-		firstnameAlias: 'blssVzRzdnP9uEi5WDrFGW7y0JELl7aLKMyKeOyChlk=', 
-		tags: ['my-fName-tag1', 'my-fName-tag2'], 
-		createdAt: '2018-07-13 T01:00:00Z' 
-	}
+//// FirstNameExample.CreateWithGender:
+/// Name: example
+{	
+	"Id":"28afbd3d-05d4-4357-962d-ed562c49b776",
+	"firstname":"example",
+	"firstnameAlias":"Cameron",
+	"Iv":"0SK+dWKGlX1mkK+veDarHw==",
+	"AuthTag":"D9GcqI+WzlHfYr0u9ff04g==",
+	"Tags":null,
+	"CreatedAt":"2019-06-24T14:24:07.018Z"
+}
 */
 ```
 
