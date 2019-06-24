@@ -38,7 +38,7 @@ var client = await SDK.CreateClient();
 // All client methods return a promise that resolves to the results of the API call,
 // or rejects when an error occurs
 // Adding tags is an important way to retrieve data
-var staticVault = await client.createStaticVault('my-static-vault', ['my-tag-1', 'my-tag-2']);
+var staticVault = await client.createStaticVault("my-static-vault",  new[] {"my-tag-1", "my-tag-2" });
 String name = "example";
 String gender = "male";
 FirstNameResponse created = await vault.FirstName.Create(name, gender);
@@ -55,7 +55,7 @@ Console.WriteLine(created);
 	"firstnameAlias":"Cameron",
 	"Iv":"0SK+dWKGlX1mkK+veDarHw==",
 	"AuthTag":"D9GcqI+WzlHfYr0u9ff04g==",
-	"Tags":null,
+	"Tags":['my-tag-1', 'my-tag-2'],
 	"CreatedAt":"2019-06-24T14:24:07.018Z"
 }
 */
