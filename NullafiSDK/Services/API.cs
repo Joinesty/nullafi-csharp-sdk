@@ -30,7 +30,13 @@ namespace Nullafi.Services
         {
             if (Client.BaseAddress == null)
             {
-                Client.BaseAddress = new Uri("http://localhost:5000");
+                var apiUrl = System.Environment.GetEnvironmentVariable("NULLAFI_API_URL");
+                if (string.IsNullOrWhiteSpace(apiUrl))
+                {
+                    apiUrl = "https://enterprise-api.nullafi.com";
+                }
+
+                Client.BaseAddress = new Uri(apiUrl);
             }
 
             if (!Client.DefaultRequestHeaders.Contains("Accept"))

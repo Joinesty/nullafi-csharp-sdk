@@ -97,7 +97,7 @@ namespace Nullafi.Domains.CommunicationVault
 
             var aesEncryptedMasterKey = rsaEphemeral.Decrypt(response.SessionKey);
             
-            var masterKey = security.Aes.Decrypt(aesEncryptedMasterKey.Replace("\"", ""), response.Iv, response.AuthTag, response.MasterKey, true);
+            var masterKey = security.Aes.Decrypt(aesEncryptedMasterKey.Replace("\"", ""), response.Iv, response.AuthTag, response.MasterKey);
 
             return new CommunicationVault(client, response.Id, response.Name, masterKey);
         }

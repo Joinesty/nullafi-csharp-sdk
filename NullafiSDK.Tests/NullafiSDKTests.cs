@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 
@@ -16,7 +17,11 @@ namespace Nullafi.Tests
             .RespondWith(
                 Response.Create()
                 .WithStatusCode(HttpStatusCode.OK)
-                .WithBody("{ \"token\": \"some-token\", \"hashKey\": \"some-hash-key\" }")
+                .WithBody(JsonConvert.SerializeObject(new
+                {
+                    Token = "some-token",
+                    HashKey = "some-hash-key",
+                }))
             );
 
             var sdk = new NullafiSDK("API_KEY");
