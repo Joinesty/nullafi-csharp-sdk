@@ -20,6 +20,12 @@ namespace Nullafi.Domains.StaticVault.Managers.Generic
         /// <summary>
         /// 
         /// </summary>
+        public string Template { get; set; }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string Iv { get; set; }
 
         /// <summary>
