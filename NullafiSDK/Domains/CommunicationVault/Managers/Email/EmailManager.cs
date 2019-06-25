@@ -43,8 +43,12 @@ namespace Nullafi.Domains.CommunicationVault.Managers.Email
         }
 
         /// <summary>
-        /// Retrieve the Email alias from a communication vault. Returns an array of matching values. Array will be sorted by date created.
+        /// Retrieve the Email alias from a communication vault.
         /// </summary>
+        /// <remarks>
+        /// <para>Returns an array of matching values.</para>
+        /// <para>Array will be sorted by date created.</para>
+        /// </remarks>
         /// <param name="aliasId"></param>
         /// <returns></returns>
         public async Task<EmailResponse> Retrieve(string aliasId)

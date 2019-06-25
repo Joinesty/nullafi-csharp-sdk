@@ -15,7 +15,6 @@ namespace Nullafi.Domains.StaticVault.Managers.DriversLicense
         /// Create an instance of DriversLicenseManager
         /// </summary>
         /// <param name="vault"></param>
-        /// <returns></returns>
         public DriversLicenseManager(StaticVault vault)
         {
             _vault = vault;
@@ -26,7 +25,7 @@ namespace Nullafi.Domains.StaticVault.Managers.DriversLicense
         /// </summary>
         /// <param name="driversLicense"></param>
         /// <param name="tags"></param>
-        /// <returns></returns>
+        /// <returns>id, driversLicense, driversLicenseAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<DriversLicenseResponse> Create(string driversLicense, List<string> tags)
         {
             return await this.Create(driversLicense, null, tags);
@@ -38,7 +37,7 @@ namespace Nullafi.Domains.StaticVault.Managers.DriversLicense
         /// <param name="driversLicense"></param>
         /// <param name="state"></param>
         /// <param name="tags"></param>
-        /// <returns></returns>
+        /// <returns>id, driversLicense, driversLicenseAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<DriversLicenseResponse> Create(string driversLicense, string state = null, List<string> tags = null)
         {
             var result = _vault.Encrypt(driversLicense);
@@ -60,10 +59,14 @@ namespace Nullafi.Domains.StaticVault.Managers.DriversLicense
         }
 
         /// <summary>
-        /// Retrieve the DriversLicense string alias from a static vault. Returns an array of matching values. Array will be sorted by date created.
+        /// Retrieve the DriversLicense string alias from a static vault.
         /// </summary>
+        /// <remarks>
+        /// <para>Returns an array of matching values.</para>
+        /// <para>Array will be sorted by date created.</para>
+        /// </remarks>
         /// <param name="aliasId"></param>
-        /// <returns></returns>
+        /// <returns>id, driversLicense, driversLicenseAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<DriversLicenseResponse> Retrieve(string aliasId)
         {
             var response = await _vault.Client.Get<DriversLicenseResponse>($"/vault/static/{_vault.VaultId}/driverslicense/{aliasId}");
@@ -98,7 +101,7 @@ namespace Nullafi.Domains.StaticVault.Managers.DriversLicense
         /// Delete the DriversLicense alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>
-        /// <returns></returns>
+        /// <returns>ok</returns>
         public async Task Delete(string aliasId)
         {
             await _vault.Client.Delete($"/vault/static/{_vault.VaultId}/driverslicense/{aliasId}");

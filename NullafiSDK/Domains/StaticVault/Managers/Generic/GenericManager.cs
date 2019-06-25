@@ -14,7 +14,6 @@ namespace Nullafi.Domains.StaticVault.Managers.Generic
         /// Create an instance of GenericManager
         /// </summary>
         /// <param name="vault"></param>
-        /// <returns></returns>
         public GenericManager(StaticVault vault)
         {
           _vault = vault;
@@ -26,7 +25,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Generic
         /// <param name="data"></param>
         /// <param name="regexTemplate"></param>
         /// <param name="tags"></param>
-        /// <returns></returns>
+        /// <returns>id, generic, genericAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<GenericResponse> Create(string data, string regexTemplate, List<string> tags = null)
         {   
             var result = _vault.Encrypt(data);
@@ -46,10 +45,14 @@ namespace Nullafi.Domains.StaticVault.Managers.Generic
         }
 
         /// <summary>
-        /// Retrieve the Generic string alias from a static vault. Returns an array of matching values. Array will be sorted by date created.
+        /// Retrieve the Generic string alias from a static vault.
         /// </summary>
+        /// <remarks>
+        /// <para>Returns an array of matching values.</para>
+        /// <para>Array will be sorted by date created.</para>
+        /// </remarks>
         /// <param name="aliasId"></param>
-        /// <returns></returns>
+        /// <returns>id, generic, genericAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<GenericResponse> Retrieve(string aliasId)
         {
             var response = await _vault.Client.Get<GenericResponse>($"/vault/static/{_vault.VaultId}/generic/{aliasId}");
@@ -84,7 +87,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Generic
         /// Delete the Generic alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>
-        /// <returns></returns>
+        /// <returns>ok</returns>
         public async Task Delete(string aliasId)
         {
             await _vault.Client.Delete($"/vault/static/{_vault.VaultId}/gender/{aliasId}");

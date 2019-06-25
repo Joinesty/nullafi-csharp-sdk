@@ -1,0 +1,2128 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NullafiSDK</name>
+    </assembly>
+    <members>
+        <member name="T:Nullafi.Client">
+            <summary>
+            Client class
+            </summary>
+        </member>
+        <member name="M:Nullafi.Client.Authenticate(System.String)">
+            <summary>
+            Authenticate the client API
+            </summary>
+            <param name="apiKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Client.CreateStaticVault(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new static vault
+            </summary>
+            <param name="name"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Client.RetrieveStaticVault(System.String,System.String)">
+            <summary>
+            retrieve an existing static vault
+            </summary>
+            <param name="vaultId"></param>
+            <param name="masterKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Client.CreateCommunicationVault(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new communication vault
+            </summary>
+            <param name="name"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Client.RetrieveCommunicationVault(System.String,System.String)">
+            <summary>
+            retrieve an existing communication vault
+            </summary>
+            <param name="vaultId"></param>
+            <param name="masterKey"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.Domains.CommunicationVault.CommunicationVault">
+            <summary>
+            Communication Vault
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.CommunicationVault.CommunicationVault.VaultId">
+            <summary>
+            Id of vault instantiated 
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.CommunicationVault.CommunicationVault.VaultName">
+            <summary>
+            Name of vault instantiated
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.CommunicationVault.CommunicationVault.MasterKey">
+            <summary>
+            Master key to vault instantiated
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.CommunicationVault.CommunicationVault.Email">
+            <summary>
+            Email Manager to create aliases
+            </summary>
+        </member>
+        <member name="M:Nullafi.Domains.CommunicationVault.CommunicationVault.#ctor(Nullafi.Client,System.String,System.String,System.String)">
+            <summary>
+            Create an instance of CommunicationVault
+            </summary>
+            <param name="client"></param>
+            <param name="vaultId"></param>
+            <param name="vaultName"></param>
+            <param name="masterKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.CommunicationVault.CommunicationVault.Hash(System.String)">
+            <summary>
+            Generate a hash for the real data
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.CommunicationVault.CommunicationVault.CreateCommunicationVault(Nullafi.Client,System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create the API to create a new communication vault
+            </summary>
+            <param name="client"></param>
+            <param name="name"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.CommunicationVault.CommunicationVault.RetrieveCommunicationVault(Nullafi.Client,System.String,System.String)">
+            <summary>
+            Retrieve the communication vault from id
+            </summary>
+            <param name="client"></param>
+            <param name="vaultId"></param>
+            <param name="masterKey"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.Domains.CommunicationVault.Managers.Email.EmailManager">
+            <summary>
+            EmailManager
+            </summary>
+        </member>
+        <member name="M:Nullafi.Domains.CommunicationVault.Managers.Email.EmailManager.#ctor(Nullafi.Domains.CommunicationVault.CommunicationVault)">
+            <summary>
+            Create an instance of EmailManager
+            </summary>
+            <param name="vault"></param>
+        </member>
+        <member name="M:Nullafi.Domains.CommunicationVault.Managers.Email.EmailManager.Create(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new Email to be aliased within communication vault
+            </summary>
+            <param name="email"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.CommunicationVault.Managers.Email.EmailManager.Retrieve(System.String)">
+            <summary>
+            Retrieve the Email alias from a communication vault.
+            </summary>
+            <remarks>
+            <para>Returns an array of matching values.</para>
+            <para>Array will be sorted by date created.</para>
+            </remarks>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.CommunicationVault.Managers.Email.EmailManager.Delete(System.String)">
+            <summary>
+            Delete the Email alias from communication vault
+            </summary>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.Domains.CommunicationVault.Managers.Email.EmailRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.CommunicationVault.Managers.Email.EmailRequest.Email">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.CommunicationVault.Managers.Email.EmailRequest.EmailHash">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.CommunicationVault.Managers.Email.EmailRequest.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.CommunicationVault.Managers.Email.EmailRequest.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.CommunicationVault.Managers.Email.EmailRequest.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.CommunicationVault.Managers.Email.EmailResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.CommunicationVault.Managers.Email.EmailResponse.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.CommunicationVault.Managers.Email.EmailResponse.Email">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.CommunicationVault.Managers.Email.EmailResponse.EmailAlias">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.CommunicationVault.Managers.Email.EmailResponse.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.CommunicationVault.Managers.Email.EmailResponse.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.CommunicationVault.Managers.Email.EmailResponse.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.CommunicationVault.Managers.Email.EmailResponse.CreatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.CommunicationVault.Managers.Email.EmailResponse.UpdatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.Address.AddressManager">
+            <summary>
+            AddressManager
+            </summary>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Address.AddressManager.#ctor(Nullafi.Domains.StaticVault.StaticVault)">
+            <summary>
+            Create an instance of AddressManager
+            </summary>
+            <param name="vault"></param>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Address.AddressManager.Create(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new Address string to be aliased for static vault
+            </summary>
+            <param name="address"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Address.AddressManager.Create(System.String,System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new Address string to be aliased for static vault
+            </summary>
+            <param name="address"></param>
+            <param name="state"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Address.AddressManager.Retrieve(System.String)">
+            <summary>
+            Retrieve the Address string alias from a static vault.
+            </summary>
+            <remarks>
+            <para>Returns an array of matching values.</para>
+            <para>Array will be sorted by date created.</para>
+            </remarks>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Address.AddressManager.Delete(System.String)">
+            <summary>
+            Delete the Address alias from static vault
+            </summary>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.Address.AddressRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Address.AddressRequest.Address">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Address.AddressRequest.AddressHash">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Address.AddressRequest.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Address.AddressRequest.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Address.AddressRequest.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.Address.AddressResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Address.AddressResponse.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Address.AddressResponse.Address">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Address.AddressResponse.AddressAlias">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Address.AddressResponse.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Address.AddressResponse.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Address.AddressResponse.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Address.AddressResponse.CreatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Address.AddressResponse.UpdatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthManager">
+            <summary>
+            AddressManager
+            </summary>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthManager.#ctor(Nullafi.Domains.StaticVault.StaticVault)">
+            <summary>
+            Create an instance of DateOfBirthManager
+            </summary>
+            <param name="vault"></param>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthManager.Create(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new DateOfBirth string to be aliased within static vault
+            </summary>
+            <param name="dateOfBirth"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthManager.Create(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new DateOfBirth string to be aliased within static vault
+            </summary>
+            <param name="dateOfBirth"></param>
+            <param name="year"></param>
+            <param name="month"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthManager.Retrieve(System.String)">
+            <summary>
+            Retrieve the Address string alias from a static vault.
+            </summary>
+            <remarks>
+            <para>Returns an array of matching values.</para>
+            <para>Array will be sorted by date created.</para>
+            </remarks>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthManager.Delete(System.String)">
+            <summary>
+            Delete the Address alias from static vault
+            </summary>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthRequest.DateOfBirth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthRequest.DateOfBirthHash">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthRequest.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthRequest.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthRequest.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthResponse.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthResponse.DateOfBirth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthResponse.DateOfBirthAlias">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthResponse.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthResponse.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthResponse.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthResponse.CreatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthResponse.UpdatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseManager">
+            <summary>
+            DateOfBirthManager
+            </summary>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseManager.#ctor(Nullafi.Domains.StaticVault.StaticVault)">
+            <summary>
+            Create an instance of DriversLicenseManager
+            </summary>
+            <param name="vault"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseManager.Create(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new DriversLicense string to be aliased within static vault
+            </summary>
+            <param name="driversLicense"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseManager.Create(System.String,System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new DriversLicense string to be aliased within static vault
+            </summary>
+            <param name="driversLicense"></param>
+            <param name="state"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseManager.Retrieve(System.String)">
+            <summary>
+            Retrieve the DriversLicense string alias from a static vault.
+            </summary>
+            <remarks>
+            <para>Returns an array of matching values.</para>
+            <para>Array will be sorted by date created.</para>
+            </remarks>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseManager.Delete(System.String)">
+            <summary>
+            Delete the DriversLicense alias from static vault
+            </summary>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseRequest.DriversLicense">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseRequest.DriversLicenseHash">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseRequest.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseRequest.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseRequest.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseResponse.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseResponse.DriversLicense">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseResponse.DriversLicenseAlias">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseResponse.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseResponse.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseResponse.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseResponse.CreatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseResponse.UpdatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameManager">
+            <summary>
+            Create an instance of FirstNameManager
+            </summary>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameManager.#ctor(Nullafi.Domains.StaticVault.StaticVault)">
+            <summary>
+            Create an instance of FirstNameManager
+            </summary>
+            <param name="vault"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameManager.Create(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new FirstName string to be aliased within static vault
+            </summary>
+            <param name="firstname"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameManager.Create(System.String,System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new FirstName string to be aliased within static vault
+            </summary>
+            <param name="firstname"></param>
+            <param name="gender"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameManager.Retrieve(System.String)">
+            <summary>
+            Retrieve the FirstName string alias from a static vault.
+            </summary>
+            <remarks>
+            <para>Returns an array of matching values.</para>
+            <para>Array will be sorted by date created.</para>
+            </remarks>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameManager.Delete(System.String)">
+            <summary>
+            Delete the FirstName alias from static vault
+            </summary>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameRequest.FirstName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameRequest.FirstNameHash">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameRequest.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameRequest.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameRequest.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameResponse.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameResponse.FirstName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameResponse.FirstNameAlias">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameResponse.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameResponse.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameResponse.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameResponse.CreatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameResponse.UpdatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.Gender.GenderManager">
+            <summary>
+            FirstNameManager
+            </summary>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Gender.GenderManager.#ctor(Nullafi.Domains.StaticVault.StaticVault)">
+            <summary>
+            Create an instance of GenderManager
+            </summary>
+            <param name="vault"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Gender.GenderManager.Create(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new Gender string to be aliased within static vault
+            </summary>
+            <param name="gender"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Gender.GenderManager.Retrieve(System.String)">
+            <summary>
+            Retrieve the Gender string alias from a static vault.
+            </summary>
+            <remarks>
+            <para>Returns an array of matching values.</para>
+            <para>Array will be sorted by date created.</para>
+            </remarks>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Gender.GenderManager.Delete(System.String)">
+            <summary>
+            Delete the Gender alias from static vault
+            </summary>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.Gender.GenderRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Gender.GenderRequest.Gender">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Gender.GenderRequest.GenderHash">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Gender.GenderRequest.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Gender.GenderRequest.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Gender.GenderRequest.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.Gender.GenderResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Gender.GenderResponse.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Gender.GenderResponse.Gender">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Gender.GenderResponse.GenderAlias">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Gender.GenderResponse.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Gender.GenderResponse.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Gender.GenderResponse.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Gender.GenderResponse.CreatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Gender.GenderResponse.UpdatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.Generic.GenericManager">
+            <summary>
+            GenericManager
+            </summary>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Generic.GenericManager.#ctor(Nullafi.Domains.StaticVault.StaticVault)">
+            <summary>
+            Create an instance of GenericManager
+            </summary>
+            <param name="vault"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Generic.GenericManager.Create(System.String,System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new Gender string to be aliased within static vault
+            </summary>
+            <param name="data"></param>
+            <param name="regexTemplate"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Generic.GenericManager.Retrieve(System.String)">
+            <summary>
+            Retrieve the Generic string alias from a static vault.
+            </summary>
+            <remarks>
+            <para>Returns an array of matching values.</para>
+            <para>Array will be sorted by date created.</para>
+            </remarks>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Generic.GenericManager.Delete(System.String)">
+            <summary>
+            Delete the Generic alias from static vault
+            </summary>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.Generic.GenericRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Generic.GenericRequest.Data">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Generic.GenericRequest.DataHash">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Generic.GenericRequest.Template">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Generic.GenericRequest.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Generic.GenericRequest.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Generic.GenericRequest.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.Generic.GenericResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Generic.GenericResponse.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Generic.GenericResponse.Data">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Generic.GenericResponse.Alias">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Generic.GenericResponse.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Generic.GenericResponse.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Generic.GenericResponse.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Generic.GenericResponse.CreatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Generic.GenericResponse.UpdatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.LastName.LastNameManager">
+            <summary>
+            LastNameManager
+            </summary>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.LastName.LastNameManager.#ctor(Nullafi.Domains.StaticVault.StaticVault)">
+            <summary>
+            Create an instance of LastNameManager
+            </summary>
+            <param name="vault"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.LastName.LastNameManager.Create(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new LastName string to be aliased within static vault
+            </summary>
+            <param name="lastname"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.LastName.LastNameManager.Create(System.String,System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new LastName string to be aliased within static vault
+            </summary>
+            <param name="lastname"></param>
+            <param name="gender"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.LastName.LastNameManager.Retrieve(System.String)">
+            <summary>
+            Retrieve the LastName string alias from a static vault.
+            </summary>
+            <remarks>
+            <para>Returns an array of matching values.</para>
+            <para>Array will be sorted by date created.</para>
+            </remarks>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.LastName.LastNameManager.Delete(System.String)">
+            <summary>
+            Delete the LastName alias from static vault
+            </summary>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.LastName.LastNameRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.LastName.LastNameRequest.LastName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.LastName.LastNameRequest.LastNameHash">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.LastName.LastNameRequest.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.LastName.LastNameRequest.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.LastName.LastNameRequest.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.LastName.LastNameResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.LastName.LastNameResponse.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.LastName.LastNameResponse.LastName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.LastName.LastNameResponse.LastNameAlias">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.LastName.LastNameResponse.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.LastName.LastNameResponse.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.LastName.LastNameResponse.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.LastName.LastNameResponse.CreatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.LastName.LastNameResponse.UpdatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.Passport.PassportManager">
+            <summary>
+            Passport Manager
+            </summary>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Passport.PassportManager.#ctor(Nullafi.Domains.StaticVault.StaticVault)">
+            <summary>
+            Create an instance of Passport Manager
+            </summary>
+            <param name="vault"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Passport.PassportManager.Create(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new LastName string to be aliased within static vault
+            </summary>
+            <param name="passport"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Passport.PassportManager.Retrieve(System.String)">
+            <summary>
+            Retrieve the Passport string alias from a static vault.
+            </summary>
+            <remarks>
+            <para>Returns an array of matching values.</para>
+            <para>Array will be sorted by date created.</para>
+            </remarks>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Passport.PassportManager.Delete(System.String)">
+            <summary>
+            Delete the Passport alias from static vault
+            </summary>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.Passport.PassportRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Passport.PassportRequest.Passport">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Passport.PassportRequest.PassportHash">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Passport.PassportRequest.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Passport.PassportRequest.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Passport.PassportRequest.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.Passport.PassportResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Passport.PassportResponse.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Passport.PassportResponse.Passport">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Passport.PassportResponse.PassportAlias">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Passport.PassportResponse.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Passport.PassportResponse.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Passport.PassportResponse.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Passport.PassportResponse.CreatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Passport.PassportResponse.UpdatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthManager">
+            <summary>
+            PlaceOfBirth Manager
+            </summary>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthManager.#ctor(Nullafi.Domains.StaticVault.StaticVault)">
+            <summary>
+            Create an instance of PlaceOfBirth Manager
+            </summary>
+            <param name="vault"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthManager.Create(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new PlaceOfBirth string to be aliased within static vault
+            </summary>
+            <param name="placeofbirth"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthManager.Create(System.String,System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new PlaceOfBirth string to be aliased within static vault
+            </summary>
+            <param name="placeofbirth"></param>
+            <param name="state"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthManager.Retrieve(System.String)">
+            <summary>
+            Retrieve the PlaceOfBirth string alias from a static vault.
+            </summary>
+            <remarks>
+            <para>Returns an array of matching values.</para>
+            <para>Array will be sorted by date created.</para>
+            </remarks>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthManager.Delete(System.String)">
+            <summary>
+            Delete the PlaceOfBirth alias from static vault
+            </summary>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthRequest.PlaceOfBirth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthRequest.PlaceOfBirthHash">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthRequest.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthRequest.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthRequest.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthResponse.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthResponse.PlaceOfBirth">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthResponse.PlaceOfBirthAlias">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthResponse.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthResponse.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthResponse.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthResponse.CreatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthResponse.UpdatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.Race.RaceManager">
+            <summary>
+            Race Manager
+            </summary>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Race.RaceManager.#ctor(Nullafi.Domains.StaticVault.StaticVault)">
+            <summary>
+            Create an instance of Race Manager
+            </summary>
+            <param name="vault"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Race.RaceManager.Create(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new Race string to be aliased within static vault
+            </summary>
+            <param name="race"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Race.RaceManager.Retrieve(System.String)">
+            <summary>
+            Retrieve the race string alias from a static vault.
+            </summary>
+            <remarks>
+            <para>Returns an array of matching values.</para>
+            <para>Array will be sorted by date created.</para>
+            </remarks>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Race.RaceManager.Delete(System.String)">
+            <summary>
+            Delete the Race alias from static vault
+            </summary>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.Race.RaceRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Race.RaceRequest.Race">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Race.RaceRequest.RaceHash">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Race.RaceRequest.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Race.RaceRequest.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Race.RaceRequest.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.Race.RaceResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Race.RaceResponse.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Race.RaceResponse.Race">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Race.RaceResponse.RaceAlias">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Race.RaceResponse.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Race.RaceResponse.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Race.RaceResponse.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Race.RaceResponse.CreatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Race.RaceResponse.UpdatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.Random.RandomManager">
+            <summary>
+            Random Manager
+            </summary>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Random.RandomManager.#ctor(Nullafi.Domains.StaticVault.StaticVault)">
+            <summary>
+            Create an instance of Random Manager
+            </summary>
+            <param name="vault"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Random.RandomManager.Create(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new Random string to be aliased within static vault
+            </summary>
+            <param name="data"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Random.RandomManager.Retrieve(System.String)">
+            <summary>
+            Retrieve the Random string alias from a static vault.
+            </summary>
+            <remarks>
+            <para>Returns an array of matching values.</para>
+            <para>Array will be sorted by date created.</para>
+            </remarks>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Random.RandomManager.Delete(System.String)">
+            <summary>
+            Delete the Random alias from static vault
+            </summary>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.Random.RandomRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Random.RandomRequest.Data">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Random.RandomRequest.DataHash">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Random.RandomRequest.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Random.RandomRequest.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Random.RandomRequest.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.Random.RandomResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Random.RandomResponse.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Random.RandomResponse.Data">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Random.RandomResponse.Alias">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Random.RandomResponse.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Random.RandomResponse.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Random.RandomResponse.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Random.RandomResponse.CreatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Random.RandomResponse.UpdatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.Ssn.SsnManager">
+            <summary>
+            SSN Manager
+            </summary>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Ssn.SsnManager.#ctor(Nullafi.Domains.StaticVault.StaticVault)">
+            <summary>
+            Create an instance of SSN Manager
+            </summary>
+            <param name="vault"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Ssn.SsnManager.Create(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new SSN string to be aliased within static vault
+            </summary>
+            <param name="ssn"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Ssn.SsnManager.Create(System.String,System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new SSN string to be aliased within static vault
+            </summary>
+            <param name="ssn"></param>
+            <param name="state"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Ssn.SsnManager.Retrieve(System.String)">
+            <summary>
+            Retrieve the SSN string alias from a static vault.
+            </summary>
+            <remarks>
+            <para>Returns an array of matching values.</para>
+            <para>Array will be sorted by date created.</para>
+            </remarks>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.Ssn.SsnManager.Delete(System.String)">
+            <summary>
+            Delete the SSN alias from static vault
+            </summary>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.Ssn.SsnRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Ssn.SsnRequest.Ssn">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Ssn.SsnRequest.SsnHash">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Ssn.SsnRequest.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Ssn.SsnRequest.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Ssn.SsnRequest.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.Ssn.SsnResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Ssn.SsnResponse.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Ssn.SsnResponse.Ssn">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Ssn.SsnResponse.SsnAlias">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Ssn.SsnResponse.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Ssn.SsnResponse.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Ssn.SsnResponse.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Ssn.SsnResponse.CreatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.Ssn.SsnResponse.UpdatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerManager">
+            <summary>
+            TaxPayer Manager
+            </summary>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerManager.#ctor(Nullafi.Domains.StaticVault.StaticVault)">
+            <summary>
+            Create an instance of TaxPayer Manager
+            </summary>
+            <param name="vault"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerManager.Create(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new TaxPayer string to be aliased within static vault
+            </summary>
+            <param name="taxpayer"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerManager.Retrieve(System.String)">
+            <summary>
+            Retrieve the TaxPayer string alias from a static vault.
+            </summary>
+            <remarks>
+            <para>Returns an array of matching values.</para>
+            <para>Array will be sorted by date created.</para>
+            </remarks>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerManager.Delete(System.String)">
+            <summary>
+            Delete the TaxPayer alias from static vault
+            </summary>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerRequest.TaxPayer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerRequest.TaxPayerHash">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerRequest.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerRequest.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerRequest.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerResponse.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerResponse.TaxPayer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerResponse.TaxPayerAlias">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerResponse.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerResponse.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerResponse.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerResponse.CreatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerResponse.UpdatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationManager">
+            <summary>
+            Create an instance of VehicleRegistration Manager
+            </summary>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationManager.#ctor(Nullafi.Domains.StaticVault.StaticVault)">
+            <summary>
+            Create an instance of VehicleRegistration Manager
+            </summary>
+            <param name="vault"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationManager.Create(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create a new VehicleRegistration string to be aliased within static vault
+            </summary>
+            <param name="vehicleregistration"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationManager.Retrieve(System.String)">
+            <summary>
+            Retrieve the VehicleRegistration string alias from a static vault.
+            </summary>
+            <remarks>
+            <para>Returns an array of matching values.</para>
+            <para>Array will be sorted by date created.</para>
+            </remarks>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationManager.Delete(System.String)">
+            <summary>
+            Delete the VehicleRegistration alias from static vault
+            </summary>
+            <param name="aliasId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationRequest.VehicleRegistration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationRequest.VehicleRegistrationHash">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationRequest.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationRequest.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationRequest.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationResponse.Id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationResponse.VehicleRegistration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationResponse.VehicleRegistrationAlias">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationResponse.Iv">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationResponse.AuthTag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationResponse.Tags">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationResponse.CreatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationResponse.UpdatedAt">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Domains.StaticVault.StaticVault">
+            <summary>
+            Static Vault
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.VaultId">
+            <summary>
+            Id of vault instantiated 
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.VaultName">
+            <summary>
+            Name of vault instantiated 
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.MasterKey">
+            <summary>
+            Master key to vault instantiated
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.Address">
+            <summary>
+            Address Manager to create aliases
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.DateOfBirth">
+            <summary>
+            DateOfBirth Manager to create aliases
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.DriversLicense">
+            <summary>
+            DriversLicense Manager to create aliases
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.FirstName">
+            <summary>
+            FirstName Manager to create aliases
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.Gender">
+            <summary>
+            Gender Manager to create aliases
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.Generic">
+            <summary>
+            Generic Manager to create aliases
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.LastName">
+            <summary>
+            LastName Manager to create aliases
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.Passport">
+            <summary>
+            Passport Manager to create aliases
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.PlaceOfBirth">
+            <summary>
+            PlaceOfBirth Manager to create aliases
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.Race">
+            <summary>
+            Race Manager to create aliases
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.Random">
+            <summary>
+            Random Manager to create aliases
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.Ssn">
+            <summary>
+            SSN Manager to create aliases
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.TaxPayer">
+            <summary>
+            TaxPayer Manager to create aliases
+            </summary>
+        </member>
+        <member name="P:Nullafi.Domains.StaticVault.StaticVault.VehicleRegistration">
+            <summary>
+            VehicleRegistration Manager to create aliases
+            </summary>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.StaticVault.#ctor(Nullafi.Client,System.String,System.String,System.String)">
+            <summary>
+            Create an instance of StaticVault
+            </summary>
+            <param name="client"></param>
+            <param name="vaultId"></param>
+            <param name="vaultName"></param>
+            <param name="masterKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.StaticVault.Hash(System.String)">
+            <summary>
+            Generate a hash for the real data
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.StaticVault.CreateStaticVault(Nullafi.Client,System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Create the API to create a new static vault
+            </summary>
+            <param name="client"></param>
+            <param name="name"></param>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Domains.StaticVault.StaticVault.RetrieveStaticVault(Nullafi.Client,System.String,System.String)">
+            <summary>
+            Retrieve the static vault from id
+            </summary>
+            <param name="client"></param>
+            <param name="vaultId"></param>
+            <param name="masterKey"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.NullafiSDK">
+            <summary>
+            NullafiSDK class
+            </summary>
+        </member>
+        <member name="M:Nullafi.NullafiSDK.#ctor(System.String)">
+            <summary>
+            Create an instance of NullafiSDK
+            </summary>
+            <param name="apiKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.NullafiSDK.CreateClient">
+            <summary>
+            Create a new instance of client
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.Services.Api">
+            <summary>
+            Api
+            </summary>
+        </member>
+        <member name="M:Nullafi.Services.Api.#ctor">
+            <summary>
+            Create an instance of Api
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.Services.Crypto.Aesgcm">
+            <summary>
+            Aesgcm
+            </summary>
+        </member>
+        <member name="M:Nullafi.Services.Crypto.Aesgcm.GenerateStringMasterKey">
+            <summary>
+            Generate masterkey to be used on AES encrypt/decrypt
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Services.Crypto.Aesgcm.GenerateStringIv">
+            <summary>
+            Generate initialization vector to be used on AES encrypt/decrypt
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Services.Crypto.Aesgcm.Encrypt(System.String,System.String,System.String)">
+            <summary>
+            Encrypt the data using AES GCM 256bit
+            </summary>
+            <param name="masterKey"></param>
+            <param name="iv"></param>
+            <param name="plainText"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nullafi.Services.Crypto.Aesgcm.Decrypt(System.String,System.String,System.String,System.String)">
+            <summary>
+            Decrypt the data using AES GCM 256bit
+            </summary>
+            <param name="masterKey"></param>
+            <param name="iv"></param>
+            <param name="authTag"></param>
+            <param name="cipherText"></param>
+            <param name="returnBase64"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.Services.Crypto.Hmac">
+            <summary>
+            Hmac
+            </summary>
+        </member>
+        <member name="M:Nullafi.Services.Crypto.Hmac.Hash(System.String,System.String)">
+            <summary>
+            Generate a hash for the real data
+            </summary>
+            <param name="value"></param>
+            <param name="secret"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nullafi.Services.Crypto.RSAManager">
+            <summary>
+            RSAManager
+            </summary>
+        </member>
+        <member name="P:Nullafi.Services.Crypto.RSAManager.Decrypt">
+            <summary>
+            Decrypt object to a base64 string using a private key
+            </summary>
+        </member>
+        <member name="P:Nullafi.Services.Crypto.RSAManager.PublicKey">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Nullafi.Services.Crypto.RSA">
+            <summary>
+            RSA
+            </summary>
+        </member>
+        <member name="M:Nullafi.Services.Crypto.RSA.RSAGenerateManager">
+            <summary>
+            Create instance of RSAManager
+            </summary>
+        </member>
+        <member name="T:Nullafi.Security">
+            <summary>
+            Security
+            </summary>
+        </member>
+        <member name="P:Nullafi.Security.Aes">
+            <summary>
+            Aesgcm
+            </summary>
+        </member>
+        <member name="P:Nullafi.Security.RSA">
+            <summary>
+            RSA 
+            </summary>
+        </member>
+        <member name="P:Nullafi.Security.Hmac">
+            <summary>
+            Hmac
+            </summary>
+        </member>
+        <member name="M:Nullafi.Security.#ctor">
+            <summary>
+            Create an instance of Security
+            </summary>
+        </member>
+    </members>
+</doc>

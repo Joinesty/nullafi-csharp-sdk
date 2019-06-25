@@ -14,7 +14,6 @@ namespace Nullafi.Domains.StaticVault.Managers.TaxPayer
         /// Create an instance of TaxPayer Manager
         /// </summary>
         /// <param name="vault"></param>
-        /// <returns></returns>
         public TaxPayerManager(StaticVault vault)
         {
             _vault = vault;
@@ -25,7 +24,7 @@ namespace Nullafi.Domains.StaticVault.Managers.TaxPayer
         /// </summary>
         /// <param name="taxpayer"></param>
         /// <param name="tags"></param>
-        /// <returns></returns>
+        /// <returns>id, taxPayer, taxPayerAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<TaxPayerResponse> Create(string taxpayer, List<string> tags = null)
         {
             var result = _vault.Encrypt(taxpayer);
@@ -44,10 +43,14 @@ namespace Nullafi.Domains.StaticVault.Managers.TaxPayer
         }
 
         /// <summary>
-        /// Retrieve the TaxPayer string alias from a static vault. Returns an array of matching values. Array will be sorted by date created.
+        /// Retrieve the TaxPayer string alias from a static vault.
         /// </summary>
+        /// <remarks>
+        /// <para>Returns an array of matching values.</para>
+        /// <para>Array will be sorted by date created.</para>
+        /// </remarks>
         /// <param name="aliasId"></param>
-        /// <returns></returns>
+        /// <returns>id, taxPayer, taxPayerAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<TaxPayerResponse> Retrieve(string aliasId)
         {
             var response = await _vault.Client.Get<TaxPayerResponse>($"/vault/static/{_vault.VaultId}/taxpayer/{aliasId}");
@@ -59,7 +62,7 @@ namespace Nullafi.Domains.StaticVault.Managers.TaxPayer
         /// Delete the TaxPayer alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>
-        /// <returns></returns>
+        /// <returns>ok</returns>
         public async Task Delete(string aliasId)
         {
             await _vault.Client.Delete($"/vault/static/{_vault.VaultId}/taxpayer/{aliasId}");
