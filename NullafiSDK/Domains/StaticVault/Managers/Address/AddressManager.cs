@@ -24,7 +24,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Address
         /// </summary>
         /// <param name="address"></param>
         /// <param name="tags"></param>
-        /// <returns></returns>
+        /// <returns>address, addressAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<AddressResponse> Create(string address, List<string> tags)
         {
             return await this.Create(address, null, tags);
@@ -36,7 +36,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Address
         /// <param name="address"></param>
         /// <param name="state"></param>
         /// <param name="tags"></param>
-        /// <returns></returns>
+        /// <returns>id, address, addressAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<AddressResponse> Create(string address, string state = null, List<string> tags = null)
         {
             var result = _vault.Encrypt(address);
@@ -58,10 +58,14 @@ namespace Nullafi.Domains.StaticVault.Managers.Address
         }
 
         /// <summary>
-        /// Retrieve the Address string alias from a static vault. Returns an array of matching values. Array will be sorted by date created.
+        /// Retrieve the Address string alias from a static vault.
         /// </summary>
+        /// <remarks>
+        /// <para>Returns an array of matching values.</para>
+        /// <para>Array will be sorted by date created.</para>
+        /// </remarks>
         /// <param name="aliasId"></param>
-        /// <returns></returns>
+        /// <returns>id, address, addressAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<AddressResponse> Retrieve(string aliasId)
         {
             var response = await _vault.Client.Get<AddressResponse>($"/vault/static/{_vault.VaultId}/address/{aliasId}");
@@ -101,7 +105,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Address
         /// Delete the Address alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>
-        /// <returns></returns>
+        /// <returns>ok</returns>
         public async Task Delete(string aliasId)
         {
             await _vault.Client.Delete($"/vault/static/{_vault.VaultId}/address/{aliasId}");

@@ -15,22 +15,22 @@ namespace Nullafi.Domains.CommunicationVault
         private readonly Security _security;
 
         /// <summary>
-        /// 
+        /// Id of vault instantiated 
         /// </summary>
         public string VaultId { get; set; }
 
         /// <summary>
-        /// 
+        /// Name of vault instantiated
         /// </summary>
         public string VaultName { get; set; }
 
         /// <summary>
-        /// 
+        /// Master key to vault instantiated
         /// </summary>
         public string MasterKey { get; set; }
 
         /// <summary>
-        /// 
+        /// Email Manager to create aliases
         /// </summary>
         public EmailManager Email { get; private set; }
 
