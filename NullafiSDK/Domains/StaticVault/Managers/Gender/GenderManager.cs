@@ -7,8 +7,8 @@ namespace Nullafi.Domains.StaticVault.Managers.Gender
     /// FirstNameManager
     /// </summary>
     public class GenderManager
-{
-    private readonly StaticVault _vault;
+    {
+        private readonly StaticVault _vault;
 
         /// <summary>
         /// Create an instance of GenderManager
@@ -16,7 +16,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Gender
         /// <param name="vault"></param>
         public GenderManager(StaticVault vault)
         {
-          _vault = vault;
+            _vault = vault;
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Gender
             var response = await _vault.Client.Post<GenderRequest, GenderResponse>($"/vault/static/{_vault.VaultId}/gender", payload);
             response.Gender = _vault.Decrypt(response.Iv, response.AuthTag, response.Gender);
             return response;
-          }
+        }
 
         /// <summary>
         /// Retrieve the Gender string alias from a static vault.
@@ -52,11 +52,34 @@ namespace Nullafi.Domains.StaticVault.Managers.Gender
         /// <param name="aliasId"></param>
         /// <returns>id, gender, genderAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<GenderResponse> Retrieve(string aliasId)
-      {
-        var response = await _vault.Client.Get<GenderResponse>($"/vault/static/{_vault.VaultId}/gender/{aliasId}");
-        response.Gender = _vault.Decrypt(response.Iv, response.AuthTag, response.Gender);
-        return response;
-      }
+        {
+            var response = await _vault.Client.Get<GenderResponse>($"/vault/static/{_vault.VaultId}/gender/{aliasId}");
+            response.Gender = _vault.Decrypt(response.Iv, response.AuthTag, response.Gender);
+            return response;
+        }
+
+        /// <summary>
+        /// Retrieve the Gender alias from real gender.
+        /// Real value must be an exact match and will also be case sensitive.
+        /// Returns an array of matching values.Array will be sorted by date created.
+        /// </summary>
+        /// <param name="gender"></param>
+        /// <param name="tags"></param>
+        /// <returns></returns>
+        public async Task<GenderResponse> RetrieveFromRealData(string gender, List<string> tags = null)
+        {
+            var hash = this._vault.Hash(gender);
+            var url = $"/vault/static/gender?hash={hash}";
+
+            if (tags != null)
+            {
+                url += $"&tags={string.Join("&tags=", tags)}";
+            }
+
+            var response = await _vault.Client.Get<GenderResponse>(url);
+            response.Gender = _vault.Decrypt(response.Iv, response.AuthTag, response.Gender);
+            return response;
+        }
 
         /// <summary>
         /// Delete the Gender alias from static vault
@@ -64,8 +87,8 @@ namespace Nullafi.Domains.StaticVault.Managers.Gender
         /// <param name="aliasId"></param>
         /// <returns>ok</returns>
         public async Task Delete(string aliasId)
-      {
-        await _vault.Client.Delete($"/vault/static/{_vault.VaultId}/gender/{aliasId}");
-      }
+        {
+            await _vault.Client.Delete($"/vault/static/{_vault.VaultId}/gender/{aliasId}");
+        }
     }
 }

@@ -25,13 +25,14 @@
   - [Tags](#P-Nullafi-Domains-StaticVault-Managers-Address-AddressResponse-Tags 'Nullafi.Domains.StaticVault.Managers.Address.AddressResponse.Tags')
   - [UpdatedAt](#P-Nullafi-Domains-StaticVault-Managers-Address-AddressResponse-UpdatedAt 'Nullafi.Domains.StaticVault.Managers.Address.AddressResponse.UpdatedAt')
 - [Aesgcm](#T-Nullafi-Services-Crypto-Aesgcm 'Nullafi.Services.Crypto.Aesgcm')
-  - [Decrypt(masterKey,iv,authTag,cipherText,returnBase64)](#M-Nullafi-Services-Crypto-Aesgcm-Decrypt-System-String,System-String,System-String,System-String,System-Boolean- 'Nullafi.Services.Crypto.Aesgcm.Decrypt(System.String,System.String,System.String,System.String,System.Boolean)')
+  - [Decrypt(masterKey,iv,authTag,cipherText,returnBase64)](#M-Nullafi-Services-Crypto-Aesgcm-Decrypt-System-String,System-String,System-String,System-String- 'Nullafi.Services.Crypto.Aesgcm.Decrypt(System.String,System.String,System.String,System.String)')
   - [Encrypt(masterKey,iv,plainText)](#M-Nullafi-Services-Crypto-Aesgcm-Encrypt-System-String,System-String,System-String- 'Nullafi.Services.Crypto.Aesgcm.Encrypt(System.String,System.String,System.String)')
   - [GenerateStringIv()](#M-Nullafi-Services-Crypto-Aesgcm-GenerateStringIv 'Nullafi.Services.Crypto.Aesgcm.GenerateStringIv')
   - [GenerateStringMasterKey()](#M-Nullafi-Services-Crypto-Aesgcm-GenerateStringMasterKey 'Nullafi.Services.Crypto.Aesgcm.GenerateStringMasterKey')
 - [Api](#T-Nullafi-Services-Api 'Nullafi.Services.Api')
   - [#ctor()](#M-Nullafi-Services-Api-#ctor 'Nullafi.Services.Api.#ctor')
 - [Client](#T-Nullafi-Client 'Nullafi.Client')
+  - [HashKey](#P-Nullafi-Client-HashKey 'Nullafi.Client.HashKey')
   - [Authenticate(apiKey)](#M-Nullafi-Client-Authenticate-System-String- 'Nullafi.Client.Authenticate(System.String)')
   - [CreateCommunicationVault(name,tags)](#M-Nullafi-Client-CreateCommunicationVault-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Client.CreateCommunicationVault(System.String,System.Collections.Generic.List{System.String})')
   - [CreateStaticVault(name,tags)](#M-Nullafi-Client-CreateStaticVault-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Client.CreateStaticVault(System.String,System.Collections.Generic.List{System.String})')
@@ -589,7 +590,7 @@ Nullafi.Services.Crypto
 
 Aesgcm
 
-<a name='M-Nullafi-Services-Crypto-Aesgcm-Decrypt-System-String,System-String,System-String,System-String,System-Boolean-'></a>
+<a name='M-Nullafi-Services-Crypto-Aesgcm-Decrypt-System-String,System-String,System-String,System-String-'></a>
 ### Decrypt(masterKey,iv,authTag,cipherText,returnBase64) `method`
 
 ##### Summary
@@ -608,7 +609,6 @@ Decrypt the data using AES GCM 256bit
 | iv | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 | authTag | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 | cipherText | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
-| returnBase64 | [System.Boolean](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Boolean 'System.Boolean') |  |
 
 <a name='M-Nullafi-Services-Crypto-Aesgcm-Encrypt-System-String,System-String,System-String-'></a>
 ### Encrypt(masterKey,iv,plainText) `method`
@@ -695,6 +695,13 @@ Nullafi
 ##### Summary
 
 Client class
+
+<a name='P-Nullafi-Client-HashKey'></a>
+### HashKey `property`
+
+##### Summary
+
+
 
 <a name='M-Nullafi-Client-Authenticate-System-String-'></a>
 ### Authenticate(apiKey) `method`

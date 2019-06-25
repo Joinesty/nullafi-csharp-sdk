@@ -59,6 +59,29 @@ namespace Nullafi.Domains.StaticVault.Managers.Passport
         }
 
         /// <summary>
+        /// Retrieve the Passport alias from real passport.
+        /// Real value must be an exact match and will also be case sensitive.
+        /// Returns an array of matching values.Array will be sorted by date created.
+        /// </summary>
+        /// <param name="passport"></param>
+        /// <param name="tags"></param>
+        /// <returns></returns>
+        public async Task<PassportResponse> RetrieveFromRealData(string passport, List<string> tags = null)
+        {
+            var hash = this._vault.Hash(passport);
+            var url = $"/vault/static/lastname?hash={hash}";
+
+            if (tags != null)
+            {
+                url += $"&tags={string.Join("&tags=", tags)}";
+            }
+
+            var response = await _vault.Client.Get<PassportResponse>(url);
+            response.Passport = _vault.Decrypt(response.Iv, response.AuthTag, response.Passport);
+            return response;
+        }
+
+        /// <summary>
         /// Delete the Passport alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>

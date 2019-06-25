@@ -199,5 +199,16 @@ namespace Nullafi.Domains.StaticVault
             var response = await client.Get<StaticVaultResponse>($"/vault/static/{vaultId}");
             return new StaticVault(client, vaultId, response.Name, masterKey);
         }
+
+        /// <summary>
+        /// Delete the static vault from id
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="vaultId"></param>
+        /// <returns></returns>
+        public static async Task DeleteStaticVault(Client client, string vaultId)
+        {
+            await client.Delete($"/vault/static/{vaultId}");
+        }
     }
 }

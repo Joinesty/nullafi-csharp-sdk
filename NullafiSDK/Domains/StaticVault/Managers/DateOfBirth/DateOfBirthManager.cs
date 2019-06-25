@@ -76,6 +76,29 @@ namespace Nullafi.Domains.StaticVault.Managers.DateOfBirth
         }
 
         /// <summary>
+        /// Retrieve the Date of Birth alias from real date of birth.
+        /// Real value must be an exact match and will also be case sensitive.
+        /// Returns an array of matching values.Array will be sorted by date created.
+        /// </summary>
+        /// <param name="dateOfBirth"></param>
+        /// <param name="tags"></param>
+        /// <returns></returns>
+        public async Task<DateOfBirthResponse> RetrieveFromRealData(string dateOfBirth, List<string> tags = null)
+        {
+            var hash = this._vault.Hash(dateOfBirth);
+            var url = $"/vault/static/dateofbirth?hash={hash}";
+
+            if (tags != null)
+            {
+                url += $"&tags={string.Join("&tags=", tags)}";
+            }
+
+            var response = await _vault.Client.Get<DateOfBirthResponse>(url);
+            response.DateOfBirth = _vault.Decrypt(response.Iv, response.AuthTag, response.DateOfBirth);
+            return response;
+        }
+
+        /// <summary>
         /// Delete the Address alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>

@@ -75,6 +75,29 @@ namespace Nullafi.Domains.StaticVault.Managers.DriversLicense
         }
 
         /// <summary>
+        /// Retrieve the Drivers License alias from real drivers license.
+        /// Real value must be an exact match and will also be case sensitive.
+        /// Returns an array of matching values.Array will be sorted by date created.
+        /// </summary>
+        /// <param name="driversLicense"></param>
+        /// <param name="tags"></param>
+        /// <returns></returns>
+        public async Task<DriversLicenseResponse> RetrieveFromRealData(string driversLicense, List<string> tags = null)
+        {
+            var hash = this._vault.Hash(driversLicense);
+            var url = $"/vault/static/driverslicense?hash={hash}";
+
+            if (tags != null)
+            {
+                url += $"&tags={string.Join("&tags=", tags)}";
+            }
+
+            var response = await _vault.Client.Get<DriversLicenseResponse>(url);
+            response.DriversLicense = _vault.Decrypt(response.Iv, response.AuthTag, response.DriversLicense);
+            return response;
+        }
+
+        /// <summary>
         /// Delete the DriversLicense alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>

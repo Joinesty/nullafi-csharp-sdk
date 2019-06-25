@@ -12,6 +12,9 @@ namespace Nullafi
     /// </summary>
     public class Client : Api
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public string HashKey { get; private set; }
 
         /// <summary>
@@ -50,6 +53,16 @@ namespace Nullafi
         }
 
         /// <summary>
+        /// delete an existing static vault
+        /// </summary>
+        /// <param name="vaultId"></param>
+        /// <returns></returns>
+        public async Task DeleteStaticVault(string vaultId)
+        {
+            await StaticVault.DeleteStaticVault(this, vaultId);
+        }
+
+        /// <summary>
         /// Create a new communication vault
         /// </summary>
         /// <param name="name"></param>
@@ -69,6 +82,16 @@ namespace Nullafi
         public async Task<CommunicationVault> RetrieveCommunicationVault(string vaultId, string masterKey)
         {
             return await CommunicationVault.RetrieveCommunicationVault(this, vaultId, masterKey);
+        }
+
+        /// <summary>
+        /// delete an existing communication vault
+        /// </summary>
+        /// <param name="vaultId"></param>
+        /// <returns></returns>
+        public async Task DeleteCommunicationVault(string vaultId)
+        {
+            await CommunicationVault.DeleteCommunicationVault(this, vaultId);
         }
     }
 }
