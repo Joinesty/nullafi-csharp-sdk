@@ -25,7 +25,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Ssn
         /// </summary>
         /// <param name="ssn"></param>
         /// <param name="tags"></param>
-        /// <returns>id, ssn, ssnAlias, tags, iv, authTag, tags, createdAt</returns>
+        /// <returns>Returns a promise containing: id, ssn, ssnAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<SsnResponse> Create(string ssn, List<string> tags)
         {
             return await this.Create(ssn, null, tags);
@@ -37,7 +37,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Ssn
         /// <param name="ssn"></param>
         /// <param name="state"></param>
         /// <param name="tags"></param>
-        /// <returns>id, ssn, ssnAlias, tags, iv, authTag, tags, createdAt</returns>
+        /// <returns>Returns a promise containing: id, ssn, ssnAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<SsnResponse> Create(string ssn, string state = null, List<string> tags = null)
         {
             var result = _vault.Encrypt(ssn);
@@ -66,7 +66,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Ssn
         /// <para>Array will be sorted by date created.</para>
         /// </remarks>
         /// <param name="aliasId"></param>
-        /// <returns>id, ssn, ssnAlias, tags, iv, authTag, tags, createdAt</returns>
+        /// <returns>Returns a promise containing: id, ssn, ssnAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<SsnResponse> Retrieve(string aliasId)
         {
             var response = await _vault.Client.Get<SsnResponse>($"/vault/static/{_vault.VaultId}/ssn/{aliasId}");
@@ -78,7 +78,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Ssn
         /// Delete the SSN alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>
-        /// <returns>ok</returns>
+        /// <returns>Returns a promise containing: ok</returns>
         public async Task Delete(string aliasId)
         {
             await _vault.Client.Delete($"/vault/static/{_vault.VaultId}/ssn/{aliasId}");

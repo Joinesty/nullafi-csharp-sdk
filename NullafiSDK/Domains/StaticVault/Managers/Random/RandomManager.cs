@@ -24,7 +24,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Random
         /// </summary>
         /// <param name="data"></param>
         /// <param name="tags"></param>
-        /// <returns>id, random, randomAlias, tags, iv, authTag, tags, createdAt</returns>
+        /// <returns>Returns a promise containing: id, random, randomAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<RandomResponse> Create(string data, List<string> tags = null)
         {
             var result = _vault.Encrypt(data);
@@ -50,7 +50,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Random
         /// <para>Array will be sorted by date created.</para>
         /// </remarks>
         /// <param name="aliasId"></param>
-        /// <returns>id, random, randomAlias, tags, iv, authTag, tags, createdAt</returns>
+        /// <returns>Returns a promise containing: id, random, randomAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<RandomResponse> Retrieve(string aliasId)
         {
             var response = await _vault.Client.Get<RandomResponse>($"/vault/static/{_vault.VaultId}/random/{aliasId}");
@@ -62,7 +62,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Random
         /// Delete the Random alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>
-        /// <returns>ok</returns>
+        /// <returns>Returns a promise containing: ok</returns>
         public async Task Delete(string aliasId)
         {
             await _vault.Client.Delete($"/vault/static/{_vault.VaultId}/random/{aliasId}");

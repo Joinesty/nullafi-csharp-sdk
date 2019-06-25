@@ -100,7 +100,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Address
         /// Delete the Address alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>
-        /// <returns>ok</returns>
+        /// <returns>Returns a promise containing: ok</returns>
         public async Task Delete(string aliasId)
         {
             await _vault.Client.Delete($"/vault/static/{_vault.VaultId}/address/{aliasId}");

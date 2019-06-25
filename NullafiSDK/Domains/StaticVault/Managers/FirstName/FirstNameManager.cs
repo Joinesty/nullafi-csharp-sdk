@@ -25,7 +25,7 @@ namespace Nullafi.Domains.StaticVault.Managers.FirstName
         /// </summary>
         /// <param name="firstname"></param>
         /// <param name="tags"></param>
-        /// <returns>id, firstName, firstNameAlias, tags, iv, authTag, tags, createdAt</returns>
+        /// <returns>Returns a promise containing: id, firstName, firstNameAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<FirstNameResponse> Create(string firstname, List<string> tags)
         {
             return await this.Create(firstname, null, tags);
@@ -37,7 +37,7 @@ namespace Nullafi.Domains.StaticVault.Managers.FirstName
         /// <param name="firstname"></param>
         /// <param name="gender"></param>
         /// <param name="tags"></param>
-        /// <returns>id, firstName, firstNameAlias, tags, iv, authTag, tags, createdAt</returns>
+        /// <returns>Returns a promise containing: id, firstName, firstNameAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<FirstNameResponse> Create(string firstname, string gender = null, List<string> tags = null)
         {
             var result = _vault.Encrypt(firstname);
@@ -66,7 +66,7 @@ namespace Nullafi.Domains.StaticVault.Managers.FirstName
         /// <para>Array will be sorted by date created.</para>
         /// </remarks>
         /// <param name="aliasId"></param>
-        /// <returns>id, firstName, firstNameAlias, tags, iv, authTag, tags, createdAt</returns>
+        /// <returns>Returns a promise containing: id, firstName, firstNameAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<FirstNameResponse> Retrieve(string aliasId)
         {
             var response = await _vault.Client.Get<FirstNameResponse>($"/vault/static/{_vault.VaultId}/firstname/{aliasId}");
@@ -101,7 +101,7 @@ namespace Nullafi.Domains.StaticVault.Managers.FirstName
         /// Delete the FirstName alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>
-        /// <returns>ok</returns>
+        /// <returns>Returns a promise containing: ok</returns>
         public async Task Delete(string aliasId)
         {
             await _vault.Client.Delete($"/vault/static/{_vault.VaultId}/firstname/{aliasId}");
