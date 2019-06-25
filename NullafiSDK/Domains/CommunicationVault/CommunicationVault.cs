@@ -120,7 +120,7 @@ namespace Nullafi.Domains.CommunicationVault
         /// </summary>
         /// <param name="client"></param>
         /// <param name="vaultId"></param>
-        /// <returns></returns>
+        /// <returns>ok</returns>
         public static async Task DeleteCommunicationVault(Client client, string vaultId)
         {
             await client.Delete($"/vault/communication/{vaultId}");

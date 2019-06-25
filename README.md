@@ -38,7 +38,7 @@ var client = await SDK.CreateClient();
 // All client methods return a promise that resolves to the results of the API call,
 // or rejects when an error occurs
 // Adding tags is an important way to retrieve data
-var staticVault = await client.createStaticVault("my-static-vault",  new[] {"my-tag-1", "my-tag-2" });
+var staticVault = await client.createStaticVault("my-static-vault",  new List<int>() {"my-tag-1", "my-tag-2" });
 String name = "example";
 String gender = "male";
 FirstNameResponse created = await vault.FirstName.Create(name, gender);
@@ -64,7 +64,7 @@ Console.WriteLine(created);
 Authentication
 ------------
 When a client is created, the client instance will be authenticated for a 60 minute period. After this time, you may either create a new client or refresh the existing client. 
-```js
+```c#
 client.authenticate(NULLAFI_API_KEY);
 ```
 
@@ -75,31 +75,32 @@ Static vaults are used to hold all created aliases for non transactional data. S
 
 There is no limit on how many types of data may be stored in one static vault. It is up to users to determine how to split their data into vaults. Note that the master key must be stored to retrieve the vault at later times.  
 A Static Vault can be created like this:
-```js
-const client = await sdk.createClient();
-const staticVault = await client.createStaticVault('my-static-vault', ['my-tag-1', 'my-tag-2']);
-console.log(staticVault)
+```c#
+var client = await SDK.createClient();
+var staticVault = await client.createStaticVault("my-static-vault",  new List<string>() {"my-tag-1", "my-tag-2" });
+Console.WriteLine("//// FirstNameExample.CreateWithGender:");
+Console.WriteLine(staticVault);
 /*
 	output example:
 	{ 
-		id: 'e490157b23534215b0369a2685aab47g', 
-		name: 'my-static-vault',
-		masterKey: 'MASTER_KEY',
-		tags: ['my-tag-1', 'my-tag-2'], 
-		createdAt: '2018-07-13 T01:00:00Z' 
+		"Id":'e490157b23534215b0369a2685aab47g', 
+		"Name":'my-static-vault',
+		"MasterKey":'MASTER_KEY',
+		"Tags":['my-tag-1', 'my-tag-2'], 
+		"CreatedAt": '2018-07-13 T01:00:00Z' 
 	}
 */
 ```
 The **ID** as well as the **Master Key** from the output will be used to retrieve the vault. These values must be stored in your database to retrieve the vault.
 Retrieving a vault looks like this: 
 
-```js
+```c#
 //Authenticated client
-const client = await sdk.createClient();
+var client = await SDK.createClient();
 // ID and Master key should be stored and retrieved from database
-const staticVaultID = 'e490157b23534215b0369a2685aab47g';
-const staticVaultMasterKey = 'MASTER_KEY';
-const staticVault = await client.retrieveStaticVault(client, staticVaultID, staticVaultMasterKey);
+static readonly staticVaultID = 'e490157b23534215b0369a2685aab47g';
+static readonly staticVaultMasterKey = 'MASTER_KEY';
+var staticVault = await client.retrieveStaticVault(staticVaultID, staticVaultMasterKey);
 ```
 
 Static Data Types
@@ -108,12 +109,13 @@ Static Data Types
 Generates a fake address that will not trace to a real location. An optional parameter of state may be provided to choose the state associated with the fake address.
 
 Address example:
-```js
-street, city, state abbreviation zipcode, USA
-43520 Hills Flat, East Aricchester, AK 99761, USA
+```c#
+// Example format/output
+// street, city, state abbreviation zipcode, USA
+// 43520 Hills Flat, East Aricchester, AK 99761, USA
 
 //example call
-const addressAliasObj = await staticVault.address.createAddress('138 Congress St, Portland, ME 04101', 'ME' ['my-address-tag1', 'my-address-tag2']);
+var addressAliasObj = await staticVault.address.createAddress('138 Congress St, Portland, ME 04101', 'ME', new List<string>() {"my-tag-1", "my-tag-2" });
 ```
 
 Providing an incorrect state abbreviation will return a random state. The list of acceptable inputs is below.
@@ -126,12 +128,13 @@ Providing an incorrect state abbreviation will return a random state. The list o
 Will generate a new date between the year span of 1949 and 2001. Year(YYYY) and month(MM) are both optional parameters that will set the date to the corresponding year and/or month. 
 
 Date of birth example:
-```js
-YYYY-MM-DD
-1980-12-20
+```c#
+// example format/output
+// YYYY-MM-DD
+// 1980-12-20
 
 //providing the optional year and month arguments 
-const dobAliasObj = await staticVault.dateofbirth.createDateOfBirth('1999-07-02', '1999', '07' ['my-dob-tag1', 'my-dob-tag2']);
+var dobAliasObj = await staticVault.dateofbirth.createDateOfBirth('1999-07-02', '1999', '07', new List<string>() {'my-dob-tag1', 'my-dob-tag2'});
 ```
 ### Driver's license
 Generates a randomly generated combination of numbers and letters based on the format of each state's format. A state may be provided as an optional parameter to return a license for that state. A list of formats may be viewed [**here**](https://ntsi.com/drivers-license-format/).
@@ -144,9 +147,9 @@ Providing an incorrect state abbreviation will return a random state. The list o
 ```
 
 Example call: 
-```js
+```c#
 //example call with optional state
-const driverslicenseAliasObj = await staticVault.driversLicense.createDriversLicense('123456789', 'NY' ['my-driversLicense-tag1', 'my-driversLicense-tag2']);
+var driverslicenseAliasObj = await staticVault.driversLicense.createDriversLicense('123456789', 'NY', new List<string>()  {'my-driversLicense-tag1', 'my-driversLicense-tag2'});
 ```
 ### First name
 Generates a random name with the optional input of gender. 
@@ -157,8 +160,8 @@ Genders available are:
 "female"
 ```
 Example call:
-```js
-const firstNameAliasObj = await staticVault.firstName.createFirstName('John', ['my-fName-tag1', 'my-fName-tag2']);
+```c#
+var firstNameAliasObj = await staticVault.firstName.createFirstName('John', new List<string>() {'my-fName-tag1', 'my-fName-tag2'});
 ```
 ### Gender
 Generates a random gender from a list.
@@ -171,14 +174,14 @@ Output options are:
 ```
 
 Example call:
-```js
-const genderAliasObj = await staticVault.gender.createGender('male', ['my-gender-tag1', 'my-gender-tag2']);
+```c#
+var genderAliasObj = await staticVault.gender.createGender('male', new List<string>() {'my-gender-tag1', 'my-gender-tag2'});
 ```
 ### Generic
 Generic takes a regular expression as input and will generate a value matching that expression. Use this to create formats not currently supported. Some example usages are for prescriptions, nations, and non-supported passport numbers. The template used to generate values will not be saved.
 
 Example Generic Values:
-```js
+```c#
 //input
 \d{4}
 //output
@@ -189,35 +192,36 @@ Example Generic Values:
 AbCde
 
 //example call
-const genericAliasObj = await staticVault.generic.createGeneric('Abcde', '[a-zA-Z]{5}', ['my-generic-tag1', 'my-generic-tag2']);
+var genericAliasObj = await staticVault.generic.createGeneric('Abcde', '[a-zA-Z]{5}', new List<string>() {'my-generic-tag1', 'my-generic-tag2'});
 ```
 
 ### Last name
 Generates a random last name with optional input of gender. 
 
 Example call:
-```js
+```c#
 //example call
-const lastNameAliasObj = await staticVault.lastName.createLastName('smith', ['my-lName-tag1', 'my-lName-tag2']);
+var lastNameAliasObj = await staticVault.lastName.createLastName('smith', new List<string>() {'my-lName-tag1', 'my-lName-tag2'});
 ```
 ### Passport number
 Generates a random nine digit number. Currently only generates formats matching US passports.
 
 Example call:
-```js
+```c#
 //example call
-const passportAliasObj = await staticVault.passport.createPassport('123456789', ['my-passport-tag1', 'my-passport-tag2']);
+var passportAliasObj = await staticVault.passport.createPassport('123456789', new List<string>() {'my-passport-tag1', 'my-passport-tag2'});
 ```
 ### Place of birth
 Generates a random place of birth. An optional parameter of state may be provided to choose the state associated with the place of birth.
 
 Place of birth example:
-```js
-city, state
-Odachester, Washington
+```c#
+// example format/output
+// city, state
+// Odachester, Washington
 
 //example call with optional state param
-const pobAliasObj = await staticVault.placeOfBirth.createPlaceOfBirth('Atlanta, Georgia', 'GA', ['my-pob-tag1', 'my-pob-tag2']);
+var pobAliasObj = await staticVault.placeOfBirth.createPlaceOfBirth('Atlanta, Georgia', 'GA', new List<string>() {'my-pob-tag1', 'my-pob-tag2'});
 ```
 
 Providing an incorrect state abbreviation will return a random state. The list of acceptable inputs is below.
@@ -230,8 +234,8 @@ Providing an incorrect state abbreviation will return a random state. The list o
 Generates a random race from a list. 
 
 Race example:
-```js
-const raceAliasObj = await staticVault.race.createRace('Native Hawaiian or Other Pacific Islander', ['my-race-tag1', 'my-race-tag2']);
+```c#
+var raceAliasObj = await staticVault.race.createRace('Native Hawaiian or Other Pacific Islander', new List<string>() {'my-race-tag1', 'my-race-tag2'});
 ```
 
 Output options are: 
@@ -248,14 +252,15 @@ Output options are:
 Generates a random string value consisting of upper and lower case letters that will be 20, 35, 50, or 80 characters long. Similar to the generic generator, but does not need a template.
 
 Random example:
-```js
-const randomAliasObj = await staticVault.race.createRandom('random value', ['my-race-tag1', 'my-race-tag2']);
+```c#
+var randomAliasObj = await staticVault.race.createRandom('random value', new List<string>() {'my-race-tag1', 'my-race-tag2'});
 ```
 ### Social security number
 Generates a random social security number. An optional parameter of state may be provided to choose the state used to generate the ssn.
 
 Output format:
-```js
+```C#
+//output format
 ###-##-####
 
 //example call
@@ -265,21 +270,22 @@ const ssnAliasObj = await staticVault.ssn.createSSN('123-45-6789', ['my-ssn-tag1
 Generates a random tay payer ID. Currently only produces ITIN(Individual Taxpayer Identification Number) values.
 
 Output format: 
-```js
+```c#
 9#-##-####
 
 //example call
-const taxPayerIDAliasObj = await staticVault.taxPayerID.createTaxPayerID('92-45-6789', ['my-taxPayerID-tag1', 'my-taxPayerID-tag2']);
+var taxPayerIDAliasObj = await staticVault.taxPayerID.createTaxPayerID('92-45-6789', new List<string>() {'my-taxPayerID-tag1', 'my-taxPayerID-tag2'});
 ```
 ### Vehicle registration
 Generates a random vehicle registration. Vehicle registration is 3 Capitalized letters followed by 4 digits.
 
 Example Output: 
-```js
-ABC·1234
+```c#
+// example output
+// ABC·1234
 
 //example call
-const vehicleRegistrationAliasObj = await staticVault.vehicleRegistration.createVehicleRegistration('92-45-6789', ['my-vehicleRegistration-tag1', 'my-vehicleRegistration-tag2']);
+var vehicleRegistrationAliasObj = await staticVault.vehicleRegistration.createVehicleRegistration('92-45-6789', new List<string>() {'my-vehicleRegistration-tag1', 'my-vehicleRegistration-tag2'});
 ```
 
 Communication Vaults
@@ -288,32 +294,32 @@ Communicataion vaults will store aliases for data types that will need to mainta
 
 The alias generated for communication emails will be a functioning email. Nullafi will handle receiving messages to this address and relaying them to the real email address. White list senders and domains are added to control who may contact these users. Control for these emails may be found in the <a href="https://dashboard.nullafi.com/login" target="_blank">Nullafi Dashboard</a> under the **'System'** tab.
 
-```js
-const client = await sdk.createClient();
-const communicationVault = await client.createCommunicationVault('my-communication-vault', ['my-tag-1', 'my-tag-2']);
-console.log(communicationVault)
+```c#
+var client = await sdk.createClient();
+var communicationVault = await client.createCommunicationVault('my-communication-vault', new List<string>() {'my-tag-1', 'my-tag-2'});
+Console.WriteLine(communicationVault);
 /*
 	output example:
 	{ 
-		id: 'e490157b23534215b0369a2685aab47g', 
-		name: 'my-communication-vault,
-		masterKey: 'MASTER_KEY',
-		tags: ['my-tag-1', 'my-tag-2'], 
-		createdAt: '2018-07-13 T01:00:00Z' 
+		"Id":"e490157b23534215b0369a2685aab47g", 
+		"name":"my-communication-vault",
+		"masterKey":"MASTER_KEY",
+		"tags":['my-tag-1', 'my-tag-2'], 
+		"createdAt":"2018-07-13 T01:00:00Z" 
 	}
 */
 ```
 The **ID** as well as the **Master Key** from the output will be used to retrieve the vault. These values must be stored in your database to retrieve the vault.
 Retrieving a vault looks like this: 
 
-```js
+```c#
 //Authenticated client
-const client = await sdk.createClient();
+var client = await sdk.createClient();
 // ID and Master key should be stored and retrieved from database
-const communicationVaultID = 'e490157b23534215b0369a2685aab47g';
-const communicationVaultMasterKey = 'MASTER_KEY';
+static readonly communicationVaultID = 'e490157b23534215b0369a2685aab47g';
+static readonly communicationVaultMasterKey = 'MASTER_KEY';
 // ID and Master key should be stored and retrieved from database
-const communicationVault = await client.retrieveCommunicationVault(client, communicationVaultID, communicationVaultMasterKey);
+var communicationVault = await client.retrieveCommunicationVault(communicationVaultID, communicationVaultMasterKey);
 ```
 
 Communication Data Types
@@ -322,14 +328,14 @@ Communication Data Types
 Generating email aliases will provide a new functional email to use in place of the real email. These alias addresses will work as relays to the real address, while also providing the ability to white list approved sender domains and addresses. 
 
 Email example:
-```js
-//input
-realEmail@gmail.com
-//output
-cizljfhxrazvcy@fipale.com
+```c#
+// input
+// realEmail@gmail.com
+// output
+// cizljfhxrazvcy@fipale.com
 
-//example call
-const emailAlias = await communicationVault.email.createEmail('realEmail@gmail.com', ['my-tag-1', 'my-tag-2']);
+// example call
+var emailAlias = await communicationVault.email.createEmail('realEmail@gmail.com', new List<string>() {'my-tag-1', 'my-tag-2'});
 ```
 
 Copyright and License
