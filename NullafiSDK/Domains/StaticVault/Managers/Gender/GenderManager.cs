@@ -66,7 +66,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Gender
         /// <param name="gender"></param>
         /// <param name="tags"></param>
         /// <returns></returns>
-        public async Task<GenderResponse> RetrieveFromRealData(string gender, List<string> tags = null)
+        public async Task<List<GenderResponse>> RetrieveFromRealData(string gender, List<string> tags = null)
         {
             var hash = this._vault.Hash(gender);
             var url = $"/vault/static/gender?hash={hash}";
@@ -76,9 +76,14 @@ namespace Nullafi.Domains.StaticVault.Managers.Gender
                 url += $"&tags={string.Join("&tags=", tags)}";
             }
 
-            var response = await _vault.Client.Get<GenderResponse>(url);
-            response.Gender = _vault.Decrypt(response.Iv, response.AuthTag, response.Gender);
-            return response;
+            var responses = await _vault.Client.Get<List<GenderResponse>>(url);
+            
+            foreach (var response in responses)
+            {
+                response.Gender = _vault.Decrypt(response.Iv, response.AuthTag, response.Gender);
+            }
+
+            return responses;
         }
 
         /// <summary>

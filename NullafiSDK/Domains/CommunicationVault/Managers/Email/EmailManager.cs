@@ -66,7 +66,7 @@ namespace Nullafi.Domains.CommunicationVault.Managers.Email
         /// <param name="email"></param>
         /// <param name="tags"></param>
         /// <returns>Returns a promise containing: email, emailAlias, tags, iv, authTag, tags, createdAt</returns>
-        public async Task<EmailResponse> RetrieveFromRealData(string email, List<string> tags = null)
+        public async Task<List<EmailResponse>> RetrieveFromRealData(string email, List<string> tags = null)
         {
             var hash = this._vault.Hash(email);
             var url = $"/vault/communication/email?hash={hash}";
@@ -76,9 +76,14 @@ namespace Nullafi.Domains.CommunicationVault.Managers.Email
                 url += $"&tags={string.Join("&tags=", tags)}";
             }
 
-            var response = await _vault.Client.Get<EmailResponse>(url);
-            response.Email = _vault.Decrypt(response.Iv, response.AuthTag, response.Email);
-            return response;
+            var responses = await _vault.Client.Get<List<EmailResponse>>(url);
+
+            foreach (var response in responses)
+            {
+                response.Email = _vault.Decrypt(response.Iv, response.AuthTag, response.Email);
+            }
+
+            return responses;
         }
 
         /// <summary>

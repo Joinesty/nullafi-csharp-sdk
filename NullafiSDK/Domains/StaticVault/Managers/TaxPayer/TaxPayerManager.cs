@@ -59,6 +59,34 @@ namespace Nullafi.Domains.StaticVault.Managers.TaxPayer
         }
 
         /// <summary>
+        /// Retrieve the TaxPayer alias from real TaxPayer.
+        /// Real value must be an exact match and will also be case sensitive.
+        /// Returns an array of matching values.Array will be sorted by date created.
+        /// </summary>
+        /// <param name="taxpayer"></param>
+        /// <param name="tags"></param>
+        /// <returns></returns>
+        public async Task<List<TaxPayerResponse>> RetrieveFromRealData(string taxpayer, List<string> tags = null)
+        {
+            var hash = this._vault.Hash(taxpayer);
+            var url = $"/vault/static/taxpayer?hash={hash}";
+
+            if (tags != null)
+            {
+                url += $"&tags={string.Join("&tags=", tags)}";
+            }
+
+            var responses = await _vault.Client.Get<List<TaxPayerResponse>>(url);
+
+            foreach (var response in responses)
+            {
+                response.TaxPayer = _vault.Decrypt(response.Iv, response.AuthTag, response.TaxPayer);
+            }
+
+            return responses;
+        }
+
+        /// <summary>
         /// Delete the TaxPayer alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>

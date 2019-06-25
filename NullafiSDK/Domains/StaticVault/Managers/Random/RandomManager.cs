@@ -59,6 +59,34 @@ namespace Nullafi.Domains.StaticVault.Managers.Random
         }
 
         /// <summary>
+        /// Retrieve the Random alias from real data.
+        /// Real value must be an exact match and will also be case sensitive.
+        /// Returns an array of matching values.Array will be sorted by date created.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="tags"></param>
+        /// <returns></returns>
+        public async Task<List<RandomResponse>> RetrieveFromRealData(string data, List<string> tags = null)
+        {
+            var hash = this._vault.Hash(data);
+            var url = $"/vault/static/random?hash={hash}";
+
+            if (tags != null)
+            {
+                url += $"&tags={string.Join("&tags=", tags)}";
+            }
+
+            var responses = await _vault.Client.Get<List<RandomResponse>>(url);
+
+            foreach (var response in responses)
+            {
+                response.Data = _vault.Decrypt(response.Iv, response.AuthTag, response.Data);
+            }
+
+            return responses;
+        }
+
+        /// <summary>
         /// Delete the Random alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>

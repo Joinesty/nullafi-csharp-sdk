@@ -82,7 +82,7 @@ namespace Nullafi.Domains.StaticVault.Managers.FirstName
         /// <param name="firstName"></param>
         /// <param name="tags"></param>
         /// <returns></returns>
-        public async Task<FirstNameResponse> RetrieveFromRealData(string firstName, List<string> tags = null)
+        public async Task<List<FirstNameResponse>> RetrieveFromRealData(string firstName, List<string> tags = null)
         {
             var hash = this._vault.Hash(firstName);
             var url = $"/vault/static/firstname?hash={hash}";
@@ -92,9 +92,14 @@ namespace Nullafi.Domains.StaticVault.Managers.FirstName
                 url += $"&tags={string.Join("&tags=", tags)}";
             }
 
-            var response = await _vault.Client.Get<FirstNameResponse>(url);
-            response.FirstName = _vault.Decrypt(response.Iv, response.AuthTag, response.FirstName);
-            return response;
+            var responses = await _vault.Client.Get<List<FirstNameResponse>>(url);
+
+            foreach (var response in responses)
+            {
+                response.FirstName = _vault.Decrypt(response.Iv, response.AuthTag, response.FirstName);
+            }
+
+            return responses;
         }
 
         /// <summary>

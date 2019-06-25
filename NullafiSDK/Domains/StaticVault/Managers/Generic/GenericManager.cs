@@ -68,7 +68,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Generic
         /// <param name="data"></param>
         /// <param name="tags"></param>
         /// <returns></returns>
-        public async Task<GenericResponse> RetrieveFromRealData(string data, List<string> tags = null)
+        public async Task<List<GenericResponse>> RetrieveFromRealData(string data, List<string> tags = null)
         {
             var hash = this._vault.Hash(data);
             var url = $"/vault/static/generic?hash={hash}";
@@ -78,9 +78,14 @@ namespace Nullafi.Domains.StaticVault.Managers.Generic
                 url += $"&tags={string.Join("&tags=", tags)}";
             }
 
-            var response = await _vault.Client.Get<GenericResponse>(url);
-            response.Data = _vault.Decrypt(response.Iv, response.AuthTag, response.Data);
-            return response;
+            var responses = await _vault.Client.Get<List<GenericResponse>>(url);
+
+            foreach (var response in responses)
+            {
+                response.Data = _vault.Decrypt(response.Iv, response.AuthTag, response.Data);
+            }
+
+            return responses;
         }
 
         /// <summary>
