@@ -103,6 +103,16 @@ static readonly staticVaultMasterKey = 'MASTER_KEY';
 var staticVault = await client.retrieveStaticVault(staticVaultID, staticVaultMasterKey);
 ```
 
+You can also delete a vault using the vault ID. Deleting the vault will also remove all aliases stored within, so make sure data is properly saved before deleting a vault. Deleting a vault will return a response with a key of 'ok' and a boolean value. 
+
+```c#
+//Authenticated client
+var client = await sdk.createClient();
+// ID should be stored and retrieved from database
+static readonly staticVaultID = 'e490157b23534215b0369a2685aab47g';
+var staticVaultResponse = await client.deletestaticVault(staticVaultID);
+```
+
 Static Data Types
 ------------
 ### Address
@@ -320,6 +330,16 @@ static readonly communicationVaultID = 'e490157b23534215b0369a2685aab47g';
 static readonly communicationVaultMasterKey = 'MASTER_KEY';
 // ID and Master key should be stored and retrieved from database
 var communicationVault = await client.retrieveCommunicationVault(communicationVaultID, communicationVaultMasterKey);
+```
+
+You can also delete a vault using the vault ID. Deleting the vault will also remove all aliases stored within, so make sure data is properly saved before deleting a vault. Deleting a vault will return a response with a key of 'ok' and a boolean value. 
+
+```c#
+//Authenticated client
+var client = await sdk.createClient();
+// ID should be stored and retrieved from database
+static readonly communicationVaultID = 'e490157b23534215b0369a2685aab47g';
+var communicationVaultResponse = await client.deletecommunicationVault(communicationVaultID);
 ```
 
 Communication Data Types
