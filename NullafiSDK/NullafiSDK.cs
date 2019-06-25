@@ -13,7 +13,6 @@ namespace Nullafi
         /// Create an instance of NullafiSDK
         /// </summary>
         /// <param name="apiKey"></param>
-        /// <returns></returns>
         public NullafiSDK(string apiKey)
         {
             _apiKey = apiKey;

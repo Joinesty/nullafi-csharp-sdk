@@ -28,87 +28,87 @@ namespace Nullafi.Domains.StaticVault
         private readonly Security _security;
 
         /// <summary>
-        /// 
+        /// Id of vault instantiated 
         /// </summary>
         public string VaultId { get; }
 
         /// <summary>
-        /// 
+        /// Name of vault instantiated 
         /// </summary>
         public string VaultName { get; }
 
         /// <summary>
-        /// 
+        /// Master key to vault instantiated
         /// </summary>
         public string MasterKey { get; }
 
         /// <summary>
-        /// 
+        /// Address Manager to create aliases
         /// </summary>
         public AddressManager Address { get; }
 
         /// <summary>
-        /// 
+        /// DateOfBirth Manager to create aliases
         /// </summary>
         public DateOfBirthManager DateOfBirth { get; }
 
         /// <summary>
-        /// 
+        /// DriversLicense Manager to create aliases
         /// </summary>
         public DriversLicenseManager DriversLicense { get; }
 
         /// <summary>
-        /// 
+        /// FirstName Manager to create aliases
         /// </summary>
         public FirstNameManager FirstName { get; }
 
         /// <summary>
-        /// 
+        /// Gender Manager to create aliases
         /// </summary>
         public GenderManager Gender { get; }
 
         /// <summary>
-        /// 
+        /// Generic Manager to create aliases
         /// </summary>
         public GenericManager Generic { get; }
 
         /// <summary>
-        /// 
+        /// LastName Manager to create aliases
         /// </summary>
         public LastNameManager LastName { get; }
 
         /// <summary>
-        /// 
+        /// Passport Manager to create aliases
         /// </summary>
         public PassportManager Passport { get; }
 
         /// <summary>
-        /// 
+        /// PlaceOfBirth Manager to create aliases
         /// </summary>
         public PlaceOfBirthManager PlaceOfBirth { get; }
 
         /// <summary>
-        /// 
+        /// Race Manager to create aliases
         /// </summary>
         public RaceManager Race { get; }
 
         /// <summary>
-        /// 
+        /// Random Manager to create aliases
         /// </summary>
         public RandomManager Random { get; }
 
         /// <summary>
-        /// 
+        /// SSN Manager to create aliases
         /// </summary>
         public SsnManager Ssn { get; }
 
         /// <summary>
-        /// 
+        /// TaxPayer Manager to create aliases
         /// </summary>
         public TaxPayerManager TaxPayer { get; }
 
         /// <summary>
-        /// 
+        /// VehicleRegistration Manager to create aliases
         /// </summary>
         public VehicleRegistrationManager VehicleRegistration { get; }
 
@@ -119,7 +119,6 @@ namespace Nullafi.Domains.StaticVault
         /// <param name="vaultId"></param>
         /// <param name="vaultName"></param>
         /// <param name="masterKey"></param>
-        /// <returns></returns>
         private StaticVault(Client client, string vaultId, string vaultName, string masterKey)
         {
             Client = client;
@@ -148,7 +147,7 @@ namespace Nullafi.Domains.StaticVault
         /// Generate a hash for the real data
         /// </summary>
         /// <param name="value"></param>
-        /// <returns></returns>
+        /// <returns>Hashed value</returns>
         public string Hash(string value)
         {
             return _security.Hmac.Hash(value, Client.HashKey);
@@ -172,7 +171,7 @@ namespace Nullafi.Domains.StaticVault
         /// <param name="client"></param>
         /// <param name="name"></param>
         /// <param name="tags"></param>
-        /// <returns></returns>
+        /// <returns>Static vault object</returns>
         public static async Task<StaticVault> CreateStaticVault(Client client, string name, List<string> tags)
         {
             var security = new Security();
@@ -194,7 +193,7 @@ namespace Nullafi.Domains.StaticVault
         /// <param name="client"></param>
         /// <param name="vaultId"></param>
         /// <param name="masterKey"></param>
-        /// <returns></returns>
+        /// <returns>Static vault object</returns>
         public static async Task<StaticVault> RetrieveStaticVault(Client client, string vaultId, string masterKey)
         {
             var response = await client.Get<StaticVaultResponse>($"/vault/static/{vaultId}");

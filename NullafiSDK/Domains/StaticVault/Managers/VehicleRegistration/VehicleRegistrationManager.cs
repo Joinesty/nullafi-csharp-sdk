@@ -14,7 +14,6 @@ namespace Nullafi.Domains.StaticVault.Managers.VehicleRegistration
         /// Create an instance of VehicleRegistration Manager
         /// </summary>
         /// <param name="vault"></param>
-        /// <returns></returns>
         public VehicleRegistrationManager(StaticVault vault)
         {
             _vault = vault;
@@ -25,7 +24,7 @@ namespace Nullafi.Domains.StaticVault.Managers.VehicleRegistration
         /// </summary>
         /// <param name="vehicleregistration"></param>
         /// <param name="tags"></param>
-        /// <returns></returns>
+        /// <returns>id, vehicleRegistration, vehicleRegistrationAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<VehicleRegistrationResponse> Create(string vehicleregistration, List<string> tags = null)
         {
             var result = _vault.Encrypt(vehicleregistration);
@@ -50,7 +49,7 @@ namespace Nullafi.Domains.StaticVault.Managers.VehicleRegistration
         /// <para>Array will be sorted by date created.</para>
         /// </remarks>
         /// <param name="aliasId"></param>
-        /// <returns></returns>
+        /// <returns>id, vehicleRegistration, vehicleRegistrationAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<VehicleRegistrationResponse> Retrieve(string aliasId)
         {
             return await _vault.Client.Get<VehicleRegistrationResponse>($"/vault/static/{_vault.VaultId}/vehicleregistration/{aliasId}");
@@ -60,7 +59,7 @@ namespace Nullafi.Domains.StaticVault.Managers.VehicleRegistration
         /// Delete the VehicleRegistration alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>
-        /// <returns></returns>
+        /// <returns>ok</returns>
         public async Task Delete(string aliasId)
         {
             await _vault.Client.Delete($"/vault/static/{_vault.VaultId}/vehicleregistration/{aliasId}");

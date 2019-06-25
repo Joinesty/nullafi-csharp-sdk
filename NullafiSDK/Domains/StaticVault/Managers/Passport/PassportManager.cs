@@ -13,8 +13,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Passport
         /// <summary>
         /// Create an instance of Passport Manager
         /// </summary>
-        /// <param name="vault"></param>
-        /// <returns></returns>
+        /// <param name="vault"></param
         public PassportManager(StaticVault vault)
         {
             _vault = vault;
@@ -25,7 +24,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Passport
         /// </summary>
         /// <param name="passport"></param>
         /// <param name="tags"></param>
-        /// <returns></returns>
+        /// <returns>id, passport, passportAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<PassportResponse> Create(string passport, List<string> tags = null)
         {
             var result = _vault.Encrypt(passport);
@@ -51,7 +50,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Passport
         /// <para>Array will be sorted by date created.</para>
         /// </remarks>
         /// <param name="aliasId"></param>
-        /// <returns></returns>
+        /// <returns>id, passport, passportAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<PassportResponse> Retrieve(string aliasId)
         {
             var response = await _vault.Client.Get<PassportResponse>($"/vault/static/{_vault.VaultId}/passport/{aliasId}");
@@ -63,7 +62,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Passport
         /// Delete the Passport alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>
-        /// <returns></returns>
+        /// <returns>ok</returns>
         public async Task Delete(string aliasId)
         {
             await _vault.Client.Delete($"/vault/static/{_vault.VaultId}/passport/{aliasId}");
