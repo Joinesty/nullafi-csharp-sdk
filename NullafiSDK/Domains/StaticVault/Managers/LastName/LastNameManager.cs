@@ -72,6 +72,29 @@ namespace Nullafi.Domains.StaticVault.Managers.LastName
         }
 
         /// <summary>
+        /// Retrieve the Last Name alias from real last name.
+        /// Real value must be an exact match and will also be case sensitive.
+        /// Returns an array of matching values.Array will be sorted by date created.
+        /// </summary>
+        /// <param name="lastName"></param>
+        /// <param name="tags"></param>
+        /// <returns></returns>
+        public async Task<LastNameResponse> RetrieveFromRealData(string lastName, List<string> tags = null)
+        {
+            var hash = this._vault.Hash(lastName);
+            var url = $"/vault/static/lastname?hash={hash}";
+
+            if (tags != null)
+            {
+                url += $"&tags={string.Join("&tags=", tags)}";
+            }
+
+            var response = await _vault.Client.Get<LastNameResponse>(url);
+            response.LastName = _vault.Decrypt(response.Iv, response.AuthTag, response.LastName);
+            return response;
+        }
+
+        /// <summary>
         /// Delete the LastName alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>

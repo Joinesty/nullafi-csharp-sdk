@@ -72,6 +72,29 @@ namespace Nullafi.Domains.StaticVault.Managers.PlaceOfBirth
         }
 
         /// <summary>
+        /// Retrieve the Place of Birth alias from real place of birth.
+        /// Real value must be an exact match and will also be case sensitive.
+        /// Returns an array of matching values.Array will be sorted by date created.
+        /// </summary>
+        /// <param name="placeOfBirth"></param>
+        /// <param name="tags"></param>
+        /// <returns></returns>
+        public async Task<PlaceOfBirthResponse> RetrieveFromRealData(string placeOfBirth, List<string> tags = null)
+        {
+            var hash = this._vault.Hash(placeOfBirth);
+            var url = $"/vault/static/placeofbirth?hash={hash}";
+
+            if (tags != null)
+            {
+                url += $"&tags={string.Join("&tags=", tags)}";
+            }
+
+            var response = await _vault.Client.Get<PlaceOfBirthResponse>(url);
+            response.PlaceOfBirth = _vault.Decrypt(response.Iv, response.AuthTag, response.PlaceOfBirth);
+            return response;
+        }
+
+        /// <summary>
         /// Delete the PlaceOfBirth alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>

@@ -55,6 +55,29 @@ namespace Nullafi.Domains.CommunicationVault.Managers.Email
         }
 
         /// <summary>
+        /// Retrieve the Email alias from real email.
+        /// Real value must be an exact match and will also be case sensitive.
+        /// Returns an array of matching values.Array will be sorted by date created.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="tags"></param>
+        /// <returns></returns>
+        public async Task<EmailResponse> RetrieveFromRealData(string email, List<string> tags = null)
+        {
+            var hash = this._vault.Hash(email);
+            var url = $"/vault/communication/email?hash={hash}";
+            
+            if (tags != null)
+            {
+                url += $"&tags={string.Join("&tags=", tags)}";
+            }
+
+            var response = await _vault.Client.Get<EmailResponse>(url);
+            response.Email = _vault.Decrypt(response.Iv, response.AuthTag, response.Email);
+            return response;
+        }
+
+        /// <summary>
         /// Delete the Email alias from communication vault
         /// </summary>
         /// <param name="aliasId"></param>

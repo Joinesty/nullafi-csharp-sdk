@@ -114,5 +114,16 @@ namespace Nullafi.Domains.CommunicationVault
             var response = await client.Get<CommunicationVaultResponse>($"/vault/communication/{vaultId}");
             return new CommunicationVault(client, vaultId, response.Name, masterKey);
         }
+
+        /// <summary>
+        /// Delete the communication vault from id
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="vaultId"></param>
+        /// <returns></returns>
+        public static async Task DeleteCommunicationVault(Client client, string vaultId)
+        {
+            await client.Delete($"/vault/communication/{vaultId}");
+        }
     }
 }

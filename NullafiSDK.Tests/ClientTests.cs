@@ -189,6 +189,5 @@ namespace Nullafi.Tests
 
             Assert.IsNotNull(vault.Email);
         }
-
     }
 }

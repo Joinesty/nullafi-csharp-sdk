@@ -58,6 +58,29 @@ namespace Nullafi.Domains.StaticVault.Managers.Generic
         }
 
         /// <summary>
+        /// Retrieve the Generic alias from real data.
+        /// Real value must be an exact match and will also be case sensitive.
+        /// Returns an array of matching values.Array will be sorted by date created.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="tags"></param>
+        /// <returns></returns>
+        public async Task<GenericResponse> RetrieveFromRealData(string data, List<string> tags = null)
+        {
+            var hash = this._vault.Hash(data);
+            var url = $"/vault/static/generic?hash={hash}";
+
+            if (tags != null)
+            {
+                url += $"&tags={string.Join("&tags=", tags)}";
+            }
+
+            var response = await _vault.Client.Get<GenericResponse>(url);
+            response.Data = _vault.Decrypt(response.Iv, response.AuthTag, response.Data);
+            return response;
+        }
+
+        /// <summary>
         /// Delete the Generic alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>

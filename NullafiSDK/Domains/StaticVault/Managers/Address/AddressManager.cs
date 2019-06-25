@@ -70,6 +70,29 @@ namespace Nullafi.Domains.StaticVault.Managers.Address
         }
 
         /// <summary>
+        /// Retrieve the Address alias from real address.
+        /// Real value must be an exact match and will also be case sensitive.
+        /// Returns an array of matching values.Array will be sorted by date created.
+        /// </summary>
+        /// <param name="address"></param>
+        /// <param name="tags"></param>
+        /// <returns></returns>
+        public async Task<AddressResponse> RetrieveFromRealData(string address, List<string> tags = null)
+        {
+            var hash = this._vault.Hash(address);
+            var url = $"/vault/static/address?hash={hash}";
+
+            if (tags != null)
+            {
+                url += $"&tags={string.Join("&tags=", tags)}";
+            }
+
+            var response = await _vault.Client.Get<AddressResponse>(url);
+            response.Address = _vault.Decrypt(response.Iv, response.AuthTag, response.Address);
+            return response;
+        }
+
+        /// <summary>
         /// Delete the Address alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>
