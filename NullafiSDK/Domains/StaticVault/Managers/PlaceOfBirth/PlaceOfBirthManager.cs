@@ -79,7 +79,7 @@ namespace Nullafi.Domains.StaticVault.Managers.PlaceOfBirth
         /// <param name="placeOfBirth"></param>
         /// <param name="tags"></param>
         /// <returns></returns>
-        public async Task<PlaceOfBirthResponse> RetrieveFromRealData(string placeOfBirth, List<string> tags = null)
+        public async Task<List<PlaceOfBirthResponse>> RetrieveFromRealData(string placeOfBirth, List<string> tags = null)
         {
             var hash = this._vault.Hash(placeOfBirth);
             var url = $"/vault/static/placeofbirth?hash={hash}";
@@ -89,9 +89,14 @@ namespace Nullafi.Domains.StaticVault.Managers.PlaceOfBirth
                 url += $"&tags={string.Join("&tags=", tags)}";
             }
 
-            var response = await _vault.Client.Get<PlaceOfBirthResponse>(url);
-            response.PlaceOfBirth = _vault.Decrypt(response.Iv, response.AuthTag, response.PlaceOfBirth);
-            return response;
+            var responses = await _vault.Client.Get<List<PlaceOfBirthResponse>>(url);
+
+            foreach (var response in responses)
+            {
+                response.PlaceOfBirth = _vault.Decrypt(response.Iv, response.AuthTag, response.PlaceOfBirth);
+            }
+
+            return responses;
         }
 
         /// <summary>

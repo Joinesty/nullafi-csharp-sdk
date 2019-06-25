@@ -72,6 +72,34 @@ namespace Nullafi.Domains.StaticVault.Managers.Ssn
         }
 
         /// <summary>
+        /// Retrieve the SSN alias from real ssn.
+        /// Real value must be an exact match and will also be case sensitive.
+        /// Returns an array of matching values.Array will be sorted by date created.
+        /// </summary>
+        /// <param name="ssn"></param>
+        /// <param name="tags"></param>
+        /// <returns></returns>
+        public async Task<List<SsnResponse>> RetrieveFromRealData(string ssn, List<string> tags = null)
+        {
+            var hash = this._vault.Hash(ssn);
+            var url = $"/vault/static/ssn?hash={hash}";
+
+            if (tags != null)
+            {
+                url += $"&tags={string.Join("&tags=", tags)}";
+            }
+
+            var responses = await _vault.Client.Get<List<SsnResponse>>(url);
+
+            foreach (var response in responses)
+            {
+                response.Ssn = _vault.Decrypt(response.Iv, response.AuthTag, response.Ssn);
+            }
+
+            return responses;
+        }
+
+        /// <summary>
         /// Delete the SSN alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>

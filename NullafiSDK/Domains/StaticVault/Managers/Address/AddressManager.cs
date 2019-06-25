@@ -77,7 +77,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Address
         /// <param name="address"></param>
         /// <param name="tags"></param>
         /// <returns></returns>
-        public async Task<AddressResponse> RetrieveFromRealData(string address, List<string> tags = null)
+        public async Task<List<AddressResponse>> RetrieveFromRealData(string address, List<string> tags = null)
         {
             var hash = this._vault.Hash(address);
             var url = $"/vault/static/address?hash={hash}";
@@ -87,9 +87,14 @@ namespace Nullafi.Domains.StaticVault.Managers.Address
                 url += $"&tags={string.Join("&tags=", tags)}";
             }
 
-            var response = await _vault.Client.Get<AddressResponse>(url);
-            response.Address = _vault.Decrypt(response.Iv, response.AuthTag, response.Address);
-            return response;
+            var responses = await _vault.Client.Get<List<AddressResponse>>(url);
+
+            foreach (var response in responses)
+            {
+                response.Address = _vault.Decrypt(response.Iv, response.AuthTag, response.Address);
+            }
+
+            return responses;
         }
 
         /// <summary>

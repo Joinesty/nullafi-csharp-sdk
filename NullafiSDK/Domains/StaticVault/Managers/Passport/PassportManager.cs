@@ -63,7 +63,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Passport
         /// <param name="passport"></param>
         /// <param name="tags"></param>
         /// <returns></returns>
-        public async Task<PassportResponse> RetrieveFromRealData(string passport, List<string> tags = null)
+        public async Task<List<PassportResponse>> RetrieveFromRealData(string passport, List<string> tags = null)
         {
             var hash = this._vault.Hash(passport);
             var url = $"/vault/static/lastname?hash={hash}";
@@ -73,9 +73,14 @@ namespace Nullafi.Domains.StaticVault.Managers.Passport
                 url += $"&tags={string.Join("&tags=", tags)}";
             }
 
-            var response = await _vault.Client.Get<PassportResponse>(url);
-            response.Passport = _vault.Decrypt(response.Iv, response.AuthTag, response.Passport);
-            return response;
+            var responses = await _vault.Client.Get<List<PassportResponse>>(url);
+
+            foreach (var response in responses)
+            {
+                response.Passport = _vault.Decrypt(response.Iv, response.AuthTag, response.Passport);
+            }
+
+            return responses;
         }
 
         /// <summary>

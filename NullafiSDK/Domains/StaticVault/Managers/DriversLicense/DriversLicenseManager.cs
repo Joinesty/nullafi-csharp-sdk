@@ -79,7 +79,7 @@ namespace Nullafi.Domains.StaticVault.Managers.DriversLicense
         /// <param name="driversLicense"></param>
         /// <param name="tags"></param>
         /// <returns></returns>
-        public async Task<DriversLicenseResponse> RetrieveFromRealData(string driversLicense, List<string> tags = null)
+        public async Task<List<DriversLicenseResponse>> RetrieveFromRealData(string driversLicense, List<string> tags = null)
         {
             var hash = this._vault.Hash(driversLicense);
             var url = $"/vault/static/driverslicense?hash={hash}";
@@ -89,9 +89,14 @@ namespace Nullafi.Domains.StaticVault.Managers.DriversLicense
                 url += $"&tags={string.Join("&tags=", tags)}";
             }
 
-            var response = await _vault.Client.Get<DriversLicenseResponse>(url);
-            response.DriversLicense = _vault.Decrypt(response.Iv, response.AuthTag, response.DriversLicense);
-            return response;
+            var responses = await _vault.Client.Get<List<DriversLicenseResponse>>(url);
+
+            foreach (var response in responses)
+            {
+                response.DriversLicense = _vault.Decrypt(response.Iv, response.AuthTag, response.DriversLicense);
+            }
+
+            return responses;
         }
 
         /// <summary>

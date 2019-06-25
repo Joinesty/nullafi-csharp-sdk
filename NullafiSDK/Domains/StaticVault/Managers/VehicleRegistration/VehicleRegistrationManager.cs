@@ -53,6 +53,34 @@ namespace Nullafi.Domains.StaticVault.Managers.VehicleRegistration
         }
 
         /// <summary>
+        /// Retrieve the VehicleRegistration alias from real VehicleRegistration.
+        /// Real value must be an exact match and will also be case sensitive.
+        /// Returns an array of matching values.Array will be sorted by date created.
+        /// </summary>
+        /// <param name="taxpayer"></param>
+        /// <param name="tags"></param>
+        /// <returns></returns>
+        public async Task<List<VehicleRegistrationResponse>> RetrieveFromRealData(string vehicleregistration, List<string> tags = null)
+        {
+            var hash = this._vault.Hash(vehicleregistration);
+            var url = $"/vault/static/vehicleregistration?hash={hash}";
+
+            if (tags != null)
+            {
+                url += $"&tags={string.Join("&tags=", tags)}";
+            }
+
+            var responses = await _vault.Client.Get<List<VehicleRegistrationResponse>>(url);
+
+            foreach (var response in responses)
+            {
+                response.VehicleRegistration = _vault.Decrypt(response.Iv, response.AuthTag, response.VehicleRegistration);
+            }
+
+            return responses;
+        }
+
+        /// <summary>
         /// Delete the VehicleRegistration alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>
