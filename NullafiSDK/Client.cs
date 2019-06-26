@@ -35,7 +35,7 @@ namespace Nullafi
         /// </summary>
         /// <param name="name"></param>
         /// <param name="tags"></param>
-        /// <returns>Static vault object</returns>
+        /// <returns>Returns as promise: id, name, tags, createdAt, iv, authTag, masterKey, sessionKey</returns>
         public async Task<StaticVault> CreateStaticVault(string name, List<string> tags = null)
         {
             return await StaticVault.CreateStaticVault(this, name, tags);
@@ -46,7 +46,7 @@ namespace Nullafi
         /// </summary>
         /// <param name="vaultId"></param>
         /// <param name="masterKey"></param>
-        /// <returns>Static vault object</returns>
+        /// <returns>Returns as promise: id, name, tags, createdAt</returns>
         public async Task<StaticVault> RetrieveStaticVault(string vaultId, string masterKey)
         {
             return await StaticVault.RetrieveStaticVault(this, vaultId, masterKey);
@@ -56,7 +56,7 @@ namespace Nullafi
         /// delete an existing static vault
         /// </summary>
         /// <param name="vaultId"></param>
-        /// <returns></returns>
+        /// <returns>Returns as promise: ok</returns>
         public async Task DeleteStaticVault(string vaultId)
         {
             await StaticVault.DeleteStaticVault(this, vaultId);
@@ -67,7 +67,7 @@ namespace Nullafi
         /// </summary>
         /// <param name="name"></param>
         /// <param name="tags"></param>
-        /// <returns>Communication vault object</returns>
+        /// <returns>Returns as promise: id, name, tags, createdAt, iv, authTag, masterKey, sessionKey/returns>
         public async Task<CommunicationVault> CreateCommunicationVault(string name, List<string> tags = null)
         {
             return await CommunicationVault.CreateCommunicationVault(this, name, tags);
@@ -78,7 +78,7 @@ namespace Nullafi
         /// </summary>
         /// <param name="vaultId"></param>
         /// <param name="masterKey"></param>
-        /// <returns>Communication vault object</returns>
+        /// <returns>Returns as promise: id, name, tags, createdAt</returns>
         public async Task<CommunicationVault> RetrieveCommunicationVault(string vaultId, string masterKey)
         {
             return await CommunicationVault.RetrieveCommunicationVault(this, vaultId, masterKey);
@@ -88,7 +88,7 @@ namespace Nullafi
         /// delete an existing communication vault
         /// </summary>
         /// <param name="vaultId"></param>
-        /// <returns></returns>
+        /// <returns>Returns as promise: ok</returns>
         public async Task DeleteCommunicationVault(string vaultId)
         {
             await CommunicationVault.DeleteCommunicationVault(this, vaultId);

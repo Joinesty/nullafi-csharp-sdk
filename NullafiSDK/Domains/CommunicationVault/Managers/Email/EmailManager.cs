@@ -26,7 +26,7 @@ namespace Nullafi.Domains.CommunicationVault.Managers.Email
         /// </summary>
         /// <param name="email"></param>
         /// <param name="tags"></param>
-        /// <returns></returns>
+        /// <returns>Returns a promise containing: email, emailAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<EmailResponse> Create(string email, List<string> tags = null)
         {
             var result = _vault.Encrypt(email);
@@ -52,7 +52,7 @@ namespace Nullafi.Domains.CommunicationVault.Managers.Email
         /// <para>Array will be sorted by date created.</para>
         /// </remarks>
         /// <param name="aliasId"></param>
-        /// <returns></returns>
+        /// <returns>Returns a promise containing: email, emailAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<EmailResponse> Retrieve(string aliasId)
         {
             var response = await _vault.Client.Get<EmailResponse>($"/vault/communication/{_vault.VaultId}/email/{aliasId}");
@@ -67,7 +67,7 @@ namespace Nullafi.Domains.CommunicationVault.Managers.Email
         /// </summary>
         /// <param name="email"></param>
         /// <param name="tags"></param>
-        /// <returns></returns>
+        /// <returns>Returns a promise containing: email, emailAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<List<EmailResponse>> RetrieveFromRealData(string email, List<string> tags = null)
         {
             var hash = this._vault.Hash(email);
@@ -92,7 +92,7 @@ namespace Nullafi.Domains.CommunicationVault.Managers.Email
         /// Delete the Email alias from communication vault
         /// </summary>
         /// <param name="aliasId"></param>
-        /// <returns></returns>
+        /// <returns>Returns a promise containing: ok</returns>
         public async Task Delete(string aliasId)
         {
             await _vault.Client.Delete($"/vault/communication/{_vault.VaultId}/email/{aliasId}");

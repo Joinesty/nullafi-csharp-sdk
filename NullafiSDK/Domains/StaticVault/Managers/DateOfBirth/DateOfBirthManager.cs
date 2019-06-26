@@ -26,7 +26,7 @@ namespace Nullafi.Domains.StaticVault.Managers.DateOfBirth
         /// </summary>
         /// <param name="dateOfBirth"></param>
         /// <param name="tags"></param>
-        /// <returns>id, dateOfBirth, dateOfBirthAlias, tags, iv, authTag, tags, createdAt</returns>
+        /// <returns>Returns a promise containing: id, dateOfBirth, dateOfBirthAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<DateOfBirthResponse> Create(string dateOfBirth, List<string> tags)
         {
             return await this.Create(dateOfBirth, null, null, tags);
@@ -39,7 +39,7 @@ namespace Nullafi.Domains.StaticVault.Managers.DateOfBirth
         /// <param name="year"></param>
         /// <param name="month"></param>
         /// <param name="tags"></param>
-        /// <returns>id, dateOfBirth, dateOfBirthAlias, tags, iv, authTag, tags, createdAt</returns>
+        /// <returns>Returns a promise containing: id, dateOfBirth, dateOfBirthAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<DateOfBirthResponse> Create(string dateOfBirth, int? year = null, int? month = null, List<string> tags = null)
         {
             var result = _vault.Encrypt(dateOfBirth);
@@ -69,7 +69,7 @@ namespace Nullafi.Domains.StaticVault.Managers.DateOfBirth
         /// <para>Array will be sorted by date created.</para>
         /// </remarks>
         /// <param name="aliasId"></param>
-        /// <returns>id, dateOfBirth, dateOfBirthAlias, tags, iv, authTag, tags, createdAt</returns>
+        /// <returns>Returns a promise containing: id, dateOfBirth, dateOfBirthAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<DateOfBirthResponse> Retrieve(string aliasId)
         {
             var response = await _vault.Client.Get<DateOfBirthResponse>($"/vault/static/{_vault.VaultId}/dateofbirth/{aliasId}");
@@ -84,7 +84,7 @@ namespace Nullafi.Domains.StaticVault.Managers.DateOfBirth
         /// </summary>
         /// <param name="dateOfBirth"></param>
         /// <param name="tags"></param>
-        /// <returns></returns>
+        /// <returns>Returns a promise containing: id, dateOfBirth, dateOfBirthAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<List<DateOfBirthResponse>> RetrieveFromRealData(string dateOfBirth, List<string> tags = null)
         {
             var hash = this._vault.Hash(dateOfBirth);
@@ -109,7 +109,7 @@ namespace Nullafi.Domains.StaticVault.Managers.DateOfBirth
         /// Delete the Address alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>
-        /// <returns>ok</returns>
+        /// <returns>Returns a promise containing: ok</returns>
         public async Task Delete(string aliasId)
         {
             await _vault.Client.Delete($"/vault/static/{_vault.VaultId}/dateofbirth/{aliasId}");

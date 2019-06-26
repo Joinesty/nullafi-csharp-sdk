@@ -171,7 +171,7 @@ namespace Nullafi.Domains.StaticVault
         /// <param name="client"></param>
         /// <param name="name"></param>
         /// <param name="tags"></param>
-        /// <returns>Static vault object</returns>
+        /// <returns>Returns a promise containing: id, name, tags, createdAt, iv, authTag, masterKey, sessionKey</returns>
         public static async Task<StaticVault> CreateStaticVault(Client client, string name, List<string> tags)
         {
             var security = new Security();
@@ -193,7 +193,7 @@ namespace Nullafi.Domains.StaticVault
         /// <param name="client"></param>
         /// <param name="vaultId"></param>
         /// <param name="masterKey"></param>
-        /// <returns>Static vault object</returns>
+        /// <returns>Returns a promise containing: id, name, tags, createdAt</returns>
         public static async Task<StaticVault> RetrieveStaticVault(Client client, string vaultId, string masterKey)
         {
             var response = await client.Get<StaticVaultResponse>($"/vault/static/{vaultId}");
@@ -205,7 +205,7 @@ namespace Nullafi.Domains.StaticVault
         /// </summary>
         /// <param name="client"></param>
         /// <param name="vaultId"></param>
-        /// <returns></returns>
+        /// <returns>Returns a promise containing: ok</returns>
         public static async Task DeleteStaticVault(Client client, string vaultId)
         {
             await client.Delete($"/vault/static/{vaultId}");

@@ -27,7 +27,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Race
         /// </summary>
         /// <param name="race"></param>
         /// <param name="tags"></param>
-        /// <returns>id, race, raceAlias, tags, iv, authTag, tags, createdAt</returns>
+        /// <returns>Returns a promise containing: id, race, raceAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<RaceResponse> Create(string race, List<string> tags = null)
             {
             var result = _vault.Encrypt(race);
@@ -53,7 +53,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Race
         /// <para>Array will be sorted by date created.</para>
         /// </remarks>
         /// <param name="aliasId"></param>
-        /// <returns>id, race, raceAlias, tags, iv, authTag, tags, createdAt</returns>
+        /// <returns>Returns a promise containing: id, race, raceAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<RaceResponse> Retrieve(string aliasId)
         {
             var response = await _vault.Client.Get<RaceResponse>($"/vault/static/{_vault.VaultId}/race/{aliasId}");
@@ -93,7 +93,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Race
         /// Delete the Race alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>
-        /// <returns>ok</returns>
+        /// <returns>Returns a promise containing: ok</returns>
         public async Task Delete(string aliasId)
         {
             await _vault.Client.Delete($"/vault/static/{_vault.VaultId}/race/{aliasId}");

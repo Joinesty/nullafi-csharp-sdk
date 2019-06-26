@@ -26,7 +26,7 @@ namespace Nullafi.Domains.StaticVault.Managers.DriversLicense
         /// </summary>
         /// <param name="driversLicense"></param>
         /// <param name="tags"></param>
-        /// <returns>id, driversLicense, driversLicenseAlias, tags, iv, authTag, tags, createdAt</returns>
+        /// <returns>Returns a promise containing: id, driversLicense, driversLicenseAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<DriversLicenseResponse> Create(string driversLicense, List<string> tags)
         {
             return await this.Create(driversLicense, null, tags);
@@ -38,7 +38,7 @@ namespace Nullafi.Domains.StaticVault.Managers.DriversLicense
         /// <param name="driversLicense"></param>
         /// <param name="state"></param>
         /// <param name="tags"></param>
-        /// <returns>id, driversLicense, driversLicenseAlias, tags, iv, authTag, tags, createdAt</returns>
+        /// <returns>Returns a promise containing: id, driversLicense, driversLicenseAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<DriversLicenseResponse> Create(string driversLicense, string state = null, List<string> tags = null)
         {
             var result = _vault.Encrypt(driversLicense);
@@ -67,7 +67,7 @@ namespace Nullafi.Domains.StaticVault.Managers.DriversLicense
         /// <para>Array will be sorted by date created.</para>
         /// </remarks>
         /// <param name="aliasId"></param>
-        /// <returns>id, driversLicense, driversLicenseAlias, tags, iv, authTag, tags, createdAt</returns>
+        /// <returns>Returns a promise containing: id, driversLicense, driversLicenseAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<DriversLicenseResponse> Retrieve(string aliasId)
         {
             var response = await _vault.Client.Get<DriversLicenseResponse>($"/vault/static/{_vault.VaultId}/driverslicense/{aliasId}");
@@ -107,7 +107,7 @@ namespace Nullafi.Domains.StaticVault.Managers.DriversLicense
         /// Delete the DriversLicense alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>
-        /// <returns>ok</returns>
+        /// <returns>Returns a promise containing: ok</returns>
         public async Task Delete(string aliasId)
         {
             await _vault.Client.Delete($"/vault/static/{_vault.VaultId}/driverslicense/{aliasId}");

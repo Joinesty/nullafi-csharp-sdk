@@ -26,7 +26,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Gender
         /// </summary>
         /// <param name="gender"></param>
         /// <param name="tags"></param>
-        /// <returns>id, gender, genderAlias, tags, iv, authTag, tags, createdAt</returns>
+        /// <returns>Returns a promise containing: id, gender, genderAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<GenderResponse> Create(string gender, List<string> tags = null)
         {
             var result = _vault.Encrypt(gender);
@@ -52,7 +52,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Gender
         /// <para>Array will be sorted by date created.</para>
         /// </remarks>
         /// <param name="aliasId"></param>
-        /// <returns>id, gender, genderAlias, tags, iv, authTag, tags, createdAt</returns>
+        /// <returns>Returns a promise containing: id, gender, genderAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<GenderResponse> Retrieve(string aliasId)
         {
             var response = await _vault.Client.Get<GenderResponse>($"/vault/static/{_vault.VaultId}/gender/{aliasId}");
@@ -92,7 +92,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Gender
         /// Delete the Gender alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>
-        /// <returns>ok</returns>
+        /// <returns>Returns a promise containing: ok</returns>
         public async Task Delete(string aliasId)
         {
             await _vault.Client.Delete($"/vault/static/{_vault.VaultId}/gender/{aliasId}");

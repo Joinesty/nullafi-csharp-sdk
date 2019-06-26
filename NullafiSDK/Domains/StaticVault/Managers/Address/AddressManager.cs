@@ -26,7 +26,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Address
         /// </summary>
         /// <param name="address"></param>
         /// <param name="tags"></param>
-        /// <returns>address, addressAlias, tags, iv, authTag, tags, createdAt</returns>
+        /// <returns>Returns a promise containing: address, addressAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<AddressResponse> Create(string address, List<string> tags)
         {
             return await this.Create(address, null, tags);
@@ -38,7 +38,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Address
         /// <param name="address"></param>
         /// <param name="state"></param>
         /// <param name="tags"></param>
-        /// <returns>id, address, addressAlias, tags, iv, authTag, tags, createdAt</returns>
+        /// <returns>Returns a promise containing: id, address, addressAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<AddressResponse> Create(string address, string state = null, List<string> tags = null)
         {
             var result = _vault.Encrypt(address);
@@ -67,7 +67,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Address
         /// <para>Array will be sorted by date created.</para>
         /// </remarks>
         /// <param name="aliasId"></param>
-        /// <returns>id, address, addressAlias, tags, iv, authTag, tags, createdAt</returns>
+        /// <returns>Returns a promise containing: id, address, addressAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<AddressResponse> Retrieve(string aliasId)
         {
             var response = await _vault.Client.Get<AddressResponse>($"/vault/static/{_vault.VaultId}/address/{aliasId}");
@@ -82,7 +82,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Address
         /// </summary>
         /// <param name="address"></param>
         /// <param name="tags"></param>
-        /// <returns></returns>
+        /// <returns>Returns a promise containing: id, address, addressAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<List<AddressResponse>> RetrieveFromRealData(string address, List<string> tags = null)
         {
             var hash = this._vault.Hash(address);
@@ -107,7 +107,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Address
         /// Delete the Address alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>
-        /// <returns>ok</returns>
+        /// <returns>Returns a promise containing: ok</returns>
         public async Task Delete(string aliasId)
         {
             await _vault.Client.Delete($"/vault/static/{_vault.VaultId}/address/{aliasId}");
