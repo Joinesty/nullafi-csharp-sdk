@@ -161,7 +161,7 @@ namespace Nullafi.Tests.Domains.Static.Managers
             var hash = StaticVault.Hash(vehicleregistration);
 
             Mock.Server.Given(Request.Create().WithPath($"/vault/static/{StaticVault.VaultId}/vehicleregistration")
-                .WithParam("hash")
+                .WithParam("hash").WithParam("tags")
                 .UsingGet())
                 .RespondWith(new ResponseProviderInterceptor((RequestMessage requestMessage) =>
                 {
@@ -184,7 +184,7 @@ namespace Nullafi.Tests.Domains.Static.Managers
                  }}));
                 }));
 
-            var vehicleregistrationResponses = await StaticVault.VehicleRegistration.RetrieveFromRealData(vehicleregistration);
+            var vehicleregistrationResponses = await StaticVault.VehicleRegistration.RetrieveFromRealData(vehicleregistration, tags);
 
 
             vehicleregistrationResponses.ForEach(vehicleregistrationResponse =>

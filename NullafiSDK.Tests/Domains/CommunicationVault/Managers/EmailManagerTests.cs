@@ -18,6 +18,12 @@ namespace Nullafi.Tests.Domains.CommunicationVault.Managers
     {
         static Nullafi.Domains.CommunicationVault.CommunicationVault CommunicationVault;
 
+        string emailId = "42719977-66da-4b48-89e7-ea53e0b0db32";
+        string emailAlias = "alias@email.com";
+        string email = "example@email.com";
+        List<string> tags = new List<string> { "some-vault-tag-1", "some-vault-tag-2" };
+        DateTime now = DateTime.Now;
+
         [ClassInitialize]
         public static async Task InstantiateVault(TestContext context)
         {
@@ -59,12 +65,6 @@ namespace Nullafi.Tests.Domains.CommunicationVault.Managers
         [TestMethod]
         public async Task GivenRequestToCreateAEmailAliasWithTags_WhenCreatingAlias_ShouldReturnAEmailAlias()
         {
-            var emailId = "42719977-66da-4b48-89e7-ea53e0b0db32";
-            var emailAlias = "alias@email.com";
-            var email = "example@email.com";
-            var tags = new List<string> { "some-vault-tag-1", "some-vault-tag-2" };
-            var now = DateTime.Now;
-
             Mock.Server.Given(Request.Create().WithPath($"/vault/communication/{CommunicationVault.VaultId}/email").UsingPost())
                 .RespondWith(new ResponseProviderInterceptor((RequestMessage requestMessage) =>
                 {
@@ -102,11 +102,6 @@ namespace Nullafi.Tests.Domains.CommunicationVault.Managers
         [TestMethod]
         public async Task GivenRequestToCreateAEmailAlias_WhenCreatingAlias_ShouldReturnAEmailAlias()
         {
-            var emailId = "42719977-66da-4b48-89e7-ea53e0b0db32";
-            var emailAlias = "alias@email.com";
-            var email = "example@email.com";
-            var now = DateTime.Now;
-
             Mock.Server.Given(Request.Create().WithPath($"/vault/communication/{CommunicationVault.VaultId}/email").UsingPost())
                 .RespondWith(new ResponseProviderInterceptor((RequestMessage requestMessage) =>
                 {
@@ -141,11 +136,6 @@ namespace Nullafi.Tests.Domains.CommunicationVault.Managers
         [TestMethod]
         public async Task GivenRequestToRetrieveAEmailAlias_WhenRetrievingAlias_ShouldReturnAEmailAlias()
         {
-            var emailId = "42719977-66da-4b48-89e7-ea53e0b0db32";
-            var emailAlias = "alias@email.com";
-            var email = "example@email.com";
-            var now = DateTime.Now;
-
             Mock.Server.Given(Request.Create().WithPath($"/vault/communication/{CommunicationVault.VaultId}/email/{emailId}").UsingGet())
                 .RespondWith(new ResponseProviderInterceptor((RequestMessage requestMessage) =>
                 {
@@ -182,14 +172,10 @@ namespace Nullafi.Tests.Domains.CommunicationVault.Managers
         [TestMethod]
         public async Task GivenRequestToRetrieveAEmailAliasFromRealData_WhenRetrievingAlias_ShouldReturnAEmailAlias()
         {
-            var emailId = "42719977-66da-4b48-89e7-ea53e0b0db32";
-            var emailAlias = "alias@email.com";
-            var email = "example@email.com";
-            var now = DateTime.Now;
             var hash = CommunicationVault.Hash(email);
 
             Mock.Server.Given(Request.Create().WithPath($"/vault/communication/{CommunicationVault.VaultId}/email")
-                .WithParam("hash")
+                .WithParam("hash").WithParam("tags")
                 .UsingGet())
                 .RespondWith(new ResponseProviderInterceptor((RequestMessage requestMessage) =>
                 {
@@ -212,7 +198,7 @@ namespace Nullafi.Tests.Domains.CommunicationVault.Managers
                  }}));
                 }));
 
-            var emailResponses = await CommunicationVault.Email.RetrieveFromRealData(email);
+            var emailResponses = await CommunicationVault.Email.RetrieveFromRealData(email, tags);
 
 
             emailResponses.ForEach(emailResponse =>
@@ -230,9 +216,6 @@ namespace Nullafi.Tests.Domains.CommunicationVault.Managers
         [TestMethod]
         public async Task GivenRequestToDeleteAEmailAlias_WhenDeletingAlias_ShouldReturnAOkResponse()
         {
-            var emailId = "42719977-66da-4b48-89e7-ea53e0b0db32";
-            var now = DateTime.Now;
-
             Mock.Server.Given(Request.Create().WithPath($"/vault/communication/{CommunicationVault.VaultId}/email/{emailId}").UsingDelete())
                 .RespondWith(Response.Create()
                 .WithStatusCode(HttpStatusCode.OK)

@@ -111,11 +111,6 @@ namespace Nullafi.Services.Crypto
             var byteCipherText = Convert.FromBase64String(cipherText);
             var bytePlainText = Decrypt(Convert.FromBase64String(masterKey), Convert.FromBase64String(iv), Convert.FromBase64String(authTag), byteCipherText);
 
-            if (bytePlainText == null)
-            {
-                return null;
-            }
-
             return Encoding.UTF8.GetString(bytePlainText).TrimEnd("\r\n\0".ToCharArray());
         }
 

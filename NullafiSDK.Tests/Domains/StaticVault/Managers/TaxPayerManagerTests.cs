@@ -161,7 +161,7 @@ namespace Nullafi.Tests.Domains.Static.Managers
             var hash = StaticVault.Hash(taxpayer);
 
             Mock.Server.Given(Request.Create().WithPath($"/vault/static/{StaticVault.VaultId}/taxpayer")
-                .WithParam("hash")
+                .WithParam("hash").WithParam("tags")
                 .UsingGet())
                 .RespondWith(new ResponseProviderInterceptor((RequestMessage requestMessage) =>
                 {
@@ -184,7 +184,7 @@ namespace Nullafi.Tests.Domains.Static.Managers
                  }}));
                 }));
 
-            var taxpayerResponses = await StaticVault.TaxPayer.RetrieveFromRealData(taxpayer);
+            var taxpayerResponses = await StaticVault.TaxPayer.RetrieveFromRealData(taxpayer, tags);
 
 
             taxpayerResponses.ForEach(taxpayerResponse =>

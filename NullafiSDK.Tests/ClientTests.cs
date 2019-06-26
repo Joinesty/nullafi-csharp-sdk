@@ -115,6 +115,27 @@ namespace Nullafi.Tests
         }
 
         [TestMethod]
+        public async Task GivenRequestToDeleteStaticVault_WhenDeletingACommunicationVault_ReturnAOkResponse()
+        {
+            var vaultId = "some-vault-id";
+
+            Mock.Server.Given(Request.Create().WithPath($"/vault/static/{vaultId}").UsingDelete())
+          .RespondWith(
+              Response.Create()
+              .WithStatusCode(HttpStatusCode.OK)
+              .WithBody(JsonConvert.SerializeObject(new
+              {
+                  Ok = true
+              }))
+              );
+
+            var security = new Security();
+            var client = new Client();
+            await client.Authenticate(Mock.API_KEY);
+            await client.DeleteStaticVault(vaultId);
+        }
+
+        [TestMethod]
         public async Task GivenRequestToCreateCommunicationVault_WhenCreatingACommunicationVault_ReturnACommunicationVaultInstance()
         {
             var vaultId = "some-vault-id";
@@ -188,6 +209,27 @@ namespace Nullafi.Tests
             Assert.IsNotNull(vault.MasterKey);
 
             Assert.IsNotNull(vault.Email);
+        }
+
+        [TestMethod]
+        public async Task GivenRequestToDeleteCommunicationVault_WhenDeletingACommunicationVault_ReturnAOkResponse()
+        {
+            var vaultId = "some-vault-id";
+
+            Mock.Server.Given(Request.Create().WithPath($"/vault/communication/{vaultId}").UsingDelete())
+          .RespondWith(
+              Response.Create()
+              .WithStatusCode(HttpStatusCode.OK)
+              .WithBody(JsonConvert.SerializeObject(new
+              {
+                  Ok = true
+              }))
+              );
+
+            var security = new Security();
+            var client = new Client();
+            await client.Authenticate(Mock.API_KEY);
+            await client.DeleteCommunicationVault(vaultId);
         }
     }
 }

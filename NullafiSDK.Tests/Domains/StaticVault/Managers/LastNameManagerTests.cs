@@ -161,7 +161,7 @@
                 var hash = StaticVault.Hash(lastname);
 
                 Mock.Server.Given(Request.Create().WithPath($"/vault/static/{StaticVault.VaultId}/lastname")
-                    .WithParam("hash")
+                    .WithParam("hash").WithParam("tags")
                     .UsingGet())
                     .RespondWith(new ResponseProviderInterceptor((RequestMessage requestMessage) =>
                     {
@@ -184,7 +184,7 @@
                      }}));
                     }));
 
-                var lastnameResponses = await StaticVault.LastName.RetrieveFromRealData(lastname);
+                var lastnameResponses = await StaticVault.LastName.RetrieveFromRealData(lastname, tags);
 
 
                 lastnameResponses.ForEach(lastnameResponse =>

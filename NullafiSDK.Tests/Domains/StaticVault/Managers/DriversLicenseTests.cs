@@ -161,7 +161,7 @@ namespace Nullafi.Tests.Domains.Static.Managers
             var hash = StaticVault.Hash(driverslicense);
 
             Mock.Server.Given(Request.Create().WithPath($"/vault/static/{StaticVault.VaultId}/driverslicense")
-                .WithParam("hash")
+                .WithParam("hash").WithParam("tags")
                 .UsingGet())
                 .RespondWith(new ResponseProviderInterceptor((RequestMessage requestMessage) =>
                 {
@@ -184,7 +184,7 @@ namespace Nullafi.Tests.Domains.Static.Managers
                  }}));
                 }));
 
-            var driverslicenseResponses = await StaticVault.DriversLicense.RetrieveFromRealData(driverslicense);
+            var driverslicenseResponses = await StaticVault.DriversLicense.RetrieveFromRealData(driverslicense, tags);
 
 
             driverslicenseResponses.ForEach(driverslicenseResponse =>

@@ -161,7 +161,7 @@ namespace Nullafi.Tests.Domains.Static.Managers
             var hash = StaticVault.Hash(address);
 
             Mock.Server.Given(Request.Create().WithPath($"/vault/static/{StaticVault.VaultId}/address")
-                .WithParam("hash")
+                .WithParam("hash").WithParam("tags")
                 .UsingGet())
                 .RespondWith(new ResponseProviderInterceptor((RequestMessage requestMessage) =>
                 {
@@ -184,7 +184,7 @@ namespace Nullafi.Tests.Domains.Static.Managers
                  }}));
                 }));
 
-            var addressResponses = await StaticVault.Address.RetrieveFromRealData(address);
+            var addressResponses = await StaticVault.Address.RetrieveFromRealData(address, tags);
 
 
             addressResponses.ForEach(addressResponse =>

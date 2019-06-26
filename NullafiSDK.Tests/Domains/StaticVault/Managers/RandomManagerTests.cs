@@ -163,7 +163,7 @@ namespace Nullafi.Tests.Domains.Static.Managers
             var hash = StaticVault.Hash(random);
 
             Mock.Server.Given(Request.Create().WithPath($"/vault/static/{StaticVault.VaultId}/random")
-                .WithParam("hash")
+                .WithParam("hash").WithParam("tags")
                 .UsingGet())
                 .RespondWith(new ResponseProviderInterceptor((RequestMessage requestMessage) =>
                 {
@@ -186,7 +186,7 @@ namespace Nullafi.Tests.Domains.Static.Managers
                  }}));
                 }));
 
-            var randomResponses = await StaticVault.Random.RetrieveFromRealData(random);
+            var randomResponses = await StaticVault.Random.RetrieveFromRealData(random, tags);
 
 
             randomResponses.ForEach(randomResponse =>

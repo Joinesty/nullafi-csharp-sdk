@@ -45,7 +45,7 @@ namespace Nullafi.Services
             }
         }
 
-        protected void SetSessionAlias(string sessionToken)
+        internal void SetSessionAlias(string sessionToken)
         {
             if (Client.DefaultRequestHeaders.Contains("Authorization"))
             {
@@ -55,40 +55,15 @@ namespace Nullafi.Services
             Client.DefaultRequestHeaders.Add("Authorization", $"Bearer {sessionToken}");
         }
 
-        private string GetQueryString(object obj)
-        {
-            var properties = from p in obj.GetType().GetProperties()
-                             where p.GetValue(obj, null) != null
-                             select p.Name + "=" + HttpUtility.UrlEncode(p.GetValue(obj, null).ToString());
-
-            return string.Join("&", properties.ToArray());
-        }
-
         internal async Task<TResponse> Get<TResponse>(string path)
         {
             return JsonConvert.DeserializeObject<TResponse>(await Client.GetStringAsync(path));
-        }
-
-        internal async Task<TResponse> Patch<TPayload, TResponse>(string path, TPayload data)
-        {
-            var content = new StringContent(JsonConvert.SerializeObject(data, SerializerSettings), Encoding.UTF8, "application/json");
-            var response = await Client.PatchAsync(path, content);
-            response.EnsureSuccessStatusCode();
-            return JsonConvert.DeserializeObject<TResponse>(await response.Content.ReadAsStringAsync(), SerializerSettings);
         }
 
         internal async Task<TResponse> Post<TPayload, TResponse>(string path, TPayload data)
         {
             var content = new StringContent(JsonConvert.SerializeObject(data, SerializerSettings), Encoding.UTF8, "application/json");
             var response = await Client.PostAsync(path, content);
-            response.EnsureSuccessStatusCode();
-            return JsonConvert.DeserializeObject<TResponse>(await response.Content.ReadAsStringAsync(), SerializerSettings);
-        }
-
-        internal async Task<TResponse> Put<TPayload, TResponse>(string path, TPayload data)
-        {
-            var content = new StringContent(JsonConvert.SerializeObject(data, SerializerSettings), Encoding.UTF8, "application/json");
-            var response = await Client.PutAsync(path, content);
             response.EnsureSuccessStatusCode();
             return JsonConvert.DeserializeObject<TResponse>(await response.Content.ReadAsStringAsync(), SerializerSettings);
         }
