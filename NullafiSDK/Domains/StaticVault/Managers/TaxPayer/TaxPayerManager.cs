@@ -24,7 +24,7 @@ namespace Nullafi.Domains.StaticVault.Managers.TaxPayer
         /// </summary>
         /// <param name="taxpayer"></param>
         /// <param name="tags"></param>
-        /// <returns>id, taxPayer, taxPayerAlias, tags, iv, authTag, tags, createdAt</returns>
+        /// <returns>Returns a promise containing: id, taxPayer, taxPayerAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<TaxPayerResponse> Create(string taxpayer, List<string> tags = null)
         {
             var result = _vault.Encrypt(taxpayer);
@@ -50,7 +50,7 @@ namespace Nullafi.Domains.StaticVault.Managers.TaxPayer
         /// <para>Array will be sorted by date created.</para>
         /// </remarks>
         /// <param name="aliasId"></param>
-        /// <returns>id, taxPayer, taxPayerAlias, tags, iv, authTag, tags, createdAt</returns>
+        /// <returns>Returns a promise containing: id, taxPayer, taxPayerAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<TaxPayerResponse> Retrieve(string aliasId)
         {
             var response = await _vault.Client.Get<TaxPayerResponse>($"/vault/static/{_vault.VaultId}/taxpayer/{aliasId}");
@@ -90,7 +90,7 @@ namespace Nullafi.Domains.StaticVault.Managers.TaxPayer
         /// Delete the TaxPayer alias from static vault
         /// </summary>
         /// <param name="aliasId"></param>
-        /// <returns>ok</returns>
+        /// <returns>Returns a promise containing: ok</returns>
         public async Task Delete(string aliasId)
         {
             await _vault.Client.Delete($"/vault/static/{_vault.VaultId}/taxpayer/{aliasId}");
