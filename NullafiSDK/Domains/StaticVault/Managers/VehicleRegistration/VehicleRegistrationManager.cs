@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -66,11 +68,11 @@ namespace Nullafi.Domains.StaticVault.Managers.VehicleRegistration
         public async Task<List<VehicleRegistrationResponse>> RetrieveFromRealData(string vehicleregistration, List<string> tags = null)
         {
             var hash = this._vault.Hash(vehicleregistration);
-            var url = $"/vault/static/vehicleregistration?hash={hash}";
+            var url = $"/vault/static/{_vault.VaultId}/vehicleregistration?hash={Uri.EscapeDataString(hash)}";
 
             if (tags != null)
             {
-                url += $"&tags={string.Join("&tags=", tags)}";
+                url += $"&tags={string.Join("&tags=", tags.Select(item => Uri.EscapeDataString(item)))}";
             }
 
             var responses = await _vault.Client.Get<List<VehicleRegistrationResponse>>(url);

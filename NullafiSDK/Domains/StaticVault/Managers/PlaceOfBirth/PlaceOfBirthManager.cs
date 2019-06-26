@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -85,11 +86,11 @@ namespace Nullafi.Domains.StaticVault.Managers.PlaceOfBirth
         public async Task<List<PlaceOfBirthResponse>> RetrieveFromRealData(string placeOfBirth, List<string> tags = null)
         {
             var hash = this._vault.Hash(placeOfBirth);
-            var url = $"/vault/static/placeofbirth?hash={hash}";
+            var url = $"/vault/static/{_vault.VaultId}/placeofbirth?hash={Uri.EscapeDataString(hash)}";
 
             if (tags != null)
             {
-                url += $"&tags={string.Join("&tags=", tags)}";
+                url += $"&tags={string.Join("&tags=", tags.Select(item => Uri.EscapeDataString(item)))}";
             }
 
             var responses = await _vault.Client.Get<List<PlaceOfBirthResponse>>(url);

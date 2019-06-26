@@ -132,8 +132,8 @@ namespace Nullafi.Tests.Domains.CommuncationVault.Managers
             Assert.AreEqual(emailResponse.Id, emailId);
             Assert.AreEqual(emailResponse.Email, email);
             Assert.AreEqual(emailResponse.EmailAlias, emailAlias);
-            Assert.AreEqual(emailResponse.UpdatedAt, now);
-            Assert.AreEqual(emailResponse.CreatedAt, now);
+            Assert.AreEqual(emailResponse.UpdatedAt.ToLongDateString(), now.ToLongDateString());
+            Assert.AreEqual(emailResponse.CreatedAt.ToLongDateString(), now.ToLongDateString());
             Assert.IsNotNull(emailResponse.AuthTag);
             Assert.IsNotNull(emailResponse.Iv);
         }
@@ -146,35 +146,102 @@ namespace Nullafi.Tests.Domains.CommuncationVault.Managers
             var email = "example@email.com";
             var now = DateTime.Now;
 
-            Mock.Server.Given(Request.Create().WithPath($"/vault/communication/{CommunicationVault.VaultId}/email").UsingPost())
+            Mock.Server.Given(Request.Create().WithPath($"/vault/communication/{CommunicationVault.VaultId}/email/{emailId}").UsingGet())
                 .RespondWith(new ResponseProviderInterceptor((RequestMessage requestMessage) =>
                 {
-                    var request = JObject.Parse(requestMessage.Body);
+                    var security = new Security();
+                    var iv = security.Aes.GenerateStringIv();
+                    var encryptedData = security.Aes.Encrypt(CommunicationVault.MasterKey, iv, email);
 
                     return Response.Create()
                 .WithStatusCode(HttpStatusCode.OK)
                  .WithBody(JsonConvert.SerializeObject(new EmailResponse
                  {
                      Id = emailId,
-                     Email = request.Value<string>("email"),
+                     Email = encryptedData.EncryptedData,
                      EmailAlias = emailAlias,
-                     AuthTag = request.Value<string>("authTag"),
-                     Iv = request.Value<string>("iv"),
+                     AuthTag = encryptedData.AuthTag,
+                     Iv = encryptedData.Iv,
                      UpdatedAt = now,
                      CreatedAt = now
                  }));
                 }));
 
 
-            var emailResponse = await CommunicationVault.Email.Create(email);
+            var emailResponse = await CommunicationVault.Email.Retrieve(emailId);
 
             Assert.AreEqual(emailResponse.Id, emailId);
             Assert.AreEqual(emailResponse.Email, email);
             Assert.AreEqual(emailResponse.EmailAlias, emailAlias);
-            Assert.AreEqual(emailResponse.UpdatedAt, now);
-            Assert.AreEqual(emailResponse.CreatedAt, now);
+            Assert.AreEqual(emailResponse.UpdatedAt.ToLongDateString(), now.ToLongDateString());
+            Assert.AreEqual(emailResponse.CreatedAt.ToLongDateString(), now.ToLongDateString());
             Assert.IsNotNull(emailResponse.AuthTag);
             Assert.IsNotNull(emailResponse.Iv);
+        }
+
+        [TestMethod]
+        public async Task GivenRequestToRetrieveAEmailAliasFromRealData_WhenRetrievingAlias_ShouldReturnAEmailAlias()
+        {
+            var emailId = "42719977-66da-4b48-89e7-ea53e0b0db32";
+            var emailAlias = "alias@email.com";
+            var email = "example@email.com";
+            var now = DateTime.Now;
+            var hash = CommunicationVault.Hash(email);
+
+            Mock.Server.Given(Request.Create().WithPath($"/vault/communication/{CommunicationVault.VaultId}/email")
+                .WithParam("hash")
+                .UsingGet())
+                .RespondWith(new ResponseProviderInterceptor((RequestMessage requestMessage) =>
+                {
+
+                    var security = new Security();
+                    var iv = security.Aes.GenerateStringIv();
+                    var encryptedData = security.Aes.Encrypt(CommunicationVault.MasterKey, iv, email);
+
+                    return Response.Create()
+                .WithStatusCode(HttpStatusCode.OK)
+                 .WithBody(JsonConvert.SerializeObject(new List<EmailResponse> { new EmailResponse
+                 {
+                     Id = emailId,
+                     Email = encryptedData.EncryptedData,
+                     EmailAlias = emailAlias,
+                     AuthTag = encryptedData.AuthTag,
+                     Iv = encryptedData.Iv,
+                     UpdatedAt = now,
+                     CreatedAt = now
+                 }}));
+                }));
+
+            var emailResponses = await CommunicationVault.Email.RetrieveFromRealData(email);
+
+
+            emailResponses.ForEach(emailResponse =>
+            {
+                Assert.AreEqual(emailResponse.Id, emailId);
+                Assert.AreEqual(emailResponse.Email, email);
+                Assert.AreEqual(emailResponse.EmailAlias, emailAlias);
+                Assert.AreEqual(emailResponse.UpdatedAt.ToLongDateString(), now.ToLongDateString());
+                Assert.AreEqual(emailResponse.CreatedAt.ToLongDateString(), now.ToLongDateString());
+                Assert.IsNotNull(emailResponse.AuthTag);
+                Assert.IsNotNull(emailResponse.Iv);
+            });
+        }
+
+        [TestMethod]
+        public async Task GivenRequestToDeleteAEmailAlias_WhenDeletingAlias_ShouldReturnAOkResponse()
+        {
+            var emailId = "42719977-66da-4b48-89e7-ea53e0b0db32";
+            var now = DateTime.Now;
+
+            Mock.Server.Given(Request.Create().WithPath($"/vault/communication/{CommunicationVault.VaultId}/email/{emailId}").UsingDelete())
+                .RespondWith(Response.Create()
+                .WithStatusCode(HttpStatusCode.OK)
+                 .WithBody(JsonConvert.SerializeObject(new
+                 {
+                     Ok = true
+                 })));
+
+            await CommunicationVault.Email.Delete(emailId);
         }
     }
 }

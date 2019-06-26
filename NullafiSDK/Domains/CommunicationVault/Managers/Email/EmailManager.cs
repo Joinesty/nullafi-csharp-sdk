@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Nullafi.Domains.CommunicationVault.Managers.Email
@@ -69,11 +71,11 @@ namespace Nullafi.Domains.CommunicationVault.Managers.Email
         public async Task<List<EmailResponse>> RetrieveFromRealData(string email, List<string> tags = null)
         {
             var hash = this._vault.Hash(email);
-            var url = $"/vault/communication/email?hash={hash}";
+            var url = $"/vault/communication/{_vault.VaultId}/email?hash={Uri.EscapeDataString(hash)}";
             
             if (tags != null)
             {
-                url += $"&tags={string.Join("&tags=", tags)}";
+                url += $"&tags={string.Join("&tags=", tags.Select(item => Uri.EscapeDataString(item)))}";
             }
 
             var responses = await _vault.Client.Get<List<EmailResponse>>(url);
