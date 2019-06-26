@@ -54,7 +54,9 @@ namespace Nullafi.Domains.StaticVault.Managers.VehicleRegistration
         /// <returns>id, vehicleRegistration, vehicleRegistrationAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<VehicleRegistrationResponse> Retrieve(string aliasId)
         {
-            return await _vault.Client.Get<VehicleRegistrationResponse>($"/vault/static/{_vault.VaultId}/vehicleregistration/{aliasId}");
+            var response = await _vault.Client.Get<VehicleRegistrationResponse>($"/vault/static/{_vault.VaultId}/vehicleregistration/{aliasId}");
+            response.VehicleRegistration = _vault.Decrypt(response.Iv, response.AuthTag, response.VehicleRegistration);
+            return response;
         }
 
         /// <summary>

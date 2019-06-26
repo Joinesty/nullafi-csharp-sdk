@@ -11,7 +11,7 @@ using WireMock;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 
-namespace Nullafi.Tests.Domains.CommuncationVault.Managers
+namespace Nullafi.Tests.Domains.CommunicationVault.Managers
 {
     [TestClass]
     public class EmailManagerTests
