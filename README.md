@@ -24,7 +24,7 @@ The full documentation can be found <a href="NullafiSDK/NullafiSDK.md"> here </a
 
 ```c#
 
-public async Task Run() {
+public async Task RunExample() {
 	//We recommend storing your key in a secure non-public facing env file
 	static readonly string API_KEY = Environment.GetEnvironmentVariable("NULLAFI_APIKEY");
 
@@ -79,41 +79,50 @@ Static vaults are used to hold all created aliases for non transactional data. S
 There is no limit on how many types of data may be stored in one static vault. It is up to users to determine how to split their data into vaults. Note that the master key must be stored to retrieve the vault at later times.  
 A Static Vault can be created like this:
 ```c#
-var client = await SDK.CreateClient();
-StaticVault staticVault = await client.CreateStaticVault("my-static-vault",  new List<string>() {"my-tag-1", "my-tag-2" });
-Console.WriteLine("//// FirstNameExample.CreateWithGender:");
-Console.WriteLine(staticVault);
-/*
-	output example:
-	{ 
-		"Id":'e490157b23534215b0369a2685aab47g', 
-		"Name":'my-static-vault',
-		"MasterKey":'MASTER_KEY',
-		"Tags":['my-tag-1', 'my-tag-2'], 
-		"CreatedAt": '2018-07-13 T01:00:00Z' 
-	}
-*/
+public async Task CreateStaticVault() {
+	var client = await SDK.CreateClient();
+	StaticVault staticVault = await client.CreateStaticVault("my-static-vault",  new List<string>() {"my-tag-1", "my-tag-2" });
+	Console.WriteLine("//// FirstNameExample.CreateWithGender:");
+	Console.WriteLine(staticVault);
+	/*
+		output example:
+		{ 
+			"Id":'e490157b23534215b0369a2685aab47g', 
+			"Name":'my-static-vault',
+			"MasterKey":'MASTER_KEY',
+			"Tags":['my-tag-1', 'my-tag-2'], 
+			"CreatedAt": '2018-07-13 T01:00:00Z' 
+		}
+	*/
+	return staticVault;
+}
 ```
 The **ID** as well as the **Master Key** from the output will be used to retrieve the vault. These values must be stored in your database to retrieve the vault.
 Retrieving a vault looks like this: 
 
 ```c#
-//Authenticated client
-var client = await SDK.CreateClient();
-// ID and Master key should be stored and retrieved from database
-static readonly staticVaultID = 'e490157b23534215b0369a2685aab47g';
-static readonly staticVaultMasterKey = 'MASTER_KEY';
-var staticVault = await client.RetrieveStaticVault(staticVaultID, staticVaultMasterKey);
+public async Task RetrieveStaticVault() {
+	//Authenticated client
+	var client = await SDK.CreateClient();
+	// ID and Master key should be stored and retrieved from database
+	static readonly staticVaultID = 'e490157b23534215b0369a2685aab47g';
+	static readonly staticVaultMasterKey = 'MASTER_KEY';
+	var staticVault = await client.RetrieveStaticVault(staticVaultID, staticVaultMasterKey);
+	return staticVault;
+}
 ```
 
 You can also delete a vault using the vault ID. Deleting the vault will also remove all aliases stored within, so make sure data is properly saved before deleting a vault. Deleting a vault will return a response with a key of 'ok' and a boolean value. 
 
 ```c#
-//Authenticated client
-var client = await SDK.CreateClient();
-// ID should be stored and retrieved from database
-static readonly staticVaultID = 'e490157b23534215b0369a2685aab47g';
-var staticVaultResponse = await client.DeleteStaticVault(staticVaultID);
+public async Task DeleteStaticVault() {
+	//Authenticated client
+	var client = await SDK.CreateClient();
+	// ID should be stored and retrieved from database
+	static readonly staticVaultID = 'e490157b23534215b0369a2685aab47g';
+	var staticVaultResponse = await client.DeleteStaticVault(staticVaultID);
+	return staticVaultResponse;
+}
 ```
 
 Static Data Types
@@ -127,7 +136,7 @@ Address example:
 // street, city, state abbreviation zipcode, USA
 // 43520 Hills Flat, East Aricchester, AK 99761, USA
 
-// xample call
+// example call
 var addressAliasObj = await staticVault.Address.Create('138 Congress St, Portland, ME 04101', 'ME', new List<string>() {"my-tag-1", "my-tag-2" });
 ```
 
@@ -308,41 +317,49 @@ Communicataion vaults will store aliases for data types that will need to mainta
 The alias generated for communication emails will be a functioning email. Nullafi will handle receiving messages to this address and relaying them to the real email address. White list senders and domains are added to control who may contact these users. Control for these emails may be found in the <a href="https://dashboard.nullafi.com/login" target="_blank">Nullafi Dashboard</a> under the **'System'** tab.
 
 ```c#
-var client = await SDK.CreateClient();
-CommunicationVault communicationVault = await client.CreateCommunicationVault('my-communication-vault', new List<string>() {'my-tag-1', 'my-tag-2'});
-Console.WriteLine(communicationVault);
-/*
-	output example:
-	{ 
-		"Id":"e490157b23534215b0369a2685aab47g", 
-		"name":"my-communication-vault",
-		"masterKey":"MASTER_KEY",
-		"tags":['my-tag-1', 'my-tag-2'], 
-		"createdAt":"2018-07-13 T01:00:00Z" 
-	}
-*/
+public async Task CreateCommunicationVault() {
+	var client = await SDK.CreateClient();
+	CommunicationVault communicationVault = await client.CreateCommunicationVault('my-communication-vault', new List<string>() {'my-tag-1', 'my-tag-2'});
+	Console.WriteLine(communicationVault);
+	/*
+		output example:
+		{ 
+			"Id":"e490157b23534215b0369a2685aab47g", 
+			"name":"my-communication-vault",
+			"masterKey":"MASTER_KEY",
+			"tags":['my-tag-1', 'my-tag-2'], 
+			"createdAt":"2018-07-13 T01:00:00Z" 
+		}
+	*/
+	return communicationVault;
+}
 ```
 The **ID** as well as the **Master Key** from the output will be used to retrieve the vault. These values must be stored in your database to retrieve the vault.
 Retrieving a vault looks like this: 
 
 ```c#
-//Authenticated client
-var client = await SDK.CreateClient();
-// ID and Master key should be stored and retrieved from database
-static readonly communicationVaultID = 'e490157b23534215b0369a2685aab47g';
-static readonly communicationVaultMasterKey = 'MASTER_KEY';
-// ID and Master key should be stored and retrieved from database
-CommunicationVault communicationVault = await client.retrieveCommunicationVault(communicationVaultID, communicationVaultMasterKey);
+public async Task RetrieveCommunicationVault() {
+	//Authenticated client
+	var client = await SDK.CreateClient();
+	// ID and Master key should be stored and retrieved from database
+	static readonly communicationVaultID = 'e490157b23534215b0369a2685aab47g';
+	static readonly communicationVaultMasterKey = 'MASTER_KEY';
+	// ID and Master key should be stored and retrieved from database
+	CommunicationVault communicationVault = await client.retrieveCommunicationVault(communicationVaultID, communicationVaultMasterKey);
+	return communicationVault;
+}
 ```
 
 You can also delete a vault using the vault ID. Deleting the vault will also remove all aliases stored within, so make sure data is properly saved before deleting a vault. Deleting a vault will return a response with a key of 'ok' and a boolean value. 
 
 ```c#
-//Authenticated client
-var client = await SDK.CreateClient();
-// ID should be stored and retrieved from database
-static readonly communicationVaultID = 'e490157b23534215b0369a2685aab47g';
-var communicationVaultResponse = await client.DeletecommunicationVault(communicationVaultID);
+public async Task DeleteCommunicationVault() {
+	//Authenticated client
+	var client = await SDK.CreateClient();
+	// ID should be stored and retrieved from database
+	static readonly communicationVaultID = 'e490157b23534215b0369a2685aab47g';
+	var communicationVaultResponse = await client.DeleteCommunicationVault(communicationVaultID);
+}
 ```
 
 Communication Data Types
