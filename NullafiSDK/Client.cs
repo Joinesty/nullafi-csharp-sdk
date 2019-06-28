@@ -67,7 +67,7 @@ namespace Nullafi
         /// </summary>
         /// <param name="name"></param>
         /// <param name="tags"></param>
-        /// <returns>Returns as promise: id, name, tags, createdAt, iv, authTag, masterKey, sessionKey/returns>
+        /// <returns>Returns as promise: id, name, tags, createdAt, iv, authTag, masterKey, sessionKey</returns>
         public async Task<CommunicationVault> CreateCommunicationVault(string name, List<string> tags = null)
         {
             return await CommunicationVault.CreateCommunicationVault(this, name, tags);

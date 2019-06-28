@@ -15,7 +15,7 @@ namespace Nullafi.Domains.StaticVault.Managers.Passport
         /// <summary>
         /// Create an instance of Passport Manager
         /// </summary>
-        /// <param name="vault"></param
+        /// <param name="vault"></param>
         public PassportManager(StaticVault vault)
         {
             _vault = vault;

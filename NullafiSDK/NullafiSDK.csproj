@@ -7,14 +7,19 @@
     <Copyright>Joinesty, Inc 2019</Copyright>
     <RepositoryUrl>https://github.com/Joinesty/nullafi-csharp-sdk</RepositoryUrl>
     <PackageProjectUrl>https://github.com/Joinesty/nullafi-csharp-sdk</PackageProjectUrl>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageLicenseUrl>https://github.com/Joinesty/nullafi-csharp-sdk/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageLicenseUrl></PackageLicenseUrl>
     <RootNamespace>Nullafi</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>D:\users\elder\Documents\code\nullafi-csharp-sdk\NullafiSDK\NullafiSDK.xml</DocumentationFile>
+    <DocumentationFile>NullafiSDK.xml</DocumentationFile>
     <OutputPath></OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>NullafiSDK.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

@@ -9,6 +9,7 @@
   - [Create(address,state,tags)](#M-Nullafi-Domains-StaticVault-Managers-Address-AddressManager-Create-System-String,System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.Address.AddressManager.Create(System.String,System.String,System.Collections.Generic.List{System.String})')
   - [Delete(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-Address-AddressManager-Delete-System-String- 'Nullafi.Domains.StaticVault.Managers.Address.AddressManager.Delete(System.String)')
   - [Retrieve(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-Address-AddressManager-Retrieve-System-String- 'Nullafi.Domains.StaticVault.Managers.Address.AddressManager.Retrieve(System.String)')
+  - [RetrieveFromRealData(address,tags)](#M-Nullafi-Domains-StaticVault-Managers-Address-AddressManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.Address.AddressManager.RetrieveFromRealData(System.String,System.Collections.Generic.List{System.String})')
 - [AddressRequest](#T-Nullafi-Domains-StaticVault-Managers-Address-AddressRequest 'Nullafi.Domains.StaticVault.Managers.Address.AddressRequest')
   - [Address](#P-Nullafi-Domains-StaticVault-Managers-Address-AddressRequest-Address 'Nullafi.Domains.StaticVault.Managers.Address.AddressRequest.Address')
   - [AddressHash](#P-Nullafi-Domains-StaticVault-Managers-Address-AddressRequest-AddressHash 'Nullafi.Domains.StaticVault.Managers.Address.AddressRequest.AddressHash')
@@ -25,7 +26,7 @@
   - [Tags](#P-Nullafi-Domains-StaticVault-Managers-Address-AddressResponse-Tags 'Nullafi.Domains.StaticVault.Managers.Address.AddressResponse.Tags')
   - [UpdatedAt](#P-Nullafi-Domains-StaticVault-Managers-Address-AddressResponse-UpdatedAt 'Nullafi.Domains.StaticVault.Managers.Address.AddressResponse.UpdatedAt')
 - [Aesgcm](#T-Nullafi-Services-Crypto-Aesgcm 'Nullafi.Services.Crypto.Aesgcm')
-  - [Decrypt(masterKey,iv,authTag,cipherText,returnBase64)](#M-Nullafi-Services-Crypto-Aesgcm-Decrypt-System-String,System-String,System-String,System-String- 'Nullafi.Services.Crypto.Aesgcm.Decrypt(System.String,System.String,System.String,System.String)')
+  - [Decrypt(masterKey,iv,authTag,cipherText)](#M-Nullafi-Services-Crypto-Aesgcm-Decrypt-System-String,System-String,System-String,System-String- 'Nullafi.Services.Crypto.Aesgcm.Decrypt(System.String,System.String,System.String,System.String)')
   - [Encrypt(masterKey,iv,plainText)](#M-Nullafi-Services-Crypto-Aesgcm-Encrypt-System-String,System-String,System-String- 'Nullafi.Services.Crypto.Aesgcm.Encrypt(System.String,System.String,System.String)')
   - [GenerateStringIv()](#M-Nullafi-Services-Crypto-Aesgcm-GenerateStringIv 'Nullafi.Services.Crypto.Aesgcm.GenerateStringIv')
   - [GenerateStringMasterKey()](#M-Nullafi-Services-Crypto-Aesgcm-GenerateStringMasterKey 'Nullafi.Services.Crypto.Aesgcm.GenerateStringMasterKey')
@@ -36,6 +37,8 @@
   - [Authenticate(apiKey)](#M-Nullafi-Client-Authenticate-System-String- 'Nullafi.Client.Authenticate(System.String)')
   - [CreateCommunicationVault(name,tags)](#M-Nullafi-Client-CreateCommunicationVault-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Client.CreateCommunicationVault(System.String,System.Collections.Generic.List{System.String})')
   - [CreateStaticVault(name,tags)](#M-Nullafi-Client-CreateStaticVault-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Client.CreateStaticVault(System.String,System.Collections.Generic.List{System.String})')
+  - [DeleteCommunicationVault(vaultId)](#M-Nullafi-Client-DeleteCommunicationVault-System-String- 'Nullafi.Client.DeleteCommunicationVault(System.String)')
+  - [DeleteStaticVault(vaultId)](#M-Nullafi-Client-DeleteStaticVault-System-String- 'Nullafi.Client.DeleteStaticVault(System.String)')
   - [RetrieveCommunicationVault(vaultId,masterKey)](#M-Nullafi-Client-RetrieveCommunicationVault-System-String,System-String- 'Nullafi.Client.RetrieveCommunicationVault(System.String,System.String)')
   - [RetrieveStaticVault(vaultId,masterKey)](#M-Nullafi-Client-RetrieveStaticVault-System-String,System-String- 'Nullafi.Client.RetrieveStaticVault(System.String,System.String)')
 - [CommunicationVault](#T-Nullafi-Domains-CommunicationVault-CommunicationVault 'Nullafi.Domains.CommunicationVault.CommunicationVault')
@@ -45,6 +48,7 @@
   - [VaultId](#P-Nullafi-Domains-CommunicationVault-CommunicationVault-VaultId 'Nullafi.Domains.CommunicationVault.CommunicationVault.VaultId')
   - [VaultName](#P-Nullafi-Domains-CommunicationVault-CommunicationVault-VaultName 'Nullafi.Domains.CommunicationVault.CommunicationVault.VaultName')
   - [CreateCommunicationVault(client,name,tags)](#M-Nullafi-Domains-CommunicationVault-CommunicationVault-CreateCommunicationVault-Nullafi-Client,System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.CommunicationVault.CommunicationVault.CreateCommunicationVault(Nullafi.Client,System.String,System.Collections.Generic.List{System.String})')
+  - [DeleteCommunicationVault(client,vaultId)](#M-Nullafi-Domains-CommunicationVault-CommunicationVault-DeleteCommunicationVault-Nullafi-Client,System-String- 'Nullafi.Domains.CommunicationVault.CommunicationVault.DeleteCommunicationVault(Nullafi.Client,System.String)')
   - [Hash(value)](#M-Nullafi-Domains-CommunicationVault-CommunicationVault-Hash-System-String- 'Nullafi.Domains.CommunicationVault.CommunicationVault.Hash(System.String)')
   - [RetrieveCommunicationVault(client,vaultId,masterKey)](#M-Nullafi-Domains-CommunicationVault-CommunicationVault-RetrieveCommunicationVault-Nullafi-Client,System-String,System-String- 'Nullafi.Domains.CommunicationVault.CommunicationVault.RetrieveCommunicationVault(Nullafi.Client,System.String,System.String)')
 - [DateOfBirthManager](#T-Nullafi-Domains-StaticVault-Managers-DateOfBirth-DateOfBirthManager 'Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthManager')
@@ -53,6 +57,7 @@
   - [Create(dateOfBirth,year,month,tags)](#M-Nullafi-Domains-StaticVault-Managers-DateOfBirth-DateOfBirthManager-Create-System-String,System-Nullable{System-Int32},System-Nullable{System-Int32},System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthManager.Create(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Collections.Generic.List{System.String})')
   - [Delete(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-DateOfBirth-DateOfBirthManager-Delete-System-String- 'Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthManager.Delete(System.String)')
   - [Retrieve(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-DateOfBirth-DateOfBirthManager-Retrieve-System-String- 'Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthManager.Retrieve(System.String)')
+  - [RetrieveFromRealData(dateOfBirth,tags)](#M-Nullafi-Domains-StaticVault-Managers-DateOfBirth-DateOfBirthManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthManager.RetrieveFromRealData(System.String,System.Collections.Generic.List{System.String})')
 - [DateOfBirthRequest](#T-Nullafi-Domains-StaticVault-Managers-DateOfBirth-DateOfBirthRequest 'Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthRequest')
   - [AuthTag](#P-Nullafi-Domains-StaticVault-Managers-DateOfBirth-DateOfBirthRequest-AuthTag 'Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthRequest.AuthTag')
   - [DateOfBirth](#P-Nullafi-Domains-StaticVault-Managers-DateOfBirth-DateOfBirthRequest-DateOfBirth 'Nullafi.Domains.StaticVault.Managers.DateOfBirth.DateOfBirthRequest.DateOfBirth')
@@ -74,6 +79,7 @@
   - [Create(driversLicense,state,tags)](#M-Nullafi-Domains-StaticVault-Managers-DriversLicense-DriversLicenseManager-Create-System-String,System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseManager.Create(System.String,System.String,System.Collections.Generic.List{System.String})')
   - [Delete(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-DriversLicense-DriversLicenseManager-Delete-System-String- 'Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseManager.Delete(System.String)')
   - [Retrieve(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-DriversLicense-DriversLicenseManager-Retrieve-System-String- 'Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseManager.Retrieve(System.String)')
+  - [RetrieveFromRealData(driversLicense,tags)](#M-Nullafi-Domains-StaticVault-Managers-DriversLicense-DriversLicenseManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseManager.RetrieveFromRealData(System.String,System.Collections.Generic.List{System.String})')
 - [DriversLicenseRequest](#T-Nullafi-Domains-StaticVault-Managers-DriversLicense-DriversLicenseRequest 'Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseRequest')
   - [AuthTag](#P-Nullafi-Domains-StaticVault-Managers-DriversLicense-DriversLicenseRequest-AuthTag 'Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseRequest.AuthTag')
   - [DriversLicense](#P-Nullafi-Domains-StaticVault-Managers-DriversLicense-DriversLicenseRequest-DriversLicense 'Nullafi.Domains.StaticVault.Managers.DriversLicense.DriversLicenseRequest.DriversLicense')
@@ -94,6 +100,7 @@
   - [Create(email,tags)](#M-Nullafi-Domains-CommunicationVault-Managers-Email-EmailManager-Create-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.CommunicationVault.Managers.Email.EmailManager.Create(System.String,System.Collections.Generic.List{System.String})')
   - [Delete(aliasId)](#M-Nullafi-Domains-CommunicationVault-Managers-Email-EmailManager-Delete-System-String- 'Nullafi.Domains.CommunicationVault.Managers.Email.EmailManager.Delete(System.String)')
   - [Retrieve(aliasId)](#M-Nullafi-Domains-CommunicationVault-Managers-Email-EmailManager-Retrieve-System-String- 'Nullafi.Domains.CommunicationVault.Managers.Email.EmailManager.Retrieve(System.String)')
+  - [RetrieveFromRealData(email,tags)](#M-Nullafi-Domains-CommunicationVault-Managers-Email-EmailManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.CommunicationVault.Managers.Email.EmailManager.RetrieveFromRealData(System.String,System.Collections.Generic.List{System.String})')
 - [EmailRequest](#T-Nullafi-Domains-CommunicationVault-Managers-Email-EmailRequest 'Nullafi.Domains.CommunicationVault.Managers.Email.EmailRequest')
   - [AuthTag](#P-Nullafi-Domains-CommunicationVault-Managers-Email-EmailRequest-AuthTag 'Nullafi.Domains.CommunicationVault.Managers.Email.EmailRequest.AuthTag')
   - [Email](#P-Nullafi-Domains-CommunicationVault-Managers-Email-EmailRequest-Email 'Nullafi.Domains.CommunicationVault.Managers.Email.EmailRequest.Email')
@@ -115,6 +122,7 @@
   - [Create(firstname,gender,tags)](#M-Nullafi-Domains-StaticVault-Managers-FirstName-FirstNameManager-Create-System-String,System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameManager.Create(System.String,System.String,System.Collections.Generic.List{System.String})')
   - [Delete(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-FirstName-FirstNameManager-Delete-System-String- 'Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameManager.Delete(System.String)')
   - [Retrieve(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-FirstName-FirstNameManager-Retrieve-System-String- 'Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameManager.Retrieve(System.String)')
+  - [RetrieveFromRealData(firstName,tags)](#M-Nullafi-Domains-StaticVault-Managers-FirstName-FirstNameManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameManager.RetrieveFromRealData(System.String,System.Collections.Generic.List{System.String})')
 - [FirstNameRequest](#T-Nullafi-Domains-StaticVault-Managers-FirstName-FirstNameRequest 'Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameRequest')
   - [AuthTag](#P-Nullafi-Domains-StaticVault-Managers-FirstName-FirstNameRequest-AuthTag 'Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameRequest.AuthTag')
   - [FirstName](#P-Nullafi-Domains-StaticVault-Managers-FirstName-FirstNameRequest-FirstName 'Nullafi.Domains.StaticVault.Managers.FirstName.FirstNameRequest.FirstName')
@@ -135,6 +143,7 @@
   - [Create(gender,tags)](#M-Nullafi-Domains-StaticVault-Managers-Gender-GenderManager-Create-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.Gender.GenderManager.Create(System.String,System.Collections.Generic.List{System.String})')
   - [Delete(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-Gender-GenderManager-Delete-System-String- 'Nullafi.Domains.StaticVault.Managers.Gender.GenderManager.Delete(System.String)')
   - [Retrieve(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-Gender-GenderManager-Retrieve-System-String- 'Nullafi.Domains.StaticVault.Managers.Gender.GenderManager.Retrieve(System.String)')
+  - [RetrieveFromRealData(gender,tags)](#M-Nullafi-Domains-StaticVault-Managers-Gender-GenderManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.Gender.GenderManager.RetrieveFromRealData(System.String,System.Collections.Generic.List{System.String})')
 - [GenderRequest](#T-Nullafi-Domains-StaticVault-Managers-Gender-GenderRequest 'Nullafi.Domains.StaticVault.Managers.Gender.GenderRequest')
   - [AuthTag](#P-Nullafi-Domains-StaticVault-Managers-Gender-GenderRequest-AuthTag 'Nullafi.Domains.StaticVault.Managers.Gender.GenderRequest.AuthTag')
   - [Gender](#P-Nullafi-Domains-StaticVault-Managers-Gender-GenderRequest-Gender 'Nullafi.Domains.StaticVault.Managers.Gender.GenderRequest.Gender')
@@ -152,15 +161,17 @@
   - [UpdatedAt](#P-Nullafi-Domains-StaticVault-Managers-Gender-GenderResponse-UpdatedAt 'Nullafi.Domains.StaticVault.Managers.Gender.GenderResponse.UpdatedAt')
 - [GenericManager](#T-Nullafi-Domains-StaticVault-Managers-Generic-GenericManager 'Nullafi.Domains.StaticVault.Managers.Generic.GenericManager')
   - [#ctor(vault)](#M-Nullafi-Domains-StaticVault-Managers-Generic-GenericManager-#ctor-Nullafi-Domains-StaticVault-StaticVault- 'Nullafi.Domains.StaticVault.Managers.Generic.GenericManager.#ctor(Nullafi.Domains.StaticVault.StaticVault)')
-  - [Create(data,tags)](#M-Nullafi-Domains-StaticVault-Managers-Generic-GenericManager-Create-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.Generic.GenericManager.Create(System.String,System.Collections.Generic.List{System.String})')
+  - [Create(data,regexTemplate,tags)](#M-Nullafi-Domains-StaticVault-Managers-Generic-GenericManager-Create-System-String,System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.Generic.GenericManager.Create(System.String,System.String,System.Collections.Generic.List{System.String})')
   - [Delete(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-Generic-GenericManager-Delete-System-String- 'Nullafi.Domains.StaticVault.Managers.Generic.GenericManager.Delete(System.String)')
   - [Retrieve(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-Generic-GenericManager-Retrieve-System-String- 'Nullafi.Domains.StaticVault.Managers.Generic.GenericManager.Retrieve(System.String)')
+  - [RetrieveFromRealData(data,tags)](#M-Nullafi-Domains-StaticVault-Managers-Generic-GenericManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.Generic.GenericManager.RetrieveFromRealData(System.String,System.Collections.Generic.List{System.String})')
 - [GenericRequest](#T-Nullafi-Domains-StaticVault-Managers-Generic-GenericRequest 'Nullafi.Domains.StaticVault.Managers.Generic.GenericRequest')
   - [AuthTag](#P-Nullafi-Domains-StaticVault-Managers-Generic-GenericRequest-AuthTag 'Nullafi.Domains.StaticVault.Managers.Generic.GenericRequest.AuthTag')
   - [Data](#P-Nullafi-Domains-StaticVault-Managers-Generic-GenericRequest-Data 'Nullafi.Domains.StaticVault.Managers.Generic.GenericRequest.Data')
   - [DataHash](#P-Nullafi-Domains-StaticVault-Managers-Generic-GenericRequest-DataHash 'Nullafi.Domains.StaticVault.Managers.Generic.GenericRequest.DataHash')
   - [Iv](#P-Nullafi-Domains-StaticVault-Managers-Generic-GenericRequest-Iv 'Nullafi.Domains.StaticVault.Managers.Generic.GenericRequest.Iv')
   - [Tags](#P-Nullafi-Domains-StaticVault-Managers-Generic-GenericRequest-Tags 'Nullafi.Domains.StaticVault.Managers.Generic.GenericRequest.Tags')
+  - [Template](#P-Nullafi-Domains-StaticVault-Managers-Generic-GenericRequest-Template 'Nullafi.Domains.StaticVault.Managers.Generic.GenericRequest.Template')
 - [GenericResponse](#T-Nullafi-Domains-StaticVault-Managers-Generic-GenericResponse 'Nullafi.Domains.StaticVault.Managers.Generic.GenericResponse')
   - [Alias](#P-Nullafi-Domains-StaticVault-Managers-Generic-GenericResponse-Alias 'Nullafi.Domains.StaticVault.Managers.Generic.GenericResponse.Alias')
   - [AuthTag](#P-Nullafi-Domains-StaticVault-Managers-Generic-GenericResponse-AuthTag 'Nullafi.Domains.StaticVault.Managers.Generic.GenericResponse.AuthTag')
@@ -178,6 +189,7 @@
   - [Create(lastname,gender,tags)](#M-Nullafi-Domains-StaticVault-Managers-LastName-LastNameManager-Create-System-String,System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.LastName.LastNameManager.Create(System.String,System.String,System.Collections.Generic.List{System.String})')
   - [Delete(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-LastName-LastNameManager-Delete-System-String- 'Nullafi.Domains.StaticVault.Managers.LastName.LastNameManager.Delete(System.String)')
   - [Retrieve(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-LastName-LastNameManager-Retrieve-System-String- 'Nullafi.Domains.StaticVault.Managers.LastName.LastNameManager.Retrieve(System.String)')
+  - [RetrieveFromRealData(lastName,tags)](#M-Nullafi-Domains-StaticVault-Managers-LastName-LastNameManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.LastName.LastNameManager.RetrieveFromRealData(System.String,System.Collections.Generic.List{System.String})')
 - [LastNameRequest](#T-Nullafi-Domains-StaticVault-Managers-LastName-LastNameRequest 'Nullafi.Domains.StaticVault.Managers.LastName.LastNameRequest')
   - [AuthTag](#P-Nullafi-Domains-StaticVault-Managers-LastName-LastNameRequest-AuthTag 'Nullafi.Domains.StaticVault.Managers.LastName.LastNameRequest.AuthTag')
   - [Iv](#P-Nullafi-Domains-StaticVault-Managers-LastName-LastNameRequest-Iv 'Nullafi.Domains.StaticVault.Managers.LastName.LastNameRequest.Iv')
@@ -201,6 +213,7 @@
   - [Create(passport,tags)](#M-Nullafi-Domains-StaticVault-Managers-Passport-PassportManager-Create-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.Passport.PassportManager.Create(System.String,System.Collections.Generic.List{System.String})')
   - [Delete(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-Passport-PassportManager-Delete-System-String- 'Nullafi.Domains.StaticVault.Managers.Passport.PassportManager.Delete(System.String)')
   - [Retrieve(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-Passport-PassportManager-Retrieve-System-String- 'Nullafi.Domains.StaticVault.Managers.Passport.PassportManager.Retrieve(System.String)')
+  - [RetrieveFromRealData(passport,tags)](#M-Nullafi-Domains-StaticVault-Managers-Passport-PassportManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.Passport.PassportManager.RetrieveFromRealData(System.String,System.Collections.Generic.List{System.String})')
 - [PassportRequest](#T-Nullafi-Domains-StaticVault-Managers-Passport-PassportRequest 'Nullafi.Domains.StaticVault.Managers.Passport.PassportRequest')
   - [AuthTag](#P-Nullafi-Domains-StaticVault-Managers-Passport-PassportRequest-AuthTag 'Nullafi.Domains.StaticVault.Managers.Passport.PassportRequest.AuthTag')
   - [Iv](#P-Nullafi-Domains-StaticVault-Managers-Passport-PassportRequest-Iv 'Nullafi.Domains.StaticVault.Managers.Passport.PassportRequest.Iv')
@@ -222,6 +235,7 @@
   - [Create(placeofbirth,state,tags)](#M-Nullafi-Domains-StaticVault-Managers-PlaceOfBirth-PlaceOfBirthManager-Create-System-String,System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthManager.Create(System.String,System.String,System.Collections.Generic.List{System.String})')
   - [Delete(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-PlaceOfBirth-PlaceOfBirthManager-Delete-System-String- 'Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthManager.Delete(System.String)')
   - [Retrieve(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-PlaceOfBirth-PlaceOfBirthManager-Retrieve-System-String- 'Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthManager.Retrieve(System.String)')
+  - [RetrieveFromRealData(placeOfBirth,tags)](#M-Nullafi-Domains-StaticVault-Managers-PlaceOfBirth-PlaceOfBirthManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthManager.RetrieveFromRealData(System.String,System.Collections.Generic.List{System.String})')
 - [PlaceOfBirthRequest](#T-Nullafi-Domains-StaticVault-Managers-PlaceOfBirth-PlaceOfBirthRequest 'Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthRequest')
   - [AuthTag](#P-Nullafi-Domains-StaticVault-Managers-PlaceOfBirth-PlaceOfBirthRequest-AuthTag 'Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthRequest.AuthTag')
   - [Iv](#P-Nullafi-Domains-StaticVault-Managers-PlaceOfBirth-PlaceOfBirthRequest-Iv 'Nullafi.Domains.StaticVault.Managers.PlaceOfBirth.PlaceOfBirthRequest.Iv')
@@ -247,6 +261,7 @@
   - [Create(race,tags)](#M-Nullafi-Domains-StaticVault-Managers-Race-RaceManager-Create-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.Race.RaceManager.Create(System.String,System.Collections.Generic.List{System.String})')
   - [Delete(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-Race-RaceManager-Delete-System-String- 'Nullafi.Domains.StaticVault.Managers.Race.RaceManager.Delete(System.String)')
   - [Retrieve(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-Race-RaceManager-Retrieve-System-String- 'Nullafi.Domains.StaticVault.Managers.Race.RaceManager.Retrieve(System.String)')
+  - [RetrieveFromRealData(race,tags)](#M-Nullafi-Domains-StaticVault-Managers-Race-RaceManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.Race.RaceManager.RetrieveFromRealData(System.String,System.Collections.Generic.List{System.String})')
 - [RaceRequest](#T-Nullafi-Domains-StaticVault-Managers-Race-RaceRequest 'Nullafi.Domains.StaticVault.Managers.Race.RaceRequest')
   - [AuthTag](#P-Nullafi-Domains-StaticVault-Managers-Race-RaceRequest-AuthTag 'Nullafi.Domains.StaticVault.Managers.Race.RaceRequest.AuthTag')
   - [Iv](#P-Nullafi-Domains-StaticVault-Managers-Race-RaceRequest-Iv 'Nullafi.Domains.StaticVault.Managers.Race.RaceRequest.Iv')
@@ -267,6 +282,7 @@
   - [Create(data,tags)](#M-Nullafi-Domains-StaticVault-Managers-Random-RandomManager-Create-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.Random.RandomManager.Create(System.String,System.Collections.Generic.List{System.String})')
   - [Delete(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-Random-RandomManager-Delete-System-String- 'Nullafi.Domains.StaticVault.Managers.Random.RandomManager.Delete(System.String)')
   - [Retrieve(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-Random-RandomManager-Retrieve-System-String- 'Nullafi.Domains.StaticVault.Managers.Random.RandomManager.Retrieve(System.String)')
+  - [RetrieveFromRealData(data,tags)](#M-Nullafi-Domains-StaticVault-Managers-Random-RandomManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.Random.RandomManager.RetrieveFromRealData(System.String,System.Collections.Generic.List{System.String})')
 - [RandomRequest](#T-Nullafi-Domains-StaticVault-Managers-Random-RandomRequest 'Nullafi.Domains.StaticVault.Managers.Random.RandomRequest')
   - [AuthTag](#P-Nullafi-Domains-StaticVault-Managers-Random-RandomRequest-AuthTag 'Nullafi.Domains.StaticVault.Managers.Random.RandomRequest.AuthTag')
   - [Data](#P-Nullafi-Domains-StaticVault-Managers-Random-RandomRequest-Data 'Nullafi.Domains.StaticVault.Managers.Random.RandomRequest.Data')
@@ -293,6 +309,7 @@
   - [Create(ssn,state,tags)](#M-Nullafi-Domains-StaticVault-Managers-Ssn-SsnManager-Create-System-String,System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.Ssn.SsnManager.Create(System.String,System.String,System.Collections.Generic.List{System.String})')
   - [Delete(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-Ssn-SsnManager-Delete-System-String- 'Nullafi.Domains.StaticVault.Managers.Ssn.SsnManager.Delete(System.String)')
   - [Retrieve(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-Ssn-SsnManager-Retrieve-System-String- 'Nullafi.Domains.StaticVault.Managers.Ssn.SsnManager.Retrieve(System.String)')
+  - [RetrieveFromRealData(ssn,tags)](#M-Nullafi-Domains-StaticVault-Managers-Ssn-SsnManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.Ssn.SsnManager.RetrieveFromRealData(System.String,System.Collections.Generic.List{System.String})')
 - [SsnRequest](#T-Nullafi-Domains-StaticVault-Managers-Ssn-SsnRequest 'Nullafi.Domains.StaticVault.Managers.Ssn.SsnRequest')
   - [AuthTag](#P-Nullafi-Domains-StaticVault-Managers-Ssn-SsnRequest-AuthTag 'Nullafi.Domains.StaticVault.Managers.Ssn.SsnRequest.AuthTag')
   - [Iv](#P-Nullafi-Domains-StaticVault-Managers-Ssn-SsnRequest-Iv 'Nullafi.Domains.StaticVault.Managers.Ssn.SsnRequest.Iv')
@@ -328,6 +345,7 @@
   - [VaultName](#P-Nullafi-Domains-StaticVault-StaticVault-VaultName 'Nullafi.Domains.StaticVault.StaticVault.VaultName')
   - [VehicleRegistration](#P-Nullafi-Domains-StaticVault-StaticVault-VehicleRegistration 'Nullafi.Domains.StaticVault.StaticVault.VehicleRegistration')
   - [CreateStaticVault(client,name,tags)](#M-Nullafi-Domains-StaticVault-StaticVault-CreateStaticVault-Nullafi-Client,System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.StaticVault.CreateStaticVault(Nullafi.Client,System.String,System.Collections.Generic.List{System.String})')
+  - [DeleteStaticVault(client,vaultId)](#M-Nullafi-Domains-StaticVault-StaticVault-DeleteStaticVault-Nullafi-Client,System-String- 'Nullafi.Domains.StaticVault.StaticVault.DeleteStaticVault(Nullafi.Client,System.String)')
   - [Hash(value)](#M-Nullafi-Domains-StaticVault-StaticVault-Hash-System-String- 'Nullafi.Domains.StaticVault.StaticVault.Hash(System.String)')
   - [RetrieveStaticVault(client,vaultId,masterKey)](#M-Nullafi-Domains-StaticVault-StaticVault-RetrieveStaticVault-Nullafi-Client,System-String,System-String- 'Nullafi.Domains.StaticVault.StaticVault.RetrieveStaticVault(Nullafi.Client,System.String,System.String)')
 - [TaxPayerManager](#T-Nullafi-Domains-StaticVault-Managers-TaxPayer-TaxPayerManager 'Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerManager')
@@ -335,6 +353,7 @@
   - [Create(taxpayer,tags)](#M-Nullafi-Domains-StaticVault-Managers-TaxPayer-TaxPayerManager-Create-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerManager.Create(System.String,System.Collections.Generic.List{System.String})')
   - [Delete(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-TaxPayer-TaxPayerManager-Delete-System-String- 'Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerManager.Delete(System.String)')
   - [Retrieve(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-TaxPayer-TaxPayerManager-Retrieve-System-String- 'Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerManager.Retrieve(System.String)')
+  - [RetrieveFromRealData(taxpayer,tags)](#M-Nullafi-Domains-StaticVault-Managers-TaxPayer-TaxPayerManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerManager.RetrieveFromRealData(System.String,System.Collections.Generic.List{System.String})')
 - [TaxPayerRequest](#T-Nullafi-Domains-StaticVault-Managers-TaxPayer-TaxPayerRequest 'Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerRequest')
   - [AuthTag](#P-Nullafi-Domains-StaticVault-Managers-TaxPayer-TaxPayerRequest-AuthTag 'Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerRequest.AuthTag')
   - [Iv](#P-Nullafi-Domains-StaticVault-Managers-TaxPayer-TaxPayerRequest-Iv 'Nullafi.Domains.StaticVault.Managers.TaxPayer.TaxPayerRequest.Iv')
@@ -355,6 +374,7 @@
   - [Create(vehicleregistration,tags)](#M-Nullafi-Domains-StaticVault-Managers-VehicleRegistration-VehicleRegistrationManager-Create-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationManager.Create(System.String,System.Collections.Generic.List{System.String})')
   - [Delete(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-VehicleRegistration-VehicleRegistrationManager-Delete-System-String- 'Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationManager.Delete(System.String)')
   - [Retrieve(aliasId)](#M-Nullafi-Domains-StaticVault-Managers-VehicleRegistration-VehicleRegistrationManager-Retrieve-System-String- 'Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationManager.Retrieve(System.String)')
+  - [RetrieveFromRealData(vehicleregistration,tags)](#M-Nullafi-Domains-StaticVault-Managers-VehicleRegistration-VehicleRegistrationManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}- 'Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationManager.RetrieveFromRealData(System.String,System.Collections.Generic.List{System.String})')
 - [VehicleRegistrationRequest](#T-Nullafi-Domains-StaticVault-Managers-VehicleRegistration-VehicleRegistrationRequest 'Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationRequest')
   - [AuthTag](#P-Nullafi-Domains-StaticVault-Managers-VehicleRegistration-VehicleRegistrationRequest-AuthTag 'Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationRequest.AuthTag')
   - [Iv](#P-Nullafi-Domains-StaticVault-Managers-VehicleRegistration-VehicleRegistrationRequest-Iv 'Nullafi.Domains.StaticVault.Managers.VehicleRegistration.VehicleRegistrationRequest.Iv')
@@ -404,7 +424,7 @@ Create a new Address string to be aliased for static vault
 
 ##### Returns
 
-
+Returns a promise containing: address, addressAlias, tags, iv, authTag, tags, createdAt
 
 ##### Parameters
 
@@ -422,7 +442,7 @@ Create a new Address string to be aliased for static vault
 
 ##### Returns
 
-
+Returns a promise containing: id, address, addressAlias, tags, iv, authTag, tags, createdAt
 
 ##### Parameters
 
@@ -441,7 +461,7 @@ Delete the Address alias from static vault
 
 ##### Returns
 
-
+Returns a promise containing: ok
 
 ##### Parameters
 
@@ -454,17 +474,43 @@ Delete the Address alias from static vault
 
 ##### Summary
 
-Retrieve the Address string alias from a static vault. Returns an array of matching values. Array will be sorted by date created.
+Retrieve the Address string alias from a static vault.
 
 ##### Returns
 
-
+Returns a promise containing: id, address, addressAlias, tags, iv, authTag, tags, createdAt
 
 ##### Parameters
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+##### Remarks
+
+Returns an array of matching values.
+
+Array will be sorted by date created.
+
+<a name='M-Nullafi-Domains-StaticVault-Managers-Address-AddressManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}-'></a>
+### RetrieveFromRealData(address,tags) `method`
+
+##### Summary
+
+Retrieve the Address alias from real address.
+Real value must be an exact match and will also be case sensitive.
+Returns an array of matching values.Array will be sorted by date created.
+
+##### Returns
+
+Returns a promise containing: id, address, addressAlias, tags, iv, authTag, tags, createdAt
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| address | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| tags | [System.Collections.Generic.List{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{System.String}') |  |
 
 <a name='T-Nullafi-Domains-StaticVault-Managers-Address-AddressRequest'></a>
 ## AddressRequest `type`
@@ -591,7 +637,7 @@ Nullafi.Services.Crypto
 Aesgcm
 
 <a name='M-Nullafi-Services-Crypto-Aesgcm-Decrypt-System-String,System-String,System-String,System-String-'></a>
-### Decrypt(masterKey,iv,authTag,cipherText,returnBase64) `method`
+### Decrypt(masterKey,iv,authTag,cipherText) `method`
 
 ##### Summary
 
@@ -710,10 +756,6 @@ Client class
 
 Authenticate the client API
 
-##### Returns
-
-
-
 ##### Parameters
 
 | Name | Type | Description |
@@ -729,7 +771,7 @@ Create a new communication vault
 
 ##### Returns
 
-
+Returns as promise: id, name, tags, createdAt, iv, authTag, masterKey, sessionKey
 
 ##### Parameters
 
@@ -747,7 +789,7 @@ Create a new static vault
 
 ##### Returns
 
-
+Returns as promise: id, name, tags, createdAt, iv, authTag, masterKey, sessionKey
 
 ##### Parameters
 
@@ -755,6 +797,40 @@ Create a new static vault
 | ---- | ---- | ----------- |
 | name | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 | tags | [System.Collections.Generic.List{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{System.String}') |  |
+
+<a name='M-Nullafi-Client-DeleteCommunicationVault-System-String-'></a>
+### DeleteCommunicationVault(vaultId) `method`
+
+##### Summary
+
+delete an existing communication vault
+
+##### Returns
+
+Returns as promise: ok
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| vaultId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+<a name='M-Nullafi-Client-DeleteStaticVault-System-String-'></a>
+### DeleteStaticVault(vaultId) `method`
+
+##### Summary
+
+delete an existing static vault
+
+##### Returns
+
+Returns as promise: ok
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| vaultId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
 <a name='M-Nullafi-Client-RetrieveCommunicationVault-System-String,System-String-'></a>
 ### RetrieveCommunicationVault(vaultId,masterKey) `method`
@@ -765,7 +841,7 @@ retrieve an existing communication vault
 
 ##### Returns
 
-
+Returns as promise: id, name, tags, createdAt
 
 ##### Parameters
 
@@ -783,7 +859,7 @@ retrieve an existing static vault
 
 ##### Returns
 
-
+Returns as promise: id, name, tags, createdAt
 
 ##### Parameters
 
@@ -828,28 +904,28 @@ Create an instance of CommunicationVault
 
 ##### Summary
 
-
+Email Manager to create aliases
 
 <a name='P-Nullafi-Domains-CommunicationVault-CommunicationVault-MasterKey'></a>
 ### MasterKey `property`
 
 ##### Summary
 
-
+Master key to vault instantiated
 
 <a name='P-Nullafi-Domains-CommunicationVault-CommunicationVault-VaultId'></a>
 ### VaultId `property`
 
 ##### Summary
 
-
+Id of vault instantiated
 
 <a name='P-Nullafi-Domains-CommunicationVault-CommunicationVault-VaultName'></a>
 ### VaultName `property`
 
 ##### Summary
 
-
+Name of vault instantiated
 
 <a name='M-Nullafi-Domains-CommunicationVault-CommunicationVault-CreateCommunicationVault-Nullafi-Client,System-String,System-Collections-Generic-List{System-String}-'></a>
 ### CreateCommunicationVault(client,name,tags) `method`
@@ -869,6 +945,24 @@ Create the API to create a new communication vault
 | client | [Nullafi.Client](#T-Nullafi-Client 'Nullafi.Client') |  |
 | name | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 | tags | [System.Collections.Generic.List{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{System.String}') |  |
+
+<a name='M-Nullafi-Domains-CommunicationVault-CommunicationVault-DeleteCommunicationVault-Nullafi-Client,System-String-'></a>
+### DeleteCommunicationVault(client,vaultId) `method`
+
+##### Summary
+
+Delete the communication vault from id
+
+##### Returns
+
+Returns a promise containing: ok
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| client | [Nullafi.Client](#T-Nullafi-Client 'Nullafi.Client') |  |
+| vaultId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
 <a name='M-Nullafi-Domains-CommunicationVault-CommunicationVault-Hash-System-String-'></a>
 ### Hash(value) `method`
@@ -939,7 +1033,7 @@ Create a new DateOfBirth string to be aliased within static vault
 
 ##### Returns
 
-
+Returns a promise containing: id, dateOfBirth, dateOfBirthAlias, tags, iv, authTag, tags, createdAt
 
 ##### Parameters
 
@@ -957,7 +1051,7 @@ Create a new DateOfBirth string to be aliased within static vault
 
 ##### Returns
 
-
+Returns a promise containing: id, dateOfBirth, dateOfBirthAlias, tags, iv, authTag, tags, createdAt
 
 ##### Parameters
 
@@ -977,7 +1071,7 @@ Delete the Address alias from static vault
 
 ##### Returns
 
-
+Returns a promise containing: ok
 
 ##### Parameters
 
@@ -990,17 +1084,43 @@ Delete the Address alias from static vault
 
 ##### Summary
 
-Retrieve the Address string alias from a static vault. Returns an array of matching values. Array will be sorted by date created.
+Retrieve the Address string alias from a static vault.
 
 ##### Returns
 
-
+Returns a promise containing: id, dateOfBirth, dateOfBirthAlias, tags, iv, authTag, tags, createdAt
 
 ##### Parameters
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+##### Remarks
+
+Returns an array of matching values.
+
+Array will be sorted by date created.
+
+<a name='M-Nullafi-Domains-StaticVault-Managers-DateOfBirth-DateOfBirthManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}-'></a>
+### RetrieveFromRealData(dateOfBirth,tags) `method`
+
+##### Summary
+
+Retrieve the Date of Birth alias from real date of birth.
+Real value must be an exact match and will also be case sensitive.
+Returns an array of matching values.Array will be sorted by date created.
+
+##### Returns
+
+Returns a promise containing: id, dateOfBirth, dateOfBirthAlias, tags, iv, authTag, tags, createdAt
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| dateOfBirth | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| tags | [System.Collections.Generic.List{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{System.String}') |  |
 
 <a name='T-Nullafi-Domains-StaticVault-Managers-DateOfBirth-DateOfBirthRequest'></a>
 ## DateOfBirthRequest `type`
@@ -1133,10 +1253,6 @@ DateOfBirthManager
 
 Create an instance of DriversLicenseManager
 
-##### Returns
-
-
-
 ##### Parameters
 
 | Name | Type | Description |
@@ -1152,7 +1268,7 @@ Create a new DriversLicense string to be aliased within static vault
 
 ##### Returns
 
-
+Returns a promise containing: id, driversLicense, driversLicenseAlias, tags, iv, authTag, tags, createdAt
 
 ##### Parameters
 
@@ -1170,7 +1286,7 @@ Create a new DriversLicense string to be aliased within static vault
 
 ##### Returns
 
-
+Returns a promise containing: id, driversLicense, driversLicenseAlias, tags, iv, authTag, tags, createdAt
 
 ##### Parameters
 
@@ -1189,7 +1305,7 @@ Delete the DriversLicense alias from static vault
 
 ##### Returns
 
-
+Returns a promise containing: ok
 
 ##### Parameters
 
@@ -1202,7 +1318,32 @@ Delete the DriversLicense alias from static vault
 
 ##### Summary
 
-Retrieve the DriversLicense string alias from a static vault. Returns an array of matching values. Array will be sorted by date created.
+Retrieve the DriversLicense string alias from a static vault.
+
+##### Returns
+
+Returns a promise containing: id, driversLicense, driversLicenseAlias, tags, iv, authTag, tags, createdAt
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+##### Remarks
+
+Returns an array of matching values.
+
+Array will be sorted by date created.
+
+<a name='M-Nullafi-Domains-StaticVault-Managers-DriversLicense-DriversLicenseManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}-'></a>
+### RetrieveFromRealData(driversLicense,tags) `method`
+
+##### Summary
+
+Retrieve the Drivers License alias from real drivers license.
+Real value must be an exact match and will also be case sensitive.
+Returns an array of matching values.Array will be sorted by date created.
 
 ##### Returns
 
@@ -1212,7 +1353,8 @@ Retrieve the DriversLicense string alias from a static vault. Returns an array o
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| driversLicense | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| tags | [System.Collections.Generic.List{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{System.String}') |  |
 
 <a name='T-Nullafi-Domains-StaticVault-Managers-DriversLicense-DriversLicenseRequest'></a>
 ## DriversLicenseRequest `type`
@@ -1360,7 +1502,7 @@ Create a new Email to be aliased within communication vault
 
 ##### Returns
 
-
+Returns a promise containing: email, emailAlias, tags, iv, authTag, tags, createdAt
 
 ##### Parameters
 
@@ -1378,7 +1520,7 @@ Delete the Email alias from communication vault
 
 ##### Returns
 
-
+Returns a promise containing: ok
 
 ##### Parameters
 
@@ -1391,17 +1533,43 @@ Delete the Email alias from communication vault
 
 ##### Summary
 
-Retrieve the Email alias from a communication vault. Returns an array of matching values. Array will be sorted by date created.
+Retrieve the Email alias from a communication vault.
 
 ##### Returns
 
-
+Returns a promise containing: email, emailAlias, tags, iv, authTag, tags, createdAt
 
 ##### Parameters
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+##### Remarks
+
+Returns an array of matching values.
+
+Array will be sorted by date created.
+
+<a name='M-Nullafi-Domains-CommunicationVault-Managers-Email-EmailManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}-'></a>
+### RetrieveFromRealData(email,tags) `method`
+
+##### Summary
+
+Retrieve the Email alias from real email.
+Real value must be an exact match and will also be case sensitive.
+Returns an array of matching values.Array will be sorted by date created.
+
+##### Returns
+
+Returns a promise containing: email, emailAlias, tags, iv, authTag, tags, createdAt
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| email | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| tags | [System.Collections.Generic.List{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{System.String}') |  |
 
 <a name='T-Nullafi-Domains-CommunicationVault-Managers-Email-EmailRequest'></a>
 ## EmailRequest `type`
@@ -1534,10 +1702,6 @@ Create an instance of FirstNameManager
 
 Create an instance of FirstNameManager
 
-##### Returns
-
-
-
 ##### Parameters
 
 | Name | Type | Description |
@@ -1553,7 +1717,7 @@ Create a new FirstName string to be aliased within static vault
 
 ##### Returns
 
-
+Returns a promise containing: id, firstName, firstNameAlias, tags, iv, authTag, tags, createdAt
 
 ##### Parameters
 
@@ -1571,7 +1735,7 @@ Create a new FirstName string to be aliased within static vault
 
 ##### Returns
 
-
+Returns a promise containing: id, firstName, firstNameAlias, tags, iv, authTag, tags, createdAt
 
 ##### Parameters
 
@@ -1590,7 +1754,7 @@ Delete the FirstName alias from static vault
 
 ##### Returns
 
-
+Returns a promise containing: ok
 
 ##### Parameters
 
@@ -1603,7 +1767,32 @@ Delete the FirstName alias from static vault
 
 ##### Summary
 
-Retrieve the FirstName string alias from a static vault. Returns an array of matching values. Array will be sorted by date created.
+Retrieve the FirstName string alias from a static vault.
+
+##### Returns
+
+Returns a promise containing: id, firstName, firstNameAlias, tags, iv, authTag, tags, createdAt
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+##### Remarks
+
+Returns an array of matching values.
+
+Array will be sorted by date created.
+
+<a name='M-Nullafi-Domains-StaticVault-Managers-FirstName-FirstNameManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}-'></a>
+### RetrieveFromRealData(firstName,tags) `method`
+
+##### Summary
+
+Retrieve the First Name alias from real first name.
+Real value must be an exact match and will also be case sensitive.
+Returns an array of matching values.Array will be sorted by date created.
 
 ##### Returns
 
@@ -1613,7 +1802,8 @@ Retrieve the FirstName string alias from a static vault. Returns an array of mat
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| firstName | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| tags | [System.Collections.Generic.List{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{System.String}') |  |
 
 <a name='T-Nullafi-Domains-StaticVault-Managers-FirstName-FirstNameRequest'></a>
 ## FirstNameRequest `type`
@@ -1746,10 +1936,6 @@ FirstNameManager
 
 Create an instance of GenderManager
 
-##### Returns
-
-
-
 ##### Parameters
 
 | Name | Type | Description |
@@ -1765,7 +1951,7 @@ Create a new Gender string to be aliased within static vault
 
 ##### Returns
 
-
+Returns a promise containing: id, gender, genderAlias, tags, iv, authTag, tags, createdAt
 
 ##### Parameters
 
@@ -1783,7 +1969,7 @@ Delete the Gender alias from static vault
 
 ##### Returns
 
-
+Returns a promise containing: ok
 
 ##### Parameters
 
@@ -1796,7 +1982,32 @@ Delete the Gender alias from static vault
 
 ##### Summary
 
-Retrieve the Gender string alias from a static vault. Returns an array of matching values. Array will be sorted by date created.
+Retrieve the Gender string alias from a static vault.
+
+##### Returns
+
+Returns a promise containing: id, gender, genderAlias, tags, iv, authTag, tags, createdAt
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+##### Remarks
+
+Returns an array of matching values.
+
+Array will be sorted by date created.
+
+<a name='M-Nullafi-Domains-StaticVault-Managers-Gender-GenderManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}-'></a>
+### RetrieveFromRealData(gender,tags) `method`
+
+##### Summary
+
+Retrieve the Gender alias from real gender.
+Real value must be an exact match and will also be case sensitive.
+Returns an array of matching values.Array will be sorted by date created.
 
 ##### Returns
 
@@ -1806,7 +2017,8 @@ Retrieve the Gender string alias from a static vault. Returns an array of matchi
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| gender | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| tags | [System.Collections.Generic.List{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{System.String}') |  |
 
 <a name='T-Nullafi-Domains-StaticVault-Managers-Gender-GenderRequest'></a>
 ## GenderRequest `type`
@@ -1939,18 +2151,14 @@ GenericManager
 
 Create an instance of GenericManager
 
-##### Returns
-
-
-
 ##### Parameters
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | vault | [Nullafi.Domains.StaticVault.StaticVault](#T-Nullafi-Domains-StaticVault-StaticVault 'Nullafi.Domains.StaticVault.StaticVault') |  |
 
-<a name='M-Nullafi-Domains-StaticVault-Managers-Generic-GenericManager-Create-System-String,System-Collections-Generic-List{System-String}-'></a>
-### Create(data,tags) `method`
+<a name='M-Nullafi-Domains-StaticVault-Managers-Generic-GenericManager-Create-System-String,System-String,System-Collections-Generic-List{System-String}-'></a>
+### Create(data,regexTemplate,tags) `method`
 
 ##### Summary
 
@@ -1958,13 +2166,14 @@ Create a new Gender string to be aliased within static vault
 
 ##### Returns
 
-
+Returns a promise containing: id, generic, genericAlias, tags, iv, authTag, tags, createdAt
 
 ##### Parameters
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | data | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| regexTemplate | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 | tags | [System.Collections.Generic.List{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{System.String}') |  |
 
 <a name='M-Nullafi-Domains-StaticVault-Managers-Generic-GenericManager-Delete-System-String-'></a>
@@ -1976,7 +2185,7 @@ Delete the Generic alias from static vault
 
 ##### Returns
 
-
+Returns a promise containing: ok
 
 ##### Parameters
 
@@ -1989,7 +2198,32 @@ Delete the Generic alias from static vault
 
 ##### Summary
 
-Retrieve the Generic string alias from a static vault. Returns an array of matching values. Array will be sorted by date created.
+Retrieve the Generic string alias from a static vault.
+
+##### Returns
+
+Returns a promise containing: id, generic, genericAlias, tags, iv, authTag, tags, createdAt
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+##### Remarks
+
+Returns an array of matching values.
+
+Array will be sorted by date created.
+
+<a name='M-Nullafi-Domains-StaticVault-Managers-Generic-GenericManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}-'></a>
+### RetrieveFromRealData(data,tags) `method`
+
+##### Summary
+
+Retrieve the Generic alias from real data.
+Real value must be an exact match and will also be case sensitive.
+Returns an array of matching values.Array will be sorted by date created.
 
 ##### Returns
 
@@ -1999,7 +2233,8 @@ Retrieve the Generic string alias from a static vault. Returns an array of match
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| data | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| tags | [System.Collections.Generic.List{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{System.String}') |  |
 
 <a name='T-Nullafi-Domains-StaticVault-Managers-Generic-GenericRequest'></a>
 ## GenericRequest `type`
@@ -2042,6 +2277,13 @@ Nullafi.Domains.StaticVault.Managers.Generic
 
 <a name='P-Nullafi-Domains-StaticVault-Managers-Generic-GenericRequest-Tags'></a>
 ### Tags `property`
+
+##### Summary
+
+
+
+<a name='P-Nullafi-Domains-StaticVault-Managers-Generic-GenericRequest-Template'></a>
+### Template `property`
 
 ##### Summary
 
@@ -2161,10 +2403,6 @@ LastNameManager
 
 Create an instance of LastNameManager
 
-##### Returns
-
-
-
 ##### Parameters
 
 | Name | Type | Description |
@@ -2180,7 +2418,7 @@ Create a new LastName string to be aliased within static vault
 
 ##### Returns
 
-
+Returns a promise containing: id, lastName, lastNameAlias, tags, iv, authTag, tags, createdAt
 
 ##### Parameters
 
@@ -2198,7 +2436,7 @@ Create a new LastName string to be aliased within static vault
 
 ##### Returns
 
-
+Returns a promise containing: id, lastName, lastNameAlias, tags, iv, authTag, tags, createdAt
 
 ##### Parameters
 
@@ -2217,7 +2455,7 @@ Delete the LastName alias from static vault
 
 ##### Returns
 
-
+Returns a promise containing: ok
 
 ##### Parameters
 
@@ -2230,7 +2468,32 @@ Delete the LastName alias from static vault
 
 ##### Summary
 
-Retrieve the LastName string alias from a static vault. Returns an array of matching values. Array will be sorted by date created.
+Retrieve the LastName string alias from a static vault.
+
+##### Returns
+
+Returns a promise containing: id, lastName, lastNameAlias, tags, iv, authTag, tags, createdAt
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+##### Remarks
+
+Returns an array of matching values.
+
+Array will be sorted by date created.
+
+<a name='M-Nullafi-Domains-StaticVault-Managers-LastName-LastNameManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}-'></a>
+### RetrieveFromRealData(lastName,tags) `method`
+
+##### Summary
+
+Retrieve the Last Name alias from real last name.
+Real value must be an exact match and will also be case sensitive.
+Returns an array of matching values.Array will be sorted by date created.
 
 ##### Returns
 
@@ -2240,7 +2503,8 @@ Retrieve the LastName string alias from a static vault. Returns an array of matc
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| lastName | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| tags | [System.Collections.Generic.List{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{System.String}') |  |
 
 <a name='T-Nullafi-Domains-StaticVault-Managers-LastName-LastNameRequest'></a>
 ## LastNameRequest `type`
@@ -2373,10 +2637,6 @@ NullafiSDK class
 
 Create an instance of NullafiSDK
 
-##### Returns
-
-
-
 ##### Parameters
 
 | Name | Type | Description |
@@ -2416,10 +2676,6 @@ Passport Manager
 
 Create an instance of Passport Manager
 
-##### Returns
-
-
-
 ##### Parameters
 
 | Name | Type | Description |
@@ -2435,7 +2691,7 @@ Create a new LastName string to be aliased within static vault
 
 ##### Returns
 
-
+Returns a promise containing: id, passport, passportAlias, tags, iv, authTag, tags, createdAt
 
 ##### Parameters
 
@@ -2453,7 +2709,7 @@ Delete the Passport alias from static vault
 
 ##### Returns
 
-
+Returns a promise containing: ok
 
 ##### Parameters
 
@@ -2466,7 +2722,32 @@ Delete the Passport alias from static vault
 
 ##### Summary
 
-Retrieve the Passport string alias from a static vault. Returns an array of matching values. Array will be sorted by date created.
+Retrieve the Passport string alias from a static vault.
+
+##### Returns
+
+Returns a promise containing: id, passport, passportAlias, tags, iv, authTag, tags, createdAt
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+##### Remarks
+
+Returns an array of matching values.
+
+Array will be sorted by date created.
+
+<a name='M-Nullafi-Domains-StaticVault-Managers-Passport-PassportManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}-'></a>
+### RetrieveFromRealData(passport,tags) `method`
+
+##### Summary
+
+Retrieve the Passport alias from real passport.
+Real value must be an exact match and will also be case sensitive.
+Returns an array of matching values.Array will be sorted by date created.
 
 ##### Returns
 
@@ -2476,7 +2757,8 @@ Retrieve the Passport string alias from a static vault. Returns an array of matc
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| passport | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| tags | [System.Collections.Generic.List{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{System.String}') |  |
 
 <a name='T-Nullafi-Domains-StaticVault-Managers-Passport-PassportRequest'></a>
 ## PassportRequest `type`
@@ -2609,10 +2891,6 @@ PlaceOfBirth Manager
 
 Create an instance of PlaceOfBirth Manager
 
-##### Returns
-
-
-
 ##### Parameters
 
 | Name | Type | Description |
@@ -2628,7 +2906,7 @@ Create a new PlaceOfBirth string to be aliased within static vault
 
 ##### Returns
 
-
+Returns a promise containing: id, placeOfBirth, placeOfBirthAlias, tags, iv, authTag, tags, createdAt
 
 ##### Parameters
 
@@ -2646,7 +2924,7 @@ Create a new PlaceOfBirth string to be aliased within static vault
 
 ##### Returns
 
-
+Returns a promise containing: id, placeOfBirth, placeOfBirthAlias, tags, iv, authTag, tags, createdAt
 
 ##### Parameters
 
@@ -2665,7 +2943,7 @@ Delete the PlaceOfBirth alias from static vault
 
 ##### Returns
 
-
+Returns a promise containing: ok
 
 ##### Parameters
 
@@ -2678,7 +2956,32 @@ Delete the PlaceOfBirth alias from static vault
 
 ##### Summary
 
-Retrieve the PlaceOfBirth string alias from a static vault. Returns an array of matching values. Array will be sorted by date created.
+Retrieve the PlaceOfBirth string alias from a static vault.
+
+##### Returns
+
+Returns a promise containing: id, placeOfBirth, placeOfBirthAlias, tags, iv, authTag, tags, createdAt
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+##### Remarks
+
+Returns an array of matching values.
+
+Array will be sorted by date created.
+
+<a name='M-Nullafi-Domains-StaticVault-Managers-PlaceOfBirth-PlaceOfBirthManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}-'></a>
+### RetrieveFromRealData(placeOfBirth,tags) `method`
+
+##### Summary
+
+Retrieve the Place of Birth alias from real place of birth.
+Real value must be an exact match and will also be case sensitive.
+Returns an array of matching values.Array will be sorted by date created.
 
 ##### Returns
 
@@ -2688,7 +2991,8 @@ Retrieve the PlaceOfBirth string alias from a static vault. Returns an array of 
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| placeOfBirth | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| tags | [System.Collections.Generic.List{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{System.String}') |  |
 
 <a name='T-Nullafi-Domains-StaticVault-Managers-PlaceOfBirth-PlaceOfBirthRequest'></a>
 ## PlaceOfBirthRequest `type`
@@ -2868,10 +3172,6 @@ Race Manager
 
 Create an instance of Race Manager
 
-##### Returns
-
-
-
 ##### Parameters
 
 | Name | Type | Description |
@@ -2887,7 +3187,7 @@ Create a new Race string to be aliased within static vault
 
 ##### Returns
 
-
+Returns a promise containing: id, race, raceAlias, tags, iv, authTag, tags, createdAt
 
 ##### Parameters
 
@@ -2905,7 +3205,7 @@ Delete the Race alias from static vault
 
 ##### Returns
 
-
+Returns a promise containing: ok
 
 ##### Parameters
 
@@ -2918,7 +3218,32 @@ Delete the Race alias from static vault
 
 ##### Summary
 
-Retrieve the race string alias from a static vault. Returns an array of matching values. Array will be sorted by date created.
+Retrieve the race string alias from a static vault.
+
+##### Returns
+
+Returns a promise containing: id, race, raceAlias, tags, iv, authTag, tags, createdAt
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+##### Remarks
+
+Returns an array of matching values.
+
+Array will be sorted by date created.
+
+<a name='M-Nullafi-Domains-StaticVault-Managers-Race-RaceManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}-'></a>
+### RetrieveFromRealData(race,tags) `method`
+
+##### Summary
+
+Retrieve the Race alias from real race.
+Real value must be an exact match and will also be case sensitive.
+Returns an array of matching values.Array will be sorted by date created.
 
 ##### Returns
 
@@ -2928,7 +3253,8 @@ Retrieve the race string alias from a static vault. Returns an array of matching
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| race | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| tags | [System.Collections.Generic.List{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{System.String}') |  |
 
 <a name='T-Nullafi-Domains-StaticVault-Managers-Race-RaceRequest'></a>
 ## RaceRequest `type`
@@ -3061,10 +3387,6 @@ Random Manager
 
 Create an instance of Random Manager
 
-##### Returns
-
-
-
 ##### Parameters
 
 | Name | Type | Description |
@@ -3080,7 +3402,7 @@ Create a new Random string to be aliased within static vault
 
 ##### Returns
 
-
+Returns a promise containing: id, random, randomAlias, tags, iv, authTag, tags, createdAt
 
 ##### Parameters
 
@@ -3098,7 +3420,7 @@ Delete the Random alias from static vault
 
 ##### Returns
 
-
+Returns a promise containing: ok
 
 ##### Parameters
 
@@ -3111,7 +3433,32 @@ Delete the Random alias from static vault
 
 ##### Summary
 
-Retrieve the Random string alias from a static vault. Returns an array of matching values. Array will be sorted by date created.
+Retrieve the Random string alias from a static vault.
+
+##### Returns
+
+Returns a promise containing: id, random, randomAlias, tags, iv, authTag, tags, createdAt
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+##### Remarks
+
+Returns an array of matching values.
+
+Array will be sorted by date created.
+
+<a name='M-Nullafi-Domains-StaticVault-Managers-Random-RandomManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}-'></a>
+### RetrieveFromRealData(data,tags) `method`
+
+##### Summary
+
+Retrieve the Random alias from real data.
+Real value must be an exact match and will also be case sensitive.
+Returns an array of matching values.Array will be sorted by date created.
 
 ##### Returns
 
@@ -3121,7 +3468,8 @@ Retrieve the Random string alias from a static vault. Returns an array of matchi
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| data | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| tags | [System.Collections.Generic.List{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{System.String}') |  |
 
 <a name='T-Nullafi-Domains-StaticVault-Managers-Random-RandomRequest'></a>
 ## RandomRequest `type`
@@ -3297,10 +3645,6 @@ SSN Manager
 
 Create an instance of SSN Manager
 
-##### Returns
-
-
-
 ##### Parameters
 
 | Name | Type | Description |
@@ -3316,7 +3660,7 @@ Create a new SSN string to be aliased within static vault
 
 ##### Returns
 
-
+Returns a promise containing: id, ssn, ssnAlias, tags, iv, authTag, tags, createdAt
 
 ##### Parameters
 
@@ -3334,7 +3678,7 @@ Create a new SSN string to be aliased within static vault
 
 ##### Returns
 
-
+Returns a promise containing: id, ssn, ssnAlias, tags, iv, authTag, tags, createdAt
 
 ##### Parameters
 
@@ -3353,7 +3697,7 @@ Delete the SSN alias from static vault
 
 ##### Returns
 
-
+Returns a promise containing: ok
 
 ##### Parameters
 
@@ -3366,7 +3710,32 @@ Delete the SSN alias from static vault
 
 ##### Summary
 
-Retrieve the SSN string alias from a static vault. Returns an array of matching values. Array will be sorted by date created.
+Retrieve the SSN string alias from a static vault.
+
+##### Returns
+
+Returns a promise containing: id, ssn, ssnAlias, tags, iv, authTag, tags, createdAt
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+##### Remarks
+
+Returns an array of matching values.
+
+Array will be sorted by date created.
+
+<a name='M-Nullafi-Domains-StaticVault-Managers-Ssn-SsnManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}-'></a>
+### RetrieveFromRealData(ssn,tags) `method`
+
+##### Summary
+
+Retrieve the SSN alias from real ssn.
+Real value must be an exact match and will also be case sensitive.
+Returns an array of matching values.Array will be sorted by date created.
 
 ##### Returns
 
@@ -3376,7 +3745,8 @@ Retrieve the SSN string alias from a static vault. Returns an array of matching 
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| ssn | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| tags | [System.Collections.Generic.List{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{System.String}') |  |
 
 <a name='T-Nullafi-Domains-StaticVault-Managers-Ssn-SsnRequest'></a>
 ## SsnRequest `type`
@@ -3509,10 +3879,6 @@ Static Vault
 
 Create an instance of StaticVault
 
-##### Returns
-
-
-
 ##### Parameters
 
 | Name | Type | Description |
@@ -3527,119 +3893,119 @@ Create an instance of StaticVault
 
 ##### Summary
 
-
+Address Manager to create aliases
 
 <a name='P-Nullafi-Domains-StaticVault-StaticVault-DateOfBirth'></a>
 ### DateOfBirth `property`
 
 ##### Summary
 
-
+DateOfBirth Manager to create aliases
 
 <a name='P-Nullafi-Domains-StaticVault-StaticVault-DriversLicense'></a>
 ### DriversLicense `property`
 
 ##### Summary
 
-
+DriversLicense Manager to create aliases
 
 <a name='P-Nullafi-Domains-StaticVault-StaticVault-FirstName'></a>
 ### FirstName `property`
 
 ##### Summary
 
-
+FirstName Manager to create aliases
 
 <a name='P-Nullafi-Domains-StaticVault-StaticVault-Gender'></a>
 ### Gender `property`
 
 ##### Summary
 
-
+Gender Manager to create aliases
 
 <a name='P-Nullafi-Domains-StaticVault-StaticVault-Generic'></a>
 ### Generic `property`
 
 ##### Summary
 
-
+Generic Manager to create aliases
 
 <a name='P-Nullafi-Domains-StaticVault-StaticVault-LastName'></a>
 ### LastName `property`
 
 ##### Summary
 
-
+LastName Manager to create aliases
 
 <a name='P-Nullafi-Domains-StaticVault-StaticVault-MasterKey'></a>
 ### MasterKey `property`
 
 ##### Summary
 
-
+Master key to vault instantiated
 
 <a name='P-Nullafi-Domains-StaticVault-StaticVault-Passport'></a>
 ### Passport `property`
 
 ##### Summary
 
-
+Passport Manager to create aliases
 
 <a name='P-Nullafi-Domains-StaticVault-StaticVault-PlaceOfBirth'></a>
 ### PlaceOfBirth `property`
 
 ##### Summary
 
-
+PlaceOfBirth Manager to create aliases
 
 <a name='P-Nullafi-Domains-StaticVault-StaticVault-Race'></a>
 ### Race `property`
 
 ##### Summary
 
-
+Race Manager to create aliases
 
 <a name='P-Nullafi-Domains-StaticVault-StaticVault-Random'></a>
 ### Random `property`
 
 ##### Summary
 
-
+Random Manager to create aliases
 
 <a name='P-Nullafi-Domains-StaticVault-StaticVault-Ssn'></a>
 ### Ssn `property`
 
 ##### Summary
 
-
+SSN Manager to create aliases
 
 <a name='P-Nullafi-Domains-StaticVault-StaticVault-TaxPayer'></a>
 ### TaxPayer `property`
 
 ##### Summary
 
-
+TaxPayer Manager to create aliases
 
 <a name='P-Nullafi-Domains-StaticVault-StaticVault-VaultId'></a>
 ### VaultId `property`
 
 ##### Summary
 
-
+Id of vault instantiated
 
 <a name='P-Nullafi-Domains-StaticVault-StaticVault-VaultName'></a>
 ### VaultName `property`
 
 ##### Summary
 
-
+Name of vault instantiated
 
 <a name='P-Nullafi-Domains-StaticVault-StaticVault-VehicleRegistration'></a>
 ### VehicleRegistration `property`
 
 ##### Summary
 
-
+VehicleRegistration Manager to create aliases
 
 <a name='M-Nullafi-Domains-StaticVault-StaticVault-CreateStaticVault-Nullafi-Client,System-String,System-Collections-Generic-List{System-String}-'></a>
 ### CreateStaticVault(client,name,tags) `method`
@@ -3650,7 +4016,7 @@ Create the API to create a new static vault
 
 ##### Returns
 
-
+Returns a promise containing: id, name, tags, createdAt, iv, authTag, masterKey, sessionKey
 
 ##### Parameters
 
@@ -3659,6 +4025,24 @@ Create the API to create a new static vault
 | client | [Nullafi.Client](#T-Nullafi-Client 'Nullafi.Client') |  |
 | name | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 | tags | [System.Collections.Generic.List{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{System.String}') |  |
+
+<a name='M-Nullafi-Domains-StaticVault-StaticVault-DeleteStaticVault-Nullafi-Client,System-String-'></a>
+### DeleteStaticVault(client,vaultId) `method`
+
+##### Summary
+
+Delete the static vault from id
+
+##### Returns
+
+Returns a promise containing: ok
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| client | [Nullafi.Client](#T-Nullafi-Client 'Nullafi.Client') |  |
+| vaultId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
 
 <a name='M-Nullafi-Domains-StaticVault-StaticVault-Hash-System-String-'></a>
 ### Hash(value) `method`
@@ -3669,7 +4053,7 @@ Generate a hash for the real data
 
 ##### Returns
 
-
+Hashed value
 
 ##### Parameters
 
@@ -3686,7 +4070,7 @@ Retrieve the static vault from id
 
 ##### Returns
 
-
+Returns a promise containing: id, name, tags, createdAt
 
 ##### Parameters
 
@@ -3714,10 +4098,6 @@ TaxPayer Manager
 
 Create an instance of TaxPayer Manager
 
-##### Returns
-
-
-
 ##### Parameters
 
 | Name | Type | Description |
@@ -3733,7 +4113,7 @@ Create a new TaxPayer string to be aliased within static vault
 
 ##### Returns
 
-
+Returns a promise containing: id, taxPayer, taxPayerAlias, tags, iv, authTag, tags, createdAt
 
 ##### Parameters
 
@@ -3751,7 +4131,7 @@ Delete the TaxPayer alias from static vault
 
 ##### Returns
 
-
+Returns a promise containing: ok
 
 ##### Parameters
 
@@ -3764,7 +4144,32 @@ Delete the TaxPayer alias from static vault
 
 ##### Summary
 
-Retrieve the TaxPayer string alias from a static vault. Returns an array of matching values. Array will be sorted by date created.
+Retrieve the TaxPayer string alias from a static vault.
+
+##### Returns
+
+Returns a promise containing: id, taxPayer, taxPayerAlias, tags, iv, authTag, tags, createdAt
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+##### Remarks
+
+Returns an array of matching values.
+
+Array will be sorted by date created.
+
+<a name='M-Nullafi-Domains-StaticVault-Managers-TaxPayer-TaxPayerManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}-'></a>
+### RetrieveFromRealData(taxpayer,tags) `method`
+
+##### Summary
+
+Retrieve the TaxPayer alias from real TaxPayer.
+Real value must be an exact match and will also be case sensitive.
+Returns an array of matching values.Array will be sorted by date created.
 
 ##### Returns
 
@@ -3774,7 +4179,8 @@ Retrieve the TaxPayer string alias from a static vault. Returns an array of matc
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| taxpayer | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| tags | [System.Collections.Generic.List{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{System.String}') |  |
 
 <a name='T-Nullafi-Domains-StaticVault-Managers-TaxPayer-TaxPayerRequest'></a>
 ## TaxPayerRequest `type`
@@ -3907,10 +4313,6 @@ Create an instance of VehicleRegistration Manager
 
 Create an instance of VehicleRegistration Manager
 
-##### Returns
-
-
-
 ##### Parameters
 
 | Name | Type | Description |
@@ -3926,7 +4328,7 @@ Create a new VehicleRegistration string to be aliased within static vault
 
 ##### Returns
 
-
+Returns a promise containing: id, vehicleRegistration, vehicleRegistrationAlias, tags, iv, authTag, tags, createdAt
 
 ##### Parameters
 
@@ -3944,7 +4346,7 @@ Delete the VehicleRegistration alias from static vault
 
 ##### Returns
 
-
+Returns a promise containing: ok
 
 ##### Parameters
 
@@ -3957,7 +4359,32 @@ Delete the VehicleRegistration alias from static vault
 
 ##### Summary
 
-Retrieve the VehicleRegistration string alias from a static vault. Returns an array of matching values. Array will be sorted by date created.
+Retrieve the VehicleRegistration string alias from a static vault.
+
+##### Returns
+
+Returns a promise containing: id, vehicleRegistration, vehicleRegistrationAlias, tags, iv, authTag, tags, createdAt
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+
+##### Remarks
+
+Returns an array of matching values.
+
+Array will be sorted by date created.
+
+<a name='M-Nullafi-Domains-StaticVault-Managers-VehicleRegistration-VehicleRegistrationManager-RetrieveFromRealData-System-String,System-Collections-Generic-List{System-String}-'></a>
+### RetrieveFromRealData(vehicleregistration,tags) `method`
+
+##### Summary
+
+Retrieve the VehicleRegistration alias from real VehicleRegistration.
+Real value must be an exact match and will also be case sensitive.
+Returns an array of matching values.Array will be sorted by date created.
 
 ##### Returns
 
@@ -3967,7 +4394,8 @@ Retrieve the VehicleRegistration string alias from a static vault. Returns an ar
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| aliasId | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| vehicleregistration | [System.String](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.String 'System.String') |  |
+| tags | [System.Collections.Generic.List{System.String}](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Collections.Generic.List 'System.Collections.Generic.List{System.String}') |  |
 
 <a name='T-Nullafi-Domains-StaticVault-Managers-VehicleRegistration-VehicleRegistrationRequest'></a>
 ## VehicleRegistrationRequest `type`
