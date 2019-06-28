@@ -24,7 +24,7 @@ The full documentation can be found <a href="NullafiSDK/NullafiSDK.md"> here </a
 
 ```c#
 
-public async Task Run(NullafiSDK SDK) {
+public async Task Run() {
 	//We recommend storing your key in a secure non-public facing env file
 	static readonly string API_KEY = Environment.GetEnvironmentVariable("NULLAFI_APIKEY");
 
@@ -60,6 +60,7 @@ public async Task Run(NullafiSDK SDK) {
 		"CreatedAt":"2019-06-24T14:24:07.018Z"
 	}
 	*/
+	return FirstNameResponse;
 }
 ```
 
