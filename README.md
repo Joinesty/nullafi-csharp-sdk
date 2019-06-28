@@ -24,41 +24,43 @@ The full documentation can be found <a href="NullafiSDK/NullafiSDK.md"> here </a
 
 ```c#
 
-//We recommend storing your key in a secure non-public facing env file
-static readonly string API_KEY = Environment.GetEnvironmentVariable("NULLAFI_APIKEY");
+public async Task Run(NullafiSDK SDK) {
+	//We recommend storing your key in a secure non-public facing env file
+	static readonly string API_KEY = Environment.GetEnvironmentVariable("NULLAFI_APIKEY");
 
-// Initialize the SDK with your API credentials
-var SDK = new NullafiSDK(API_KEY);
+	// Initialize the SDK with your API credentials
+	var SDK = new NullafiSDK(API_KEY);
 
-// Create a basic API client, which will also authenticate your client. 
-// Client authentication will expire after 60 minutes
-var client = await SDK.CreateClient();
+	// Create a basic API client, which will also authenticate your client. 
+	// Client authentication will expire after 60 minutes
+	var client = await SDK.CreateClient();
 
-// Get your own user object from the Nullafi API
-// All client methods return a promise that resolves to the results of the API call,
-// or rejects when an error occurs
-// Adding tags is an important way to retrieve data
-StaticVault staticVault = await client.CreateStaticVault("my-static-vault",  new List<string>() {"my-tag-1", "my-tag-2" });
-String name = "example";
-String gender = "male";
-FirstNameResponse created = await vault.FirstName.Create(name, gender);
+	// Get your own user object from the Nullafi API
+	// All client methods return a promise that resolves to the results of the API call,
+	// or rejects when an error occurs
+	// Adding tags is an important way to retrieve data
+	StaticVault staticVault = await client.CreateStaticVault("my-static-vault",  new List<string>() {"my-tag-1", "my-tag-2" });
+	String name = "example";
+	String gender = "male";
+	FirstNameResponse created = await vault.FirstName.Create(name, gender);
 
-Console.WriteLine("//// FirstNameExample.CreateWithGender:");
-Console.WriteLine("/// Name: " + name);
-Console.WriteLine(created);
-/*
-//// FirstNameExample.CreateWithGender:
-/// Name: example
-{	
-	"Id":"28afbd3d-05d4-4357-962d-ed562c49b776",
-	"firstname":"example",
-	"firstnameAlias":"Cameron",
-	"Iv":"0SK+dWKGlX1mkK+veDarHw==",
-	"AuthTag":"D9GcqI+WzlHfYr0u9ff04g==",
-	"Tags":['my-tag-1', 'my-tag-2'],
-	"CreatedAt":"2019-06-24T14:24:07.018Z"
+	Console.WriteLine("//// FirstNameExample.CreateWithGender:");
+	Console.WriteLine("/// Name: " + name);
+	Console.WriteLine(created);
+	/*
+	//// FirstNameExample.CreateWithGender:
+	/// Name: example
+	{	
+		"Id":"28afbd3d-05d4-4357-962d-ed562c49b776",
+		"firstname":"example",
+		"firstnameAlias":"Cameron",
+		"Iv":"0SK+dWKGlX1mkK+veDarHw==",
+		"AuthTag":"D9GcqI+WzlHfYr0u9ff04g==",
+		"Tags":['my-tag-1', 'my-tag-2'],
+		"CreatedAt":"2019-06-24T14:24:07.018Z"
+	}
+	*/
 }
-*/
 ```
 
 Authentication
