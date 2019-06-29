@@ -11,6 +11,7 @@
     <PackageLicenseUrl></PackageLicenseUrl>
     <RootNamespace>Nullafi</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>.NET Core SDK to use Joinesty Nullafi</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
