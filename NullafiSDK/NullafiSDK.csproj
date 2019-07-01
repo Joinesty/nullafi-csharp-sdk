@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -11,7 +11,6 @@
     <PackageLicenseUrl></PackageLicenseUrl>
     <RootNamespace>Nullafi</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>.NET Core SDK to use Joinesty Nullafi</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -24,11 +23,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BouncyCastle.NetCore" Version="1.8.5" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Portable.BouncyCastle" Version="1.8.5" />
     <PackageReference Include="Vsxmd" Version="1.4.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+
 </Project>
