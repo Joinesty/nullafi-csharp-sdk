@@ -307,7 +307,7 @@ Example Output:
 // ABC·1234
 
 //example call
-var vehicleRegistrationAliasObj = await staticVault.VehicleRegistration.Create('92-45-6789', new List<string>() {'my-vehicleRegistration-tag1', 'my-vehicleRegistration-tag2'});
+var vehicleRegistrationAliasObj = await staticVault.VehicleRegistration.Create('KJB·6797', new List<string>() {'my-vehicleRegistration-tag1', 'my-vehicleRegistration-tag2'});
 ```
 
 Communication Vaults
