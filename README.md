@@ -204,17 +204,14 @@ Generic takes a regular expression as input and will generate a value matching t
 
 Example Generic Values:
 ```c#
-// input
-// \d{4}
-// output
-// 1234
-// input
-// [a-zA-Z]{5}
-// output
-// AbCde
+// IP Number: [0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}
+// Mac Address: [0-9A-F]{2}\:[0-9A-F]{2}\:[0-9A-F]{2}\:[0-9A-F]{2}\:[0-9A-F]{2}\:[0-9A-F]{2}
+// IMEI: \d{15}
+// ICD9 CODE: \d{3}\.\d
+// URL: https://www\.[a-z]{12}\.(com|net|io)
 
 //example call
-var genericAliasObj = await staticVault.Generic.Create('Abcde', '[a-zA-Z]{5}', new List<string>() {'my-generic-tag1', 'my-generic-tag2'});
+var genericAliasObj = await staticVault.Generic.Create('192.0.2.1', '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}', new List<string>() {'my-generic-tag1', 'my-generic-tag2'});
 ```
 
 ### Last name
