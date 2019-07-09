@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -85,11 +86,11 @@ namespace Nullafi.Domains.StaticVault.Managers.Ssn
         public async Task<List<SsnResponse>> RetrieveFromRealData(string ssn, List<string> tags = null)
         {
             var hash = this._vault.Hash(ssn);
-            var url = $"/vault/static/ssn?hash={hash}";
+            var url = $"/vault/static/{_vault.VaultId}/ssn?hash={Uri.EscapeDataString(hash)}";
 
             if (tags != null)
             {
-                url += $"&tags={string.Join("&tags=", tags)}";
+                url += $"&tags={string.Join("&tags=", tags.Select(item => Uri.EscapeDataString(item)))}";
             }
 
             var responses = await _vault.Client.Get<List<SsnResponse>>(url);

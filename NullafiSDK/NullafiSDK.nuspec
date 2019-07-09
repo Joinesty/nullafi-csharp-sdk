@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Joinesty, Inc</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/Joinesty/nullafi-csharp-sdk/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Joinesty/nullafi-csharp-sdk</projectUrl>
+    <iconUrl>https://www.joinesty.com/hs-fs/hubfs/Imported_Blog_Media/cropped-joinesty-logo.png?width=131&name=cropped-joinesty-logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>.NET Core SDK to use Joinesty Nullafi</description>
+    <releaseNotes>First release including support to all provided types of aliases</releaseNotes>
+    <copyright>Copyright 2019</copyright>
+    <tags>security token alias tokenization data email</tags>
+  </metadata>
+</package>

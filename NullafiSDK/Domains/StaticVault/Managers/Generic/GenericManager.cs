@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -71,11 +73,11 @@ namespace Nullafi.Domains.StaticVault.Managers.Generic
         public async Task<List<GenericResponse>> RetrieveFromRealData(string data, List<string> tags = null)
         {
             var hash = this._vault.Hash(data);
-            var url = $"/vault/static/generic?hash={hash}";
+            var url = $"/vault/static/{_vault.VaultId}/generic?hash={Uri.EscapeDataString(hash)}";
 
             if (tags != null)
             {
-                url += $"&tags={string.Join("&tags=", tags)}";
+                url += $"&tags={string.Join("&tags=", tags.Select(item => Uri.EscapeDataString(item)))}";
             }
 
             var responses = await _vault.Client.Get<List<GenericResponse>>(url);

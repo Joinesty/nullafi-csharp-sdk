@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -52,7 +54,9 @@ namespace Nullafi.Domains.StaticVault.Managers.VehicleRegistration
         /// <returns>Returns a promise containing: id, vehicleRegistration, vehicleRegistrationAlias, tags, iv, authTag, tags, createdAt</returns>
         public async Task<VehicleRegistrationResponse> Retrieve(string aliasId)
         {
-            return await _vault.Client.Get<VehicleRegistrationResponse>($"/vault/static/{_vault.VaultId}/vehicleregistration/{aliasId}");
+            var response = await _vault.Client.Get<VehicleRegistrationResponse>($"/vault/static/{_vault.VaultId}/vehicleregistration/{aliasId}");
+            response.VehicleRegistration = _vault.Decrypt(response.Iv, response.AuthTag, response.VehicleRegistration);
+            return response;
         }
 
         /// <summary>
@@ -60,17 +64,17 @@ namespace Nullafi.Domains.StaticVault.Managers.VehicleRegistration
         /// Real value must be an exact match and will also be case sensitive.
         /// Returns an array of matching values.Array will be sorted by date created.
         /// </summary>
-        /// <param name="taxpayer"></param>
+        /// <param name="vehicleregistration"></param>
         /// <param name="tags"></param>
         /// <returns></returns>
         public async Task<List<VehicleRegistrationResponse>> RetrieveFromRealData(string vehicleregistration, List<string> tags = null)
         {
             var hash = this._vault.Hash(vehicleregistration);
-            var url = $"/vault/static/vehicleregistration?hash={hash}";
+            var url = $"/vault/static/{_vault.VaultId}/vehicleregistration?hash={Uri.EscapeDataString(hash)}";
 
             if (tags != null)
             {
-                url += $"&tags={string.Join("&tags=", tags)}";
+                url += $"&tags={string.Join("&tags=", tags.Select(item => Uri.EscapeDataString(item)))}";
             }
 
             var responses = await _vault.Client.Get<List<VehicleRegistrationResponse>>(url);
