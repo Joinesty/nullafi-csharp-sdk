@@ -64,6 +64,19 @@ public async Task RunExample() {
 }
 ```
 
+Aliases may be retrieved and deleted using these methods:
+
+```c#
+	// An alias can be retrieved by it's ID
+	FirstNameResponse retrieved = await vault.FirstName.Retrieve('e490157b23534215b0369a2685aab47g');
+
+	// An alias may also be retrieved using it's real value, as well as any tags that may help identify the data point. This will return an array of values matching the given parameters. 
+	FirstNameRealDataResponse retrieved = await vault.FirstName.RetrieveFromRealData('John', new List<string>() {'my-tag-1', 'my-tag-2'})
+
+	// Deleting an alias will also use ID
+	var deleteFirstNameAliasResponse = await vault.FirstName.Delete('e490157b23534215b0369a2685aab47g');
+```
+
 Authentication
 ------------
 When a client is created, the client instance will be authenticated for a 60 minute period. After this time, you may either create a new client or refresh the existing client. 
