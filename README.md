@@ -64,6 +64,19 @@ public async Task RunExample() {
 }
 ```
 
+Aliases may be retrieved and deleted using these methods:
+
+```c#
+	// An alias can be retrieved by it's ID
+	FirstNameResponse retrieved = await vault.FirstName.Retrieve('e490157b23534215b0369a2685aab47g');
+
+	// An alias may also be retrieved using it's real value, as well as any tags that may help identify the data point. This will return an array of values matching the given parameters. 
+	FirstNameRealDataResponse retrieved = await vault.FirstName.RetrieveFromRealData('John', new List<string>() {'my-tag-1', 'my-tag-2'})
+
+	// Deleting an alias will also use ID
+	var deleteFirstNameAliasResponse = await vault.FirstName.Delete('e490157b23534215b0369a2685aab47g');
+```
+
 Authentication
 ------------
 When a client is created, the client instance will be authenticated for a 60 minute period. After this time, you may either create a new client or refresh the existing client. 
@@ -204,17 +217,14 @@ Generic takes a regular expression as input and will generate a value matching t
 
 Example Generic Values:
 ```c#
-// input
-// \d{4}
-// output
-// 1234
-// input
-// [a-zA-Z]{5}
-// output
-// AbCde
+// IP Number: [0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}
+// Mac Address: [0-9A-F]{2}\:[0-9A-F]{2}\:[0-9A-F]{2}\:[0-9A-F]{2}\:[0-9A-F]{2}\:[0-9A-F]{2}
+// IMEI: \d{15}
+// ICD9 CODE: \d{3}\.\d
+// URL: https://www\.[a-z]{12}\.(com|net|io)
 
 //example call
-var genericAliasObj = await staticVault.Generic.Create('Abcde', '[a-zA-Z]{5}', new List<string>() {'my-generic-tag1', 'my-generic-tag2'});
+var genericAliasObj = await staticVault.Generic.Create('192.0.2.1', '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}', new List<string>() {'my-generic-tag1', 'my-generic-tag2'});
 ```
 
 ### Last name
@@ -307,7 +317,7 @@ Example Output:
 // ABC·1234
 
 //example call
-var vehicleRegistrationAliasObj = await staticVault.VehicleRegistration.Create('92-45-6789', new List<string>() {'my-vehicleRegistration-tag1', 'my-vehicleRegistration-tag2'});
+var vehicleRegistrationAliasObj = await staticVault.VehicleRegistration.Create('KJB-6797', new List<string>() {'my-vehicleRegistration-tag1', 'my-vehicleRegistration-tag2'});
 ```
 
 Communication Vaults
