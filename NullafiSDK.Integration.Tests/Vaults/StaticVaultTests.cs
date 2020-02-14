@@ -14,13 +14,6 @@ namespace NullafiSDK.Integration.Tests.Vaults
     [TestCategory("Integration")]
     public class StaticVaultTests
     {
-        [ClassInitialize]
-        public static void ApiAuthentication(TestContext context)
-        {
-            Environment.SetEnvironmentVariable("NULLAFI_API_URL", "**NUllAFI_API**");
-            Environment.SetEnvironmentVariable("API_KEY", "**YOUR_API_KEY**");
-        }
-
         [TestMethod]
         public async Task GivenApiKey_WhenCreatingNewVault_ShouldReturnVaultEncryptionKey()
         {
