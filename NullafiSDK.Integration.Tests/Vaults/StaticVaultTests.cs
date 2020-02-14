@@ -39,35 +39,19 @@ namespace NullafiSDK.Integration.Tests.Vaults
 
         private async Task<StaticVault> CreateStaticVault(Client client, string name)
         {
-            StaticVault staticVault = await client.CreateStaticVault(name, null);
-            Console.WriteLine("**** StaticVaultExample.createStaticVault:");
-            Console.WriteLine("-> Id: " + staticVault.VaultId);
-            Console.WriteLine("-> Name: " + staticVault.VaultName);
-            Console.WriteLine("-> MasterKey: " + staticVault.MasterKey);
-            Console.WriteLine("\n");
-
+            var staticVault = await client.CreateStaticVault(name, null);
             return staticVault;
         }
 
         private async Task<StaticVault> RetrieveStaticVault(Client client, string id, string masterKey)
         {
-            StaticVault staticVault = await client.RetrieveStaticVault(id, masterKey);
-            Console.WriteLine("**** StaticVaultExample.retrieveStaticVault:");
-            Console.WriteLine("-> Id: " + staticVault.VaultId);
-            Console.WriteLine("-> Name: " + staticVault.VaultName);
-            Console.WriteLine("-> MasterKey: " + staticVault.MasterKey);
-            Console.WriteLine("\n");
-
+            var staticVault = await client.RetrieveStaticVault(id, masterKey);
             return staticVault;
         }
 
         private async Task DeleteStaticVault(Client client, string id)
         {
             await client.DeleteStaticVault(id);
-            Console.WriteLine("**** StaticVaultExample.deleteStaticVault:");
-            Console.WriteLine("-> Id: " + id);
-            Console.WriteLine("-> ok: true");
-            Console.WriteLine("\n");
         }
     }
 }
