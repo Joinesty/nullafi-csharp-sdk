@@ -17,7 +17,7 @@ namespace Nullafi.Tests
         [AssemblyInitialize]
         public static void InitializeServer(TestContext context)
         {
-            System.Environment.SetEnvironmentVariable("NULLAFI_API_URL", "http://localhost:5000");
+            System.Environment.SetEnvironmentVariable("NULLAFI_API_URL", "http://localhost:5000/");
             Server = FluentMockServer.Start(5000);
 
             Server.Given(Request.Create().WithPath("/authentication/token").UsingPost())

@@ -24,7 +24,7 @@ namespace Nullafi.Tests
                 }))
             );
 
-            var sdk = new NullafiSDK("API_KEY");
+            var sdk = new NullafiSDK("dlCoYgYqvTQPHhIt9VB3Yo+BI5QhJ3hgZi5t/jkxThE=");
             var client = await sdk.CreateClient();
 
             Assert.IsNotNull(client);
