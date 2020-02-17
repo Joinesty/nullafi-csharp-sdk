@@ -28,6 +28,7 @@ namespace NullafiSDK.Integration.Tests.Vaults
 
             Assert.AreEqual(vaultCreated.VaultId, vaultReturned.VaultId);
             Assert.AreEqual(vaultCreated.VaultName, vaultReturned.VaultName);
+            Assert.IsNotNull(vaultCreated.MasterKey);
         }
 
         private async Task<CommunicationVault> CreateCommunicationVault(Client client, string name)
