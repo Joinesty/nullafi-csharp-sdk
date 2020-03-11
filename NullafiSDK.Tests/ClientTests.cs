@@ -115,7 +115,7 @@ namespace Nullafi.Tests
         }
 
         [TestMethod]
-        public async Task GivenRequestToDeleteStaticVault_WhenDeletingACommunicationVault_ReturnAOkResponse()
+        public async Task GivenRequestToDeleteStaticVault_WhenDeletingAStaticVault_ReturnAOkResponse()
         {
             var vaultId = "some-vault-id";
 

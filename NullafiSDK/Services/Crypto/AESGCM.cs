@@ -104,7 +104,6 @@ namespace Nullafi.Services.Crypto
         /// <param name="iv"></param>
         /// <param name="authTag"></param>
         /// <param name="cipherText"></param>
-        /// <param name="returnBase64"></param>
         /// <returns></returns>
         public string Decrypt(string masterKey, string iv, string authTag, string cipherText)
         {
